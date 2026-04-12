@@ -52,8 +52,18 @@ function VideoEmbed({ item }) {
     <div className={`w-full aspect-video rounded-xl bg-gradient-to-br ${item.placeholderColor} flex items-center justify-center`}>
       <div className="text-white text-center p-6">
         <div className="text-4xl mb-2">🖼️</div>
-        <div className="font-semibold">Visual content coming soon</div>
-        <div className="text-sm opacity-80 mt-1">Portfolio update in progress</div>
+        <div className="font-semibold mb-3">Visual content</div>
+        {item.driveLink && (
+          <a
+            href={item.driveLink}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block bg-white/20 hover:bg-white/30 transition-colors text-white text-sm font-semibold px-4 py-2 rounded-full backdrop-blur-sm"
+            onClick={(e) => e.stopPropagation()}
+          >
+            Browse files →
+          </a>
+        )}
       </div>
     </div>
   )
