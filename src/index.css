@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: #E8ECF1;
+    color: #2D3748;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+  }
+  #root {
+    width: 100%;
+    max-width: 100%;
+  }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #E8ECF1; }
+  ::-webkit-scrollbar-thumb { background: #A3B1C6; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #4158D0; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  .text-aurora {
+    background: linear-gradient(135deg, #4158D0, #C850C0, #FFCC70);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .border-aurora {
+    border-image: linear-gradient(135deg, #4158D0, #C850C0, #FFCC70) 1;
+  }
+  .bg-aurora {
+    background: linear-gradient(135deg, #4158D0, #C850C0, #FFCC70);
+  }
+  .shadow-neu {
+    box-shadow: 8px 8px 15px #A3B1C6, -8px -8px 15px #FFFFFF;
+  }
+  .shadow-neu-sm {
+    box-shadow: 4px 4px 8px #A3B1C6, -4px -4px 8px #FFFFFF;
+  }
+  .shadow-neu-lg {
+    box-shadow: 12px 12px 24px #A3B1C6, -12px -12px 24px #FFFFFF;
+  }
+  .shadow-neu-inset {
+    box-shadow: inset 6px 6px 10px #A3B1C6, inset -6px -6px 10px #FFFFFF;
+  }
+  .section-pad {
+    @apply py-20 px-6 md:px-12 lg:px-24;
+  }
+}

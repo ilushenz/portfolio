@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.DS_Store
+*.local
+
+# Temp Office lock files
+~$*
+
+# Source reference files (not part of the website code)
+F1O_4155.jpg
+Resume_Ilia_Chapchakhov.docx
+Ilia Chapchakhov – Brand Portfolio.pdf
+Performance review Envy Smile/
