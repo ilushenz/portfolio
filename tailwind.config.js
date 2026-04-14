@@ -14,7 +14,7 @@ export default {
         faint:    'var(--color-faint)',
       },
       fontFamily: {
-        display: ['Syne', 'system-ui', 'sans-serif'],
+        display: ['Jost', 'system-ui', 'sans-serif'],
         body:    ['Inter', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
