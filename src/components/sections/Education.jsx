@@ -1,7 +1,161 @@
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ChevronDown, ChevronUp, BookOpen, Users } from 'lucide-react'
 import ScrollReveal from '../ui/ScrollReveal'
+import GlowGrid from '../ui/GlowGrid'
 import { education } from '../../data/content'
 
+/* ── Full vertical card (About page) ─────────────────────── */
+function EducationCardFull({ item, index }) {
+  const [expanded, setExpanded] = useState(false)
+
+  return (
+    <ScrollReveal delay={index * 0.1}>
+      <div
+        className="glow-card rounded-2xl overflow-hidden cursor-pointer"
+        style={{ background: 'var(--color-surface)', border: '1px solid var(--color-stroke)' }}
+        onClick={() => setExpanded((e) => !e)}
+      >
+        <div className="p-6 md:p-8">
+          <div className="flex items-start gap-5">
+            {/* Logo */}
+            <div
+              className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center p-1"
+              style={{ background: 'var(--color-elevated)' }}
+            >
+              <img
+                src={item.logo}
+                alt={item.school}
+                className="w-full h-full object-contain"
+                onError={(e) => { e.currentTarget.style.display = 'none' }}
+              />
+            </div>
+
+            {/* Header info */}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-start justify-between gap-2">
+                <div>
+                  <h3 className="font-display font-bold text-xl leading-tight" style={{ color: 'var(--color-content)', letterSpacing: '-0.02em' }}>
+                    {item.institution}
+                  </h3>
+                  <p className="font-body text-sm mt-0.5" style={{ color: 'var(--color-muted)' }}>{item.degree}</p>
+                  <p className="font-body text-xs mt-1" style={{ color: 'var(--color-faint)' }}>
+                    {item.years} · {item.location}
+                  </p>
+                </div>
+                <div style={{ color: 'var(--color-faint)', flexShrink: 0 }}>
+                  {expanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                </div>
+              </div>
+
+              {/* Highlights pills (always visible) */}
+              {item.highlights && (
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  {item.highlights.map((h) => (
+                    <span key={h} className="text-xs font-body px-2.5 py-1 rounded-full"
+                      style={{ background: 'var(--color-elevated)', color: 'var(--color-muted)' }}>
+                      {h}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Expandable: courses + activities */}
+        <AnimatePresence initial={false}>
+          {expanded && (
+            <motion.div
+              key="detail"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              style={{ overflow: 'hidden' }}
+            >
+              <div className="px-6 md:px-8 pb-6 grid md:grid-cols-2 gap-6"
+                style={{ borderTop: '1px solid var(--color-stroke)', paddingTop: 20 }}>
+                {/* Courses */}
+                {item.courses && (
+                  <div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <BookOpen size={13} style={{ color: 'var(--color-faint)' }} />
+                      <span className="text-xs font-body font-semibold tracking-wider uppercase" style={{ color: 'var(--color-faint)' }}>
+                        Courses
+                      </span>
+                    </div>
+                    <ul className="flex flex-col gap-1.5">
+                      {item.courses.map((c) => (
+                        <li key={c} className="font-body text-sm flex gap-2" style={{ color: 'var(--color-muted)' }}>
+                          <span style={{ color: '#4158D0', flexShrink: 0 }}>—</span> {c}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Activities */}
+                {item.activities && (
+                  <div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <Users size={13} style={{ color: 'var(--color-faint)' }} />
+                      <span className="text-xs font-body font-semibold tracking-wider uppercase" style={{ color: 'var(--color-faint)' }}>
+                        Activities
+                      </span>
+                    </div>
+                    <ul className="flex flex-col gap-1.5">
+                      {item.activities.map((a) => (
+                        <li key={a} className="font-body text-sm flex gap-2" style={{ color: 'var(--color-muted)' }}>
+                          <span style={{ color: '#C850C0', flexShrink: 0 }}>—</span> {a}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </ScrollReveal>
+  )
+}
+
+/* ── Compact strip (Professional page) ───────────────────── */
+export function EducationCompact() {
+  return (
+    <section id="education-compact" className="section-pad pt-0">
+      <div className="max-w-6xl mx-auto">
+        <ScrollReveal>
+          <p className="text-xs font-body font-semibold tracking-widest uppercase mb-6" style={{ color: 'var(--color-faint)' }}>
+            Education
+          </p>
+        </ScrollReveal>
+        <GlowGrid className="grid sm:grid-cols-3 gap-px" style={{ background: 'var(--color-stroke)' }}>
+          {education.map((item, i) => (
+            <ScrollReveal key={item.id} delay={i * 0.08}>
+              <div className="glow-card p-5" style={{ background: 'var(--color-canvas)' }}>
+                <div className="w-10 h-10 rounded-lg overflow-hidden mb-3 flex items-center justify-center p-1"
+                  style={{ background: 'var(--color-elevated)' }}>
+                  <img src={item.logo} alt={item.school} className="w-full h-full object-contain"
+                    onError={(e) => { e.currentTarget.style.display = 'none' }} />
+                </div>
+                <div className="font-display font-bold text-sm mb-0.5" style={{ color: 'var(--color-content)', letterSpacing: '-0.01em' }}>
+                  {item.school}
+                </div>
+                <div className="font-body text-xs" style={{ color: 'var(--color-muted)' }}>{item.degree}</div>
+                <div className="font-body text-xs mt-1" style={{ color: 'var(--color-faint)' }}>{item.years}</div>
+              </div>
+            </ScrollReveal>
+          ))}
+        </GlowGrid>
+      </div>
+    </section>
+  )
+}
+
+/* ── Full section (About page) ───────────────────────────── */
 export default function Education() {
   return (
     <section id="education" className="section-pad">
@@ -10,45 +164,16 @@ export default function Education() {
           <p className="text-xs font-body font-semibold tracking-widest uppercase mb-4" style={{ color: 'var(--color-faint)' }}>
             Education
           </p>
-          <h2 className="heading-lg mb-3" style={{ color: 'var(--color-content)' }}>
-            Three cities, three degrees.
+          <h2 className="heading-lg mb-12" style={{ color: 'var(--color-content)' }}>
+            Academic background.
           </h2>
-          <p className="font-body text-base mb-16 max-w-xl" style={{ color: 'var(--color-muted)' }}>
-            Moscow → London → Los Angeles. Each stop added a new lens on media, culture, and communication.
-          </p>
         </ScrollReveal>
 
-        <div className="grid sm:grid-cols-3 gap-px" style={{ background: 'var(--color-stroke)' }}>
-          {education.map((edu, i) => (
-            <motion.div
-              key={edu.id}
-              className="p-7"
-              style={{ background: 'var(--color-canvas)' }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.45, delay: i * 0.08 }}
-              whileHover={{ background: 'var(--color-surface)' }}
-            >
-              {/* Colour-coded institution badge */}
-              <div
-                className={`w-10 h-10 rounded-xl flex items-center justify-center text-white text-xs font-bold font-body mb-5 bg-gradient-to-br ${edu.color}`}
-              >
-                {edu.abbr}
-              </div>
-
-              <div className="text-xs font-body font-medium mb-1" style={{ color: 'var(--color-faint)' }}>
-                {edu.years} · {edu.location}
-              </div>
-              <div className="font-display font-bold text-lg mb-1 leading-tight" style={{ color: 'var(--color-content)', letterSpacing: '-0.02em' }}>
-                {edu.institution}
-              </div>
-              <div className="font-body text-sm" style={{ color: 'var(--color-muted)' }}>
-                {edu.degree}
-              </div>
-            </motion.div>
+        <GlowGrid className="flex flex-col gap-4">
+          {education.map((item, i) => (
+            <EducationCardFull key={item.id} item={item} index={i} />
           ))}
-        </div>
+        </GlowGrid>
       </div>
     </section>
   )

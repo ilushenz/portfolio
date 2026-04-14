@@ -1,225 +1,186 @@
-import { useState, useRef } from 'react'
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
-import { X, MapPin, Calendar, ExternalLink } from 'lucide-react'
+import { useState, useRef, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ChevronDown, ChevronUp, MapPin, Calendar } from 'lucide-react'
 import ScrollReveal from '../ui/ScrollReveal'
-import { caseStudies, timeline } from '../../data/content'
+import { timeline } from '../../data/content'
 
-// Merge timeline + case studies data into unified experience entries
-const experiences = timeline.map((entry) => {
-  const cs = caseStudies.find((c) => c.id === entry.id || c.brand.toLowerCase().includes(entry.org.split(' ')[0].toLowerCase()))
-  return { ...entry, caseStudy: cs || null }
-})
+/* ── Expandable card ─────────────────────────────────────── */
+function ExperienceCard({ item, index }) {
+  const [expanded, setExpanded] = useState(false)
 
-function CaseStudyPanel({ exp, onClose }) {
-  const cs = exp.caseStudy
   return (
     <motion.div
-      className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-4"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      className="flex-shrink-0 w-80 md:w-96 relative"
+      initial={{ opacity: 0, x: 40 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.5, delay: index * 0.06 }}
     >
-      <motion.div
-        className="absolute inset-0"
-        style={{ background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(8px)' }}
-        onClick={onClose}
+      {/* Timeline dot */}
+      <div className="absolute -top-[21px] left-6 w-3 h-3 rounded-full z-10 flex items-center justify-center"
+        style={{
+          background: item.current
+            ? 'linear-gradient(135deg, #4158D0, #C850C0)'
+            : 'var(--color-elevated)',
+          border: '2px solid var(--color-stroke)',
+          boxShadow: item.current ? '0 0 12px rgba(65,88,208,0.6)' : 'none',
+        }}
       />
-      <motion.div
-        className="relative z-10 w-full max-w-lg rounded-2xl p-7 max-h-[85vh] overflow-y-auto"
+
+      {/* Card body */}
+      <div
+        className="rounded-2xl overflow-hidden cursor-pointer"
         style={{
           background: 'var(--color-surface)',
-          boxShadow: 'var(--shadow-neu-lg)',
           border: '1px solid var(--color-stroke)',
         }}
-        initial={{ y: 40, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: 40, opacity: 0 }}
-        transition={{ type: 'spring', stiffness: 320, damping: 28 }}
+        onClick={() => setExpanded((e) => !e)}
       >
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center transition-colors"
-          style={{ color: 'var(--color-muted)', background: 'var(--color-elevated)' }}
-          aria-label="Close"
-        >
-          <X size={14} />
-        </button>
-
-        {/* Header */}
-        <div className="flex items-start gap-2 flex-wrap mb-1">
-          <span
-            className="text-xs font-semibold font-body px-2.5 py-1 rounded-full text-white"
-            style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}
-          >
-            {exp.period}
-          </span>
-          {exp.current && (
-            <span className="text-xs font-semibold font-body px-2.5 py-1 rounded-full"
-              style={{ background: 'var(--color-elevated)', color: 'var(--color-muted)' }}>
-              Current
-            </span>
-          )}
-        </div>
-
-        <h3 className="font-display font-bold text-2xl mt-3 mb-0.5" style={{ color: 'var(--color-content)', letterSpacing: '-0.02em' }}>
-          {exp.org}
-        </h3>
-        <p className="font-body text-sm mb-1" style={{ color: 'var(--color-muted)' }}>{exp.role}</p>
-        <div className="flex items-center gap-1 mb-5" style={{ color: 'var(--color-faint)' }}>
-          <MapPin size={11} />
-          <span className="font-body text-xs">{exp.location}</span>
-        </div>
-
-        {cs ? (
-          <>
-            <p className="font-body text-sm leading-relaxed mb-6" style={{ color: 'var(--color-muted)' }}>
-              {cs.summary}
-            </p>
-            <div className="mb-5">
-              <p className="text-xs font-body font-semibold tracking-widest uppercase mb-3" style={{ color: 'var(--color-faint)' }}>
-                Key Highlights
-              </p>
-              <ul className="space-y-2.5">
-                {cs.bullets.map((b, i) => (
-                  <li key={i} className="flex gap-2.5 font-body text-sm" style={{ color: 'var(--color-muted)' }}>
-                    <span
-                      className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0"
-                      style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)', minWidth: 4, minHeight: 4 }}
-                    />
-                    {b}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="flex flex-wrap gap-1.5">
-              {cs.tags.map((tag) => (
+        <div className="p-6">
+          {/* Header */}
+          <div className="flex items-start justify-between gap-2 mb-3">
+            <div className="flex-1 min-w-0">
+              {item.current && (
                 <span
-                  key={tag}
-                  className="text-xs font-body px-2.5 py-1 rounded-full"
-                  style={{ background: 'var(--color-elevated)', color: 'var(--color-muted)' }}
+                  className="inline-block text-xs font-bold font-body px-2 py-0.5 rounded-full text-white mb-2"
+                  style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}
                 >
-                  {tag}
+                  Current
                 </span>
-              ))}
+              )}
+              <h3 className="font-display font-bold text-lg leading-tight" style={{ color: 'var(--color-content)', letterSpacing: '-0.02em' }}>
+                {item.org}
+              </h3>
+              <p className="font-body text-sm mt-0.5" style={{ color: 'var(--color-muted)' }}>{item.role}</p>
             </div>
-          </>
-        ) : (
-          <p className="font-body text-sm" style={{ color: 'var(--color-muted)' }}>
-            {exp.role} at {exp.org}. {exp.location} · {exp.period}
-          </p>
-        )}
-      </motion.div>
+            <div style={{ color: 'var(--color-faint)', flexShrink: 0 }}>
+              {expanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-3 text-xs font-body" style={{ color: 'var(--color-faint)' }}>
+            <span className="flex items-center gap-1"><Calendar size={11} />{item.period}</span>
+            <span className="flex items-center gap-1"><MapPin size={11} />{item.location}</span>
+          </div>
+        </div>
+
+        {/* Expandable highlights */}
+        <AnimatePresence initial={false}>
+          {expanded && (
+            <motion.div
+              key="highlights"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              style={{ overflow: 'hidden' }}
+            >
+              <div className="px-6 pb-6 pt-0" style={{ borderTop: '1px solid var(--color-stroke)' }}>
+                <ul className="mt-4 flex flex-col gap-2">
+                  {item.highlights?.map((h, i) => (
+                    <li key={i} className="flex gap-2 text-sm font-body leading-relaxed" style={{ color: 'var(--color-muted)' }}>
+                      <span className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0"
+                        style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)', minWidth: 4, minHeight: 4 }} />
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+                {item.tags && (
+                  <div className="flex flex-wrap gap-1.5 mt-4">
+                    {item.tags.map((tag) => (
+                      <span key={tag} className="text-xs font-body px-2 py-0.5 rounded-full"
+                        style={{ background: 'var(--color-elevated)', color: 'var(--color-faint)' }}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </motion.div>
   )
 }
 
+/* ── Main section ────────────────────────────────────────── */
 export default function Experience() {
-  const [active, setActive] = useState(null)
-  const trackRef = useRef(null)
+  const sectionRef = useRef(null)
+  const trackRef   = useRef(null)
+  const pinned     = useRef(false)
+  const scrollStart = useRef(0)
+
+  useEffect(() => {
+    const section = sectionRef.current
+    const track   = trackRef.current
+    if (!section || !track) return
+
+    const onWheel = (e) => {
+      const rect = section.getBoundingClientRect()
+      const inView = rect.top <= 80 && rect.bottom >= window.innerHeight * 0.5
+      if (!inView) return
+
+      const maxScroll = track.scrollWidth - track.clientWidth
+      const atStart   = track.scrollLeft <= 0
+      const atEnd     = track.scrollLeft >= maxScroll - 2
+
+      if ((e.deltaY > 0 && !atEnd) || (e.deltaY < 0 && !atStart)) {
+        e.preventDefault()
+        track.scrollLeft += e.deltaY * 1.2
+      }
+    }
+
+    window.addEventListener('wheel', onWheel, { passive: false })
+    return () => window.removeEventListener('wheel', onWheel)
+  }, [])
 
   return (
-    <section id="experience" className="section-pad overflow-hidden">
-      <div className="max-w-6xl mx-auto">
+    <section id="experience" ref={sectionRef} className="section-pad">
+      <div className="max-w-6xl mx-auto mb-10">
         <ScrollReveal>
           <p className="text-xs font-body font-semibold tracking-widest uppercase mb-4" style={{ color: 'var(--color-faint)' }}>
-            Career
-          </p>
-          <h2 className="heading-lg mb-3" style={{ color: 'var(--color-content)' }}>
             Experience
-          </h2>
-          <p className="font-body text-base mb-12" style={{ color: 'var(--color-muted)' }}>
-            Scroll right or drag to explore — click any role to see highlights.
           </p>
+          <h2 className="heading-lg" style={{ color: 'var(--color-content)' }}>
+            Career journey.
+          </h2>
         </ScrollReveal>
-
-        {/* Horizontal scrollable track */}
-        <div className="relative">
-          {/* Fade edges */}
-          <div className="absolute right-0 top-0 bottom-0 w-20 z-10 pointer-events-none"
-            style={{ background: 'linear-gradient(to left, var(--color-canvas), transparent)' }} />
-
-          <motion.div
-            ref={trackRef}
-            className="flex gap-4 overflow-x-auto pb-4 cursor-grab active:cursor-grabbing select-none"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            drag="x"
-            dragConstraints={trackRef}
-            whileTap={{ cursor: 'grabbing' }}
-          >
-            {/* Timeline line */}
-            <div className="absolute top-[52px] left-0 right-0 h-px" style={{ background: 'var(--color-stroke)', zIndex: 0 }} />
-
-            {experiences.map((exp, i) => (
-              <motion.div
-                key={exp.id}
-                className="flex-shrink-0 w-64 relative"
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.06 }}
-              >
-                {/* Timeline dot */}
-                <div className="flex items-center mb-5">
-                  <div
-                    className="w-3 h-3 rounded-full border-2 flex-shrink-0"
-                    style={{
-                      background: exp.current ? '#4158D0' : 'var(--color-canvas)',
-                      borderColor: exp.current ? '#4158D0' : 'var(--color-stroke)',
-                      boxShadow: exp.current ? '0 0 10px rgba(65,88,208,0.4)' : 'none',
-                    }}
-                  />
-                  <div className="ml-3 text-xs font-body" style={{ color: 'var(--color-faint)' }}>
-                    {exp.period}
-                  </div>
-                </div>
-
-                {/* Card */}
-                <motion.button
-                  className="w-full text-left rounded-2xl p-5"
-                  style={{
-                    background: 'var(--color-surface)',
-                    boxShadow: 'var(--shadow-neu-sm)',
-                    border: '1px solid var(--color-stroke)',
-                  }}
-                  whileHover={{ y: -3, boxShadow: 'var(--shadow-neu)' }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => setActive(exp)}
-                >
-                  {exp.current && (
-                    <div
-                      className="h-0.5 rounded-full mb-3"
-                      style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0, #FFCC70)' }}
-                    />
-                  )}
-                  <div className="font-display font-bold text-base mb-1" style={{ color: 'var(--color-content)', letterSpacing: '-0.02em' }}>
-                    {exp.org}
-                  </div>
-                  <div className="font-body text-xs mb-2" style={{ color: 'var(--color-muted)' }}>
-                    {exp.role}
-                  </div>
-                  <div className="flex items-center gap-1" style={{ color: 'var(--color-faint)' }}>
-                    <MapPin size={10} />
-                    <span className="font-body text-xs">{exp.location}</span>
-                  </div>
-
-                  {exp.caseStudy && (
-                    <div
-                      className="mt-3 pt-3 border-t text-xs font-body font-medium flex items-center gap-1"
-                      style={{ borderColor: 'var(--color-stroke)', color: '#4158D0' }}
-                    >
-                      View highlights <ExternalLink size={10} />
-                    </div>
-                  )}
-                </motion.button>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
+        <p className="font-body text-sm mt-2" style={{ color: 'var(--color-faint)' }}>
+          Scroll horizontally or use your mouse wheel to browse — click any card to expand.
+        </p>
       </div>
 
-      <AnimatePresence>
-        {active && <CaseStudyPanel exp={active} onClose={() => setActive(null)} />}
-      </AnimatePresence>
+      {/* Horizontal track */}
+      <div className="relative">
+        {/* Shimmer timeline line */}
+        <div className="mx-6 md:mx-12 lg:mx-20 mb-0">
+          <div className="h-px w-full shimmer-line opacity-60" />
+        </div>
+
+        {/* Scrollable cards */}
+        <div
+          ref={trackRef}
+          className="flex gap-5 overflow-x-auto px-6 md:px-12 lg:px-20 pt-8 pb-6 scroll-smooth"
+          style={{
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+            WebkitOverflowScrolling: 'touch',
+          }}
+        >
+          {timeline.map((item, i) => (
+            <ExperienceCard key={item.id} item={item} index={i} />
+          ))}
+          {/* End padding */}
+          <div className="flex-shrink-0 w-6" />
+        </div>
+
+        {/* Right fade */}
+        <div
+          className="absolute top-0 right-0 bottom-0 w-24 pointer-events-none"
+          style={{ background: 'linear-gradient(to left, var(--color-canvas), transparent)' }}
+        />
+      </div>
     </section>
   )
 }

@@ -1,175 +1,178 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Sun, Moon, Menu, X } from 'lucide-react'
-import { useTheme } from '../../App'
-import { navLinks, hero } from '../../data/content'
+import { Menu, X, FileText } from 'lucide-react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import useScrollDirection from '../../hooks/useScrollDirection'
+import { hero } from '../../data/content'
+
+const glassStyle = {
+  background: 'rgba(22, 22, 22, 0.75)',
+  backdropFilter: 'blur(20px)',
+  WebkitBackdropFilter: 'blur(20px)',
+  border: '1px solid rgba(255,255,255,0.08)',
+}
+
+const links = [
+  { label: 'Work',    href: '#portfolio',     page: '/' },
+  { label: 'Results', href: '#metrics',       page: '/' },
+  { label: 'About',   href: '/about',         page: '/about' },
+  { label: 'Contact', href: '/about#contact', page: '/about' },
+]
+
+function NavLink({ link, onClick }) {
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  const handleClick = (e) => {
+    e.preventDefault()
+    if (onClick) onClick()
+    const [path, anchor] = link.href.split('#')
+    if (path === '' || path === location.pathname || (path === '/' && location.pathname === '/')) {
+      if (anchor) document.getElementById(anchor)?.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      navigate(path || '/')
+      if (anchor) setTimeout(() => document.getElementById(anchor)?.scrollIntoView({ behavior: 'smooth' }), 350)
+    }
+  }
+
+  const isActive = location.pathname === link.page
+
+  return (
+    <button
+      onClick={handleClick}
+      className="font-body text-sm font-medium px-3 py-1.5 rounded-full transition-all duration-150"
+      style={{
+        color: isActive ? 'var(--color-content)' : 'var(--color-muted)',
+        background: isActive ? 'var(--color-elevated)' : 'transparent',
+      }}
+      onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-content)' }}
+      onMouseLeave={(e) => { e.currentTarget.style.color = isActive ? 'var(--color-content)' : 'var(--color-muted)' }}
+    >
+      {link.label}
+    </button>
+  )
+}
+
+function PillContent({ onLinkClick }) {
+  const navigate = useNavigate()
+  return (
+    <div className="flex items-center gap-1 px-2 py-2">
+      <button
+        onClick={() => { navigate('/'); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
+        className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold font-display text-white mr-2 flex-shrink-0"
+        style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}
+      >
+        IC
+      </button>
+
+      {links.map((link) => (
+        <NavLink key={link.label} link={link} onClick={onLinkClick} />
+      ))}
+
+      <a
+        href={hero.resumeUrl}
+        target="_blank"
+        rel="noreferrer"
+        className="ml-2 flex items-center gap-1.5 text-xs font-semibold font-body px-3 py-1.5 rounded-full text-white flex-shrink-0"
+        style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}
+      >
+        <FileText size={12} />
+        Resume
+      </a>
+    </div>
+  )
+}
 
 export default function Navbar() {
-  const { dark, setDark } = useTheme()
-  const [scrolled, setScrolled] = useState(false)
-  const [active, setActive] = useState('')
+  const { direction, atTop } = useScrollDirection(8)
   const [mobileOpen, setMobileOpen] = useState(false)
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  useEffect(() => {
-    const sections = navLinks.map((l) => l.href.replace('#', ''))
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id) }),
-      { threshold: 0.25 }
-    )
-    sections.forEach((id) => { const el = document.getElementById(id); if (el) observer.observe(el) })
-    return () => observer.disconnect()
-  }, [])
-
-  const handleNav = (href) => {
-    setMobileOpen(false)
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
-  }
+  const showTop    = atTop || direction === 'up'
+  const showBottom = !atTop && direction === 'down'
 
   return (
     <>
-      {/* Desktop nav */}
-      <motion.nav
-        className="fixed top-5 left-1/2 z-50 hidden md:flex items-center gap-1 px-2 py-1.5 rounded-full"
-        style={{
-          x: '-50%',
-          background: scrolled
-            ? dark ? 'rgba(22,22,22,0.85)' : 'rgba(245,245,243,0.85)'
-            : dark ? 'rgba(22,22,22,0.5)' : 'rgba(245,245,243,0.5)',
-          backdropFilter: 'blur(16px)',
-          boxShadow: 'var(--shadow-neu-sm)',
-          border: '1px solid var(--color-stroke)',
-          transition: 'background 0.3s',
-        }}
-        initial={{ y: -60, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 }}
-      >
-        {/* Monogram */}
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold font-body mr-1"
-          style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}
-          aria-label="Back to top"
-        >
-          IC
-        </button>
+      {/* Desktop top pill */}
+      <AnimatePresence>
+        {showTop && (
+          <motion.nav
+            key="top-pill"
+            className="fixed top-5 left-1/2 z-50 hidden md:block"
+            style={{ x: '-50%' }}
+            initial={{ y: -80, opacity: 0 }}
+            animate={{ y: 0,   opacity: 1 }}
+            exit={{    y: -80, opacity: 0 }}
+            transition={{ type: 'spring', stiffness: 280, damping: 28 }}
+          >
+            <div className="rounded-full" style={glassStyle}>
+              <PillContent />
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
 
-        {navLinks.map((link) => {
-          const isActive = active === link.href.replace('#', '')
-          return (
-            <button
-              key={link.href}
-              onClick={() => handleNav(link.href)}
-              className="relative px-3.5 py-1.5 rounded-full text-sm font-body font-medium transition-colors duration-200"
-              style={{ color: isActive ? 'var(--color-content)' : 'var(--color-muted)' }}
-            >
-              {isActive && (
-                <motion.span
-                  layoutId="nav-active"
-                  className="absolute inset-0 rounded-full"
-                  style={{ boxShadow: 'var(--shadow-neu-inset)' }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-                />
-              )}
-              <span className="relative z-10">{link.label}</span>
-            </button>
-          )
-        })}
-
-        {/* Theme toggle */}
-        <button
-          onClick={() => setDark((d) => !d)}
-          className="w-8 h-8 rounded-full flex items-center justify-center ml-1 transition-colors"
-          style={{ boxShadow: 'var(--shadow-neu-sm)', color: 'var(--color-muted)' }}
-          aria-label="Toggle theme"
-        >
-          {dark ? <Sun size={14} /> : <Moon size={14} />}
-        </button>
-
-        <a
-          href={hero.resumeUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="ml-1 px-4 py-1.5 rounded-full text-sm font-semibold font-body text-white"
-          style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}
-        >
-          Resume
-        </a>
-      </motion.nav>
+      {/* Desktop bottom pill */}
+      <AnimatePresence>
+        {showBottom && (
+          <motion.nav
+            key="bottom-pill"
+            className="fixed bottom-6 left-1/2 z-50 hidden md:block"
+            style={{ x: '-50%' }}
+            initial={{ y: 80,  opacity: 0 }}
+            animate={{ y: 0,   opacity: 1 }}
+            exit={{    y: 80,  opacity: 0 }}
+            transition={{ type: 'spring', stiffness: 280, damping: 28 }}
+          >
+            <div className="rounded-full" style={glassStyle}>
+              <PillContent />
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
 
       {/* Mobile FAB */}
-      <div className="md:hidden">
-        <motion.button
-          className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full flex items-center justify-center text-white shadow-neu"
-          style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}
-          onClick={() => setMobileOpen((v) => !v)}
-          whileTap={{ scale: 0.9 }}
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 0.4 }}
-          aria-label="Toggle navigation"
-        >
-          {mobileOpen ? <X size={18} /> : <Menu size={18} />}
-        </motion.button>
-
+      <div className="fixed bottom-6 right-6 z-50 md:hidden">
         <AnimatePresence>
           {mobileOpen && (
-            <>
-              <motion.div
-                className="fixed inset-0 z-40"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+            <motion.div
+              className="absolute bottom-14 right-0 rounded-2xl p-2 flex flex-col gap-1 min-w-[160px]"
+              style={glassStyle}
+              initial={{ opacity: 0, scale: 0.9, y: 8 }}
+              animate={{ opacity: 1, scale: 1,   y: 0 }}
+              exit={{    opacity: 0, scale: 0.9, y: 8 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 28 }}
+            >
+              {links.map((link) => (
+                <NavLink key={link.label} link={link} onClick={() => setMobileOpen(false)} />
+              ))}
+              <a
+                href={hero.resumeUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 text-xs font-semibold font-body px-3 py-2 rounded-xl text-white mt-1"
+                style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}
                 onClick={() => setMobileOpen(false)}
-                style={{ background: 'rgba(0,0,0,0.3)', backdropFilter: 'blur(4px)' }}
-              />
-              <motion.div
-                className="fixed bottom-20 right-6 z-50 rounded-2xl p-2 flex flex-col gap-1 min-w-[160px]"
-                style={{
-                  background: 'var(--color-surface)',
-                  boxShadow: 'var(--shadow-neu)',
-                  border: '1px solid var(--color-stroke)',
-                }}
-                initial={{ opacity: 0, y: 16, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 16, scale: 0.95 }}
-                transition={{ type: 'spring', stiffness: 350, damping: 28 }}
               >
-                {[...navLinks, { label: 'Resume', href: hero.resumeUrl, external: true }].map((link) => (
-                  <button
-                    key={link.href}
-                    className="px-4 py-2 rounded-xl text-sm font-body font-medium text-left transition-colors"
-                    style={{ color: 'var(--color-content)' }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = 'var(--color-elevated)'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                    onClick={() => {
-                      setMobileOpen(false)
-                      link.external ? window.open(link.href, '_blank') : handleNav(link.href)
-                    }}
-                  >
-                    {link.label}
-                  </button>
-                ))}
-                <div className="border-t mt-1 pt-1" style={{ borderColor: 'var(--color-stroke)' }}>
-                  <button
-                    onClick={() => setDark((d) => !d)}
-                    className="w-full px-4 py-2 rounded-xl text-sm font-body font-medium text-left flex items-center gap-2"
-                    style={{ color: 'var(--color-muted)' }}
-                  >
-                    {dark ? <Sun size={14} /> : <Moon size={14} />}
-                    {dark ? 'Light mode' : 'Dark mode'}
-                  </button>
-                </div>
-              </motion.div>
-            </>
+                <FileText size={12} />
+                Resume
+              </a>
+            </motion.div>
           )}
         </AnimatePresence>
+
+        <motion.button
+          onClick={() => setMobileOpen((o) => !o)}
+          className="w-12 h-12 rounded-full flex items-center justify-center text-white"
+          style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}
+          whileTap={{ scale: 0.92 }}
+        >
+          <AnimatePresence mode="wait">
+            {mobileOpen
+              ? <motion.span key="x"   initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}><X    size={18} /></motion.span>
+              : <motion.span key="men" initial={{ rotate:  90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate:-90, opacity: 0 }} transition={{ duration: 0.15 }}><Menu size={18} /></motion.span>
+            }
+          </AnimatePresence>
+        </motion.button>
       </div>
     </>
   )

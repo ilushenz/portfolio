@@ -2,43 +2,34 @@ import { motion } from 'framer-motion'
 import { ArrowDown } from 'lucide-react'
 import { hero } from '../../data/content'
 
+const fade = (delay = 0) => ({
+  initial: { opacity: 0, y: 24 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6, ease: 'easeOut', delay },
+})
+
+const slideLeft = (delay = 0) => ({
+  initial: { opacity: 0, x: -20 },
+  animate: { opacity: 1, x: 0 },
+  transition: { duration: 0.7, ease: 'easeOut', delay },
+})
+
 export default function Hero() {
   return (
-    <section id="hero" className="min-h-screen flex items-center section-pad pt-28 md:pt-24 relative overflow-hidden">
-      {/* Subtle background gradient */}
-      <div
-        className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full opacity-[0.06] pointer-events-none blur-[120px]"
-        style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}
-      />
+    <section id="hero" className="min-h-screen flex items-center section-pad">
+      <div className="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-12 md:gap-20 items-center">
 
-      <div className="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center">
-        {/* Left */}
+        {/* Text */}
         <div>
-          {/* Location badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-body font-medium mb-8"
-            style={{
-              background: 'var(--color-surface)',
-              boxShadow: 'var(--shadow-neu-sm)',
-              border: '1px solid var(--color-stroke)',
-              color: 'var(--color-muted)',
-            }}
+          <motion.p
+            {...slideLeft(0.1)}
+            className="font-body text-xs font-semibold tracking-widest uppercase mb-6"
+            style={{ color: 'var(--color-faint)' }}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-            {hero.location} · Available for work
-          </motion.div>
+            Social Media & Content Specialist
+          </motion.p>
 
-          {/* Name */}
-          <motion.h1
-            className="font-display font-bold leading-none mb-6"
-            style={{ fontSize: 'clamp(3rem, 8vw, 6.5rem)', letterSpacing: '-0.03em', color: 'var(--color-content)' }}
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
+          <motion.h1 {...fade(0.2)} className="heading-xl mb-5" style={{ color: 'var(--color-content)' }}>
             Ilia<br />
             <span style={{
               background: 'linear-gradient(135deg, #4158D0, #C850C0, #FFCC70)',
@@ -50,118 +41,75 @@ export default function Hero() {
             </span>
           </motion.h1>
 
-          {/* Tagline — no italics, lighter weight for contrast */}
           <motion.p
-            className="font-body font-light text-xl md:text-2xl mb-2"
-            style={{ color: 'var(--color-muted)', letterSpacing: '-0.01em' }}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            {...slideLeft(0.35)}
+            className="font-body text-lg font-light mb-8 max-w-md leading-relaxed"
+            style={{ color: 'var(--color-muted)' }}
           >
             {hero.tagline}
           </motion.p>
 
-          <motion.p
-            className="font-body text-sm font-medium mb-10"
-            style={{ color: 'var(--color-faint)' }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.3 }}
-          >
-            {hero.sub}
-          </motion.p>
-
-          {/* Language pills */}
-          <motion.div
-            className="flex gap-2 mb-10"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.4, delay: 0.35 }}
-          >
-            {hero.languages.map((lang) => (
-              <span
-                key={lang}
-                className="px-3 py-1 rounded-full text-xs font-semibold font-body"
-                style={{
-                  background: 'var(--color-surface)',
-                  boxShadow: 'var(--shadow-neu-sm)',
-                  color: 'var(--color-muted)',
-                }}
-              >
-                {lang}
-              </span>
-            ))}
-          </motion.div>
-
-          {/* CTAs */}
-          <motion.div
-            className="flex flex-wrap gap-3"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <button
-              onClick={() => document.querySelector('#portfolio')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-6 py-3 rounded-full text-white font-semibold font-body text-sm"
+          <motion.div {...fade(0.5)} className="flex flex-wrap gap-3">
+            <a
+              href="#portfolio"
+              onClick={(e) => { e.preventDefault(); document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' }) }}
+              className="font-body font-semibold text-sm px-5 py-2.5 rounded-full text-white"
               style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}
-              onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.88' }}
-              onMouseLeave={(e) => { e.currentTarget.style.opacity = '1' }}
             >
               View My Work
-            </button>
+            </a>
             <a
               href={hero.resumeUrl}
               target="_blank"
               rel="noreferrer"
-              className="px-6 py-3 rounded-full font-semibold font-body text-sm"
-              style={{
-                background: 'var(--color-surface)',
-                boxShadow: 'var(--shadow-neu)',
-                color: 'var(--color-content)',
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = 'var(--shadow-neu-inset)' }}
-              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'var(--shadow-neu)' }}
+              className="font-body font-semibold text-sm px-5 py-2.5 rounded-full border"
+              style={{ color: 'var(--color-content)', borderColor: 'var(--color-stroke)' }}
             >
               Download Resume
             </a>
           </motion.div>
         </div>
 
-        {/* Right: Headshot */}
+        {/* Headshot */}
         <motion.div
-          className="flex justify-center md:justify-end"
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.15 }}
+          transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
+          className="flex justify-center md:justify-end"
         >
           <div
-            className="w-72 h-72 md:w-[340px] md:h-[340px] rounded-3xl p-2"
-            style={{ boxShadow: 'var(--shadow-neu-lg)', background: 'var(--color-surface)' }}
+            className="relative w-72 h-72 md:w-96 md:h-96 rounded-3xl overflow-hidden"
+            style={{ boxShadow: 'var(--shadow-neu-lg)' }}
           >
-            <div className="w-full h-full rounded-2xl overflow-hidden" style={{ boxShadow: 'var(--shadow-neu-inset)' }}>
-              <img
-                src="/portfolio/headshot.jpg"
-                alt="Ilia Chapchakhov"
-                className="w-full h-full object-cover object-top"
-              />
-            </div>
+            <img
+              src="/portfolio/headshot.jpg"
+              alt="Ilia Chapchakhov"
+              className="w-full h-full object-cover"
+            />
+            {/* Subtle gradient overlay at bottom */}
+            <div
+              className="absolute inset-x-0 bottom-0 h-1/3"
+              style={{ background: 'linear-gradient(to top, rgba(12,12,12,0.4), transparent)' }}
+            />
           </div>
         </motion.div>
       </div>
 
       {/* Scroll indicator */}
-      <motion.button
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5"
-        style={{ color: 'var(--color-faint)' }}
-        onClick={() => document.querySelector('#metrics')?.scrollIntoView({ behavior: 'smooth' })}
-        whileHover={{ color: 'var(--color-muted)' }}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
+        transition={{ delay: 1.2, duration: 0.6 }}
       >
-        <span className="text-xs font-body font-medium tracking-widest uppercase">Scroll</span>
-        <ArrowDown size={14} />
-      </motion.button>
+        <motion.div
+          animate={{ y: [0, 6, 0] }}
+          transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
+          style={{ color: 'var(--color-faint)' }}
+        >
+          <ArrowDown size={16} />
+        </motion.div>
+      </motion.div>
     </section>
   )
 }
