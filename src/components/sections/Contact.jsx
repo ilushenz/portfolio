@@ -9,7 +9,7 @@ import { hero } from '../../data/content'
 // Replace this URL with your deployed Google Apps Script Web App URL.
 // Deploy instructions are in gas-contact.js (root of the project).
 // ─────────────────────────────────────────────────────────────
-const GAS_URL = import.meta.env.VITE_GAS_URL || ''
+const GAS_URL = import.meta.env.VITE_GAS_URL || 'https://script.google.com/macros/s/AKfycbzesd8zH1lj4NLFpq5W2of1sIUqA6f_IblpyfjfMDyzjo9Dl9wyo-u3yRQ6jBfYujmo/exec'
 
 const socials = [
   { label: 'LinkedIn',  href: hero.linkedin,           Icon: LinkedInIcon },
