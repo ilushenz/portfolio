@@ -17,7 +17,6 @@ export const achievements = [
     suffix: 'K',
     label: 'Organic TikTok Views',
     sub: 'Single post · zero paid spend',
-    icon: '📈',
   },
   {
     id: 'email',
@@ -25,7 +24,6 @@ export const achievements = [
     suffix: '%',
     label: 'Email Open Rate',
     sub: '2.3× the industry benchmark',
-    icon: '📧',
   },
   {
     id: 'revenue',
@@ -34,7 +32,6 @@ export const achievements = [
     suffix: 'K',
     label: 'Revenue Attributed',
     sub: '16 campaigns · 3.5 months',
-    icon: '💰',
   },
   {
     id: 'conversion',
@@ -42,7 +39,6 @@ export const achievements = [
     suffix: '%',
     label: 'Conversion Growth',
     sub: '0.5% → 1.3% over 4 months',
-    icon: '🚀',
   },
   {
     id: 'reel',
@@ -50,7 +46,6 @@ export const achievements = [
     suffix: 'K',
     label: 'Reel Views',
     sub: 'Invisalign · fully organic',
-    icon: '🎬',
   },
   {
     id: 'shares',
@@ -58,7 +53,6 @@ export const achievements = [
     suffix: '',
     label: 'Post Shares',
     sub: '2.1% share rate · 2× avg',
-    icon: '🔁',
   },
   {
     id: 'accountreach',
@@ -66,7 +60,6 @@ export const achievements = [
     suffix: '%',
     label: 'Account Reach Growth',
     sub: 'Envy Smile Dental · 2025–26',
-    icon: '✨',
   },
   {
     id: 'engagement',
@@ -74,7 +67,6 @@ export const achievements = [
     suffix: '%',
     label: 'Engagement Rate',
     sub: 'Sustained average · Reels format',
-    icon: '❤️',
   },
 ]
 
@@ -93,9 +85,8 @@ export const about = {
 export const portfolioCategories = [
   {
     id: 'motion',
-    title: 'Stories in Motion',
+    title: 'Video Production',
     description: 'Short-form video, Reels, TikToks, brand films',
-    emoji: '🎬',
     items: [
       {
         id: 'invisalign-reel',
@@ -121,9 +112,8 @@ export const portfolioCategories = [
   },
   {
     id: 'visuals',
-    title: 'Visual Impressions',
-    description: 'Graphic design, carousels, brand identity',
-    emoji: '🎨',
+    title: 'Graphic Design',
+    description: 'Carousels, brand campaigns, visual identity',
     items: [
       {
         id: 'envy-carousels',
@@ -184,9 +174,8 @@ export const portfolioCategories = [
   },
   {
     id: 'lens',
-    title: 'Through My Lens',
-    description: 'Event photography, portraits, brand imagery',
-    emoji: '📷',
+    title: 'Photography',
+    description: 'Event documentation, portraits, brand imagery',
     items: [
       {
         id: 'language-career-week',
@@ -214,9 +203,8 @@ export const portfolioCategories = [
   },
   {
     id: 'words',
-    title: 'Words That Connect',
-    description: 'Email campaigns, captions, editorial copy',
-    emoji: '✍️',
+    title: 'Writing & Copy',
+    description: 'Email campaigns, captions, editorial content',
     items: [
       {
         id: 'groundhog-email',
@@ -405,43 +393,31 @@ export const skills = [
   {
     category: 'Video & Motion',
     level: 95,
-    xp: '9,500 / 10,000 XP',
-    rankLabel: 'Level 9 — Master',
     items: ['Premiere Pro', 'After Effects', 'Short-form Video', 'Motion Graphics', 'Reels / TikTok'],
   },
   {
     category: 'Social Media Strategy',
     level: 92,
-    xp: '9,200 / 10,000 XP',
-    rankLabel: 'Level 9 — Expert',
     items: ['Instagram', 'TikTok', 'Facebook', 'YouTube', 'LinkedIn', 'Analytics', 'Community Mgmt'],
   },
   {
     category: 'Email Marketing',
     level: 88,
-    xp: '8,800 / 10,000 XP',
-    rankLabel: 'Level 8 — Expert',
     items: ['Mailchimp', 'RevenueWell', 'Segmentation', 'A/B Testing', 'Campaign Strategy'],
   },
   {
     category: 'Visual Design',
     level: 85,
-    xp: '8,500 / 10,000 XP',
-    rankLabel: 'Level 8 — Advanced',
     items: ['Photoshop', 'Canva', 'Figma', 'Carousels', 'Brand Identity'],
   },
   {
     category: 'Paid Media',
     level: 78,
-    xp: '7,800 / 10,000 XP',
-    rankLabel: 'Level 7 — Advanced',
     items: ['Meta Ads Manager', 'CPL Optimization', 'Campaign Scaling', 'Audience Targeting'],
   },
   {
     category: 'Content & Editorial',
     level: 90,
-    xp: '9,000 / 10,000 XP',
-    rankLabel: 'Level 9 — Expert',
     items: ['Copywriting', 'Editorial Calendars', 'Brand Storytelling', 'WordPress', 'Airtable'],
   },
 ]

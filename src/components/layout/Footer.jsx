@@ -1,20 +1,39 @@
+import { Mail } from 'lucide-react'
+import { LinkedInIcon, InstagramIcon } from '../ui/SocialIcons'
 import { hero } from '../../data/content'
+
+const socials = [
+  { label: 'LinkedIn', href: hero.linkedin, Icon: LinkedInIcon },
+  { label: 'Instagram', href: hero.instagram, Icon: InstagramIcon },
+  { label: 'Email', href: `mailto:${hero.email}`, Icon: Mail },
+]
 
 export default function Footer() {
   return (
-    <footer className="py-8 px-6 border-t border-neu-dark/20">
-      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-body text-ink-faint">
-        <span>© {new Date().getFullYear()} Ilia Chapchakhov. Built with React.</span>
-        <div className="flex gap-4">
-          <a href={hero.linkedin} target="_blank" rel="noreferrer" className="hover:text-ink-primary transition-colors">
-            LinkedIn
-          </a>
-          <a href={hero.instagram} target="_blank" rel="noreferrer" className="hover:text-ink-primary transition-colors">
-            Instagram
-          </a>
-          <a href={`mailto:${hero.email}`} className="hover:text-ink-primary transition-colors">
-            Email
-          </a>
+    <footer
+      className="py-8 px-6 border-t"
+      style={{ borderColor: 'var(--color-stroke)' }}
+    >
+      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+        <span className="font-body text-xs" style={{ color: 'var(--color-faint)' }}>
+          © {new Date().getFullYear()} Ilia Chapchakhov
+        </span>
+        <div className="flex items-center gap-5">
+          {socials.map(({ label, href, Icon }) => (
+            <a
+              key={label}
+              href={href}
+              target={label !== 'Email' ? '_blank' : undefined}
+              rel="noreferrer"
+              aria-label={label}
+              className="transition-colors duration-200"
+              style={{ color: 'var(--color-faint)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-content)' }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-faint)' }}
+            >
+              <Icon size={16} />
+            </a>
+          ))}
         </div>
       </div>
     </footer>

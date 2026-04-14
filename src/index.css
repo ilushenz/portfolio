@@ -1,27 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ── Theme tokens ─────────────────────────────────────────── */
+:root {
+  /* Light theme */
+  --color-canvas:   #F5F5F3;
+  --color-surface:  #FFFFFF;
+  --color-elevated: #EBEBEA;
+  --color-stroke:   rgba(0, 0, 0, 0.08);
+  --color-content:  #0A0A0A;
+  --color-muted:    rgba(0, 0, 0, 0.45);
+  --color-faint:    rgba(0, 0, 0, 0.25);
+
+  /* Light neumorphic shadows */
+  --shadow-neu:       6px 6px 14px rgba(163,177,198,0.55), -6px -6px 14px rgba(255,255,255,0.85);
+  --shadow-neu-sm:    3px 3px 8px  rgba(163,177,198,0.45), -3px -3px 8px  rgba(255,255,255,0.85);
+  --shadow-neu-lg:   10px 10px 22px rgba(163,177,198,0.6), -10px -10px 22px rgba(255,255,255,0.9);
+  --shadow-neu-inset: inset 4px 4px 10px rgba(163,177,198,0.5), inset -4px -4px 10px rgba(255,255,255,0.85);
+}
+
+.dark {
+  /* Dark theme */
+  --color-canvas:   #0C0C0C;
+  --color-surface:  #161616;
+  --color-elevated: #202020;
+  --color-stroke:   rgba(255, 255, 255, 0.07);
+  --color-content:  #F0F0EE;
+  --color-muted:    rgba(240, 240, 238, 0.45);
+  --color-faint:    rgba(240, 240, 238, 0.22);
+
+  /* Dark neumorphic shadows */
+  --shadow-neu:       5px 5px 12px rgba(0,0,0,0.55), -5px -5px 12px rgba(255,255,255,0.04);
+  --shadow-neu-sm:    3px 3px 6px  rgba(0,0,0,0.5),  -3px -3px 6px  rgba(255,255,255,0.03);
+  --shadow-neu-lg:    8px 8px 20px rgba(0,0,0,0.6),  -8px -8px 20px rgba(255,255,255,0.04);
+  --shadow-neu-inset: inset 4px 4px 10px rgba(0,0,0,0.6), inset -4px -4px 10px rgba(255,255,255,0.03);
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
 @layer base {
   html {
     scroll-behavior: smooth;
   }
+
   body {
-    background-color: #E8ECF1;
-    color: #2D3748;
+    background-color: var(--color-canvas);
+    color: var(--color-content);
     font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
-  #root {
-    width: 100%;
-    max-width: 100%;
-  }
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: #E8ECF1; }
-  ::-webkit-scrollbar-thumb { background: #A3B1C6; border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: #4158D0; }
+
+  #root { width: 100%; }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--color-canvas); }
+  ::-webkit-scrollbar-thumb { background: var(--color-stroke); border-radius: 3px; }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -31,6 +69,7 @@
   }
 }
 
+/* ── Utilities ────────────────────────────────────────────── */
 @layer utilities {
   .text-aurora {
     background: linear-gradient(135deg, #4158D0, #C850C0, #FFCC70);
@@ -38,25 +77,39 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  .border-aurora {
-    border-image: linear-gradient(135deg, #4158D0, #C850C0, #FFCC70) 1;
-  }
+
   .bg-aurora {
     background: linear-gradient(135deg, #4158D0, #C850C0, #FFCC70);
   }
-  .shadow-neu {
-    box-shadow: 8px 8px 15px #A3B1C6, -8px -8px 15px #FFFFFF;
+
+  .border-aurora {
+    position: relative;
   }
-  .shadow-neu-sm {
-    box-shadow: 4px 4px 8px #A3B1C6, -4px -4px 8px #FFFFFF;
+  .border-aurora::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, #4158D0, #C850C0, #FFCC70);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
   }
-  .shadow-neu-lg {
-    box-shadow: 12px 12px 24px #A3B1C6, -12px -12px 24px #FFFFFF;
-  }
-  .shadow-neu-inset {
-    box-shadow: inset 6px 6px 10px #A3B1C6, inset -6px -6px 10px #FFFFFF;
-  }
+
   .section-pad {
-    @apply py-20 px-6 md:px-12 lg:px-24;
+    @apply py-24 px-6 md:px-12 lg:px-20;
+  }
+
+  .heading-xl {
+    @apply font-display font-bold tracking-tightest leading-none;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  .heading-lg {
+    @apply font-display font-bold tracking-tight;
+    font-size: clamp(1.75rem, 3.5vw, 3rem);
   }
 }

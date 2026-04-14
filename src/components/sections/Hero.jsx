@@ -1,85 +1,92 @@
 import { motion } from 'framer-motion'
+import { ArrowDown } from 'lucide-react'
 import { hero } from '../../data/content'
-
-const auroraStyle = {
-  background: 'linear-gradient(135deg, #4158D0, #C850C0, #FFCC70)',
-  WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent',
-  backgroundClip: 'text',
-}
 
 export default function Hero() {
   return (
-    <section
-      id="hero"
-      className="min-h-screen flex items-center section-pad pt-32 md:pt-24 relative overflow-hidden"
-    >
-      {/* Decorative blobs */}
+    <section id="hero" className="min-h-screen flex items-center section-pad pt-28 md:pt-24 relative overflow-hidden">
+      {/* Subtle background gradient */}
       <div
-        className="absolute top-20 right-10 w-72 h-72 rounded-full opacity-20 pointer-events-none blur-3xl"
+        className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full opacity-[0.06] pointer-events-none blur-[120px]"
         style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}
       />
-      <div
-        className="absolute bottom-20 left-0 w-56 h-56 rounded-full opacity-10 pointer-events-none blur-3xl"
-        style={{ background: 'linear-gradient(135deg, #C850C0, #FFCC70)' }}
-      />
 
-      <div className="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-12 items-center">
-        {/* Left: Text */}
+      <div className="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-16 items-center">
+        {/* Left */}
         <div>
-          {/* Location chip */}
+          {/* Location badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full shadow-neu-sm text-xs font-semibold font-body text-ink-muted mb-6"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-body font-medium mb-8"
+            style={{
+              background: 'var(--color-surface)',
+              boxShadow: 'var(--shadow-neu-sm)',
+              border: '1px solid var(--color-stroke)',
+              color: 'var(--color-muted)',
+            }}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-            {hero.location} · Open to opportunities
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            {hero.location} · Available for work
           </motion.div>
 
           {/* Name */}
           <motion.h1
-            className="font-display font-bold text-5xl md:text-6xl lg:text-7xl text-ink-primary leading-tight mb-4"
-            initial={{ opacity: 0, y: 30 }}
+            className="font-display font-bold leading-none mb-6"
+            style={{ fontSize: 'clamp(3rem, 8vw, 6.5rem)', letterSpacing: '-0.03em', color: 'var(--color-content)' }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Ilia
-            <br />
-            <span style={auroraStyle}>Chapchakhov</span>
+            Ilia<br />
+            <span style={{
+              background: 'linear-gradient(135deg, #4158D0, #C850C0, #FFCC70)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}>
+              Chapchakhov
+            </span>
           </motion.h1>
 
-          {/* Tagline */}
+          {/* Tagline — no italics, lighter weight for contrast */}
           <motion.p
-            className="font-display italic text-xl md:text-2xl text-ink-muted mb-2"
-            initial={{ opacity: 0, y: 20 }}
+            className="font-body font-light text-xl md:text-2xl mb-2"
+            style={{ color: 'var(--color-muted)', letterSpacing: '-0.01em' }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
-            "{hero.tagline}"
+            {hero.tagline}
           </motion.p>
 
           <motion.p
-            className="font-body text-sm text-ink-faint mb-8 tracking-wide"
+            className="font-body text-sm font-medium mb-10"
+            style={{ color: 'var(--color-faint)' }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            transition={{ duration: 0.4, delay: 0.3 }}
           >
             {hero.sub}
           </motion.p>
 
           {/* Language pills */}
           <motion.div
-            className="flex gap-2 mb-8"
+            className="flex gap-2 mb-10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.35 }}
+            transition={{ duration: 0.4, delay: 0.35 }}
           >
             {hero.languages.map((lang) => (
               <span
                 key={lang}
-                className="px-3 py-1 rounded-full shadow-neu-sm text-xs font-semibold font-body text-ink-muted"
+                className="px-3 py-1 rounded-full text-xs font-semibold font-body"
+                style={{
+                  background: 'var(--color-surface)',
+                  boxShadow: 'var(--shadow-neu-sm)',
+                  color: 'var(--color-muted)',
+                }}
               >
                 {lang}
               </span>
@@ -89,14 +96,16 @@ export default function Hero() {
           {/* CTAs */}
           <motion.div
             className="flex flex-wrap gap-3"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
           >
             <button
               onClick={() => document.querySelector('#portfolio')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-6 py-3 rounded-full text-white font-semibold font-body text-sm transition-transform hover:scale-105 active:scale-95"
+              className="px-6 py-3 rounded-full text-white font-semibold font-body text-sm"
               style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.88' }}
+              onMouseLeave={(e) => { e.currentTarget.style.opacity = '1' }}
             >
               View My Work
             </button>
@@ -104,64 +113,55 @@ export default function Hero() {
               href={hero.resumeUrl}
               target="_blank"
               rel="noreferrer"
-              className="px-6 py-3 rounded-full font-semibold font-body text-sm text-ink-primary shadow-neu transition-transform hover:scale-105 active:scale-95"
+              className="px-6 py-3 rounded-full font-semibold font-body text-sm"
+              style={{
+                background: 'var(--color-surface)',
+                boxShadow: 'var(--shadow-neu)',
+                color: 'var(--color-content)',
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = 'var(--shadow-neu-inset)' }}
+              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'var(--shadow-neu)' }}
             >
               Download Resume
             </a>
           </motion.div>
         </div>
 
-        {/* Right: Headshot card */}
+        {/* Right: Headshot */}
         <motion.div
           className="flex justify-center md:justify-end"
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
+          transition={{ duration: 0.7, delay: 0.15 }}
         >
-          <div className="relative">
-            {/* Outer neumorphic frame */}
-            <div className="w-72 h-72 md:w-80 md:h-80 rounded-3xl shadow-neu-lg p-2">
-              <div className="w-full h-full rounded-2xl overflow-hidden shadow-neu-inset">
-                <img
-                  src="/portfolio/headshot.jpg"
-                  alt="Ilia Chapchakhov"
-                  className="w-full h-full object-cover object-top"
-                />
-              </div>
+          <div
+            className="w-72 h-72 md:w-[340px] md:h-[340px] rounded-3xl p-2"
+            style={{ boxShadow: 'var(--shadow-neu-lg)', background: 'var(--color-surface)' }}
+          >
+            <div className="w-full h-full rounded-2xl overflow-hidden" style={{ boxShadow: 'var(--shadow-neu-inset)' }}>
+              <img
+                src="/portfolio/headshot.jpg"
+                alt="Ilia Chapchakhov"
+                className="w-full h-full object-cover object-top"
+              />
             </div>
-
-            {/* Floating badge */}
-            <motion.div
-              className="absolute -bottom-4 -right-4 px-4 py-2 rounded-2xl shadow-neu text-xs font-semibold font-body"
-              animate={{ y: [0, -6, 0] }}
-              transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-            >
-              <span style={auroraStyle}>Adobe Certified Pro ✦</span>
-            </motion.div>
-
-            {/* Floating stat bubble */}
-            <motion.div
-              className="absolute -top-4 -left-4 px-3 py-2 rounded-xl shadow-neu text-xs font-body text-ink-muted"
-              animate={{ y: [0, 6, 0] }}
-              transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut', delay: 1 }}
-            >
-              🎬 348K views
-            </motion.div>
           </div>
         </motion.div>
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-ink-faint"
-        animate={{ y: [0, 6, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
+      <motion.button
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5"
+        style={{ color: 'var(--color-faint)' }}
+        onClick={() => document.querySelector('#metrics')?.scrollIntoView({ behavior: 'smooth' })}
+        whileHover={{ color: 'var(--color-muted)' }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8 }}
       >
-        <span className="text-xs font-body tracking-widest uppercase">Scroll</span>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M8 3v10M3 8l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </motion.div>
+        <span className="text-xs font-body font-medium tracking-widest uppercase">Scroll</span>
+        <ArrowDown size={14} />
+      </motion.button>
     </section>
   )
 }

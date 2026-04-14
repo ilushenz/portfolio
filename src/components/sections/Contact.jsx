@@ -1,67 +1,73 @@
+import { motion } from 'framer-motion'
+import { Mail, FileText } from 'lucide-react'
+import { LinkedInIcon, InstagramIcon } from '../ui/SocialIcons'
 import ScrollReveal from '../ui/ScrollReveal'
 import { hero } from '../../data/content'
-import { motion } from 'framer-motion'
-
-const auroraStyle = {
-  background: 'linear-gradient(135deg, #4158D0, #C850C0, #FFCC70)',
-  WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent',
-  backgroundClip: 'text',
-}
 
 const links = [
-  { label: 'Email', value: 'i.chapchakhov@gmail.com', href: `mailto:${hero.email}`, icon: '📬' },
-  { label: 'LinkedIn', value: 'linkedin.com/in/ilushenz', href: hero.linkedin, icon: '💼' },
-  { label: 'Instagram', value: '@ilushenz', href: hero.instagram, icon: '📸' },
+  { label: 'Email', value: 'i.chapchakhov@gmail.com', href: `mailto:${hero.email}`, Icon: Mail },
+  { label: 'LinkedIn', value: 'linkedin.com/in/ilushenz', href: hero.linkedin, Icon: LinkedInIcon },
+  { label: 'Instagram', value: '@ilushenz', href: hero.instagram, Icon: InstagramIcon },
 ]
 
 export default function Contact() {
   return (
     <section id="contact" className="section-pad">
-      <div className="max-w-3xl mx-auto text-center">
+      <div className="max-w-3xl mx-auto">
         <ScrollReveal>
-          <div className="text-5xl mb-6">👋</div>
-          <h2 className="font-display font-bold text-4xl md:text-6xl text-ink-primary mb-4 leading-tight">
-            I Can Make Your Brand{' '}
-            <span style={auroraStyle}>Relatable.</span>
+          <p className="text-xs font-body font-semibold tracking-widest uppercase mb-4" style={{ color: 'var(--color-faint)' }}>
+            Contact
+          </p>
+          <h2 className="heading-xl mb-4" style={{ color: 'var(--color-content)' }}>
+            I can make your brand{' '}
+            <span style={{
+              background: 'linear-gradient(135deg, #4158D0, #C850C0, #FFCC70)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}>
+              relatable.
+            </span>
           </h2>
-          <p className="font-body text-ink-muted text-lg max-w-lg mx-auto mb-12">
+          <p className="font-body font-light text-lg mb-16 max-w-lg" style={{ color: 'var(--color-muted)' }}>
             Open to full-time roles, freelance projects, and interesting conversations.
             Available in English, Russian, and French.
           </p>
         </ScrollReveal>
 
-        {/* Contact links */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
-          {links.map((link, i) => (
-            <ScrollReveal key={link.label} delay={i * 0.1}>
+        <div className="grid sm:grid-cols-3 gap-px mb-12" style={{ background: 'var(--color-stroke)' }}>
+          {links.map(({ label, value, href, Icon }, i) => (
+            <ScrollReveal key={label} delay={i * 0.08}>
               <motion.a
-                href={link.href}
-                target={link.label !== 'Email' ? '_blank' : undefined}
+                href={href}
+                target={label !== 'Email' ? '_blank' : undefined}
                 rel="noreferrer"
-                className="flex items-center gap-3 px-5 py-3.5 rounded-2xl shadow-neu font-body text-sm font-medium text-ink-primary transition-transform"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
+                className="flex flex-col gap-2 p-6 transition-colors duration-200"
+                style={{ background: 'var(--color-canvas)', color: 'var(--color-content)' }}
+                whileHover={{ background: 'var(--color-surface)' }}
               >
-                <span className="text-xl">{link.icon}</span>
-                <div className="text-left">
-                  <div className="text-xs text-ink-faint">{link.label}</div>
-                  <div className="text-ink-primary font-semibold">{link.value}</div>
+                <Icon size={18} style={{ color: 'var(--color-muted)' }} />
+                <div>
+                  <div className="font-body text-xs mb-0.5" style={{ color: 'var(--color-faint)' }}>{label}</div>
+                  <div className="font-body font-semibold text-sm" style={{ color: 'var(--color-content)' }}>{value}</div>
                 </div>
               </motion.a>
             </ScrollReveal>
           ))}
         </div>
 
-        <ScrollReveal delay={0.3}>
+        <ScrollReveal delay={0.25}>
           <a
             href={hero.resumeUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-white font-semibold font-body text-sm transition-transform hover:scale-105 active:scale-95"
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-white font-semibold font-body text-sm"
             style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}
+            onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.88' }}
+            onMouseLeave={(e) => { e.currentTarget.style.opacity = '1' }}
           >
-            📄 Download Resume
+            <FileText size={15} />
+            Download Resume
           </a>
         </ScrollReveal>
       </div>
