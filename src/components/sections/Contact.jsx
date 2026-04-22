@@ -85,7 +85,7 @@ export default function Contact() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  <CheckCircle size={40} style={{ color: '#4158D0' }} />
+                  <CheckCircle size={40} style={{ color: 'var(--accent)' }} />
                   <h3 className="font-display font-bold text-xl" style={{ color: 'var(--color-content)' }}>
                     Message sent!
                   </h3>
@@ -116,7 +116,7 @@ export default function Contact() {
                         name="name" value={form.name} onChange={handleChange} required
                         placeholder="Your name"
                         style={inputStyle}
-                        onFocus={(e) => { e.target.style.borderColor = '#4158D0' }}
+                        onFocus={(e) => { e.target.style.borderColor = 'var(--accent)' }}
                         onBlur={(e) => { e.target.style.borderColor = 'var(--color-stroke)' }}
                       />
                     </div>
@@ -126,7 +126,7 @@ export default function Contact() {
                         name="email" type="email" value={form.email} onChange={handleChange} required
                         placeholder="your@email.com"
                         style={inputStyle}
-                        onFocus={(e) => { e.target.style.borderColor = '#4158D0' }}
+                        onFocus={(e) => { e.target.style.borderColor = 'var(--accent)' }}
                         onBlur={(e) => { e.target.style.borderColor = 'var(--color-stroke)' }}
                       />
                     </div>
@@ -137,7 +137,7 @@ export default function Contact() {
                       name="subject" value={form.subject} onChange={handleChange} required
                       placeholder="What's this about?"
                       style={inputStyle}
-                      onFocus={(e) => { e.target.style.borderColor = '#4158D0' }}
+                      onFocus={(e) => { e.target.style.borderColor = 'var(--accent)' }}
                       onBlur={(e) => { e.target.style.borderColor = 'var(--color-stroke)' }}
                     />
                   </div>
@@ -147,7 +147,7 @@ export default function Contact() {
                       name="message" value={form.message} onChange={handleChange} required
                       rows={5} placeholder="Tell me about the opportunity..."
                       style={{ ...inputStyle, resize: 'vertical' }}
-                      onFocus={(e) => { e.target.style.borderColor = '#4158D0' }}
+                      onFocus={(e) => { e.target.style.borderColor = 'var(--accent)' }}
                       onBlur={(e) => { e.target.style.borderColor = 'var(--color-stroke)' }}
                     />
                   </div>
@@ -162,7 +162,7 @@ export default function Contact() {
                     type="submit"
                     disabled={status === 'sending'}
                     className="flex items-center justify-center gap-2 font-body font-semibold text-sm px-6 py-3 rounded-xl text-white"
-                    style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)', opacity: status === 'sending' ? 0.7 : 1 }}
+                    style={{ background: 'var(--accent)', opacity: status === 'sending' ? 0.7 : 1 }}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >

@@ -46,7 +46,7 @@ export default function Skills() {
                 >
                   <motion.div
                     className="h-full rounded-full"
-                    style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0, #FFCC70)' }}
+                    style={{ background: 'var(--accent)' }}
                     initial={{ width: 0 }}
                     whileInView={{ width: `${skill.level}%` }}
                     viewport={{ once: true }}

@@ -60,7 +60,7 @@ function PillContent({ onLinkClick }) {
       <button
         onClick={() => { navigate('/'); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
         className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold font-display text-white mr-2 flex-shrink-0"
-        style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}
+        style={{ background: 'var(--accent)' }}
       >
         IC
       </button>
@@ -74,7 +74,7 @@ function PillContent({ onLinkClick }) {
         target="_blank"
         rel="noreferrer"
         className="ml-2 flex items-center gap-1.5 text-xs font-semibold font-body px-3 py-1.5 rounded-full text-white flex-shrink-0"
-        style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}
+        style={{ background: 'var(--accent)' }}
       >
         <FileText size={12} />
         Resume
@@ -150,7 +150,7 @@ export default function Navbar() {
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-2 text-xs font-semibold font-body px-3 py-2 rounded-xl text-white mt-1"
-                style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}
+                style={{ background: 'var(--accent)' }}
                 onClick={() => setMobileOpen(false)}
               >
                 <FileText size={12} />
@@ -163,7 +163,7 @@ export default function Navbar() {
         <motion.button
           onClick={() => setMobileOpen((o) => !o)}
           className="w-12 h-12 rounded-full flex items-center justify-center text-white"
-          style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}
+          style={{ background: 'var(--accent)' }}
           whileTap={{ scale: 0.92 }}
         >
           <AnimatePresence mode="wait">

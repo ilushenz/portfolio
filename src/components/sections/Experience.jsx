@@ -20,10 +20,10 @@ function ExperienceCard({ item, index }) {
       <div className="absolute -top-[21px] left-6 w-3 h-3 rounded-full z-10 flex items-center justify-center"
         style={{
           background: item.current
-            ? 'linear-gradient(135deg, #4158D0, #C850C0)'
+            ? 'var(--accent)'
             : 'var(--color-elevated)',
           border: '2px solid var(--color-stroke)',
-          boxShadow: item.current ? '0 0 12px rgba(65,88,208,0.6)' : 'none',
+          boxShadow: item.current ? '0 0 12px rgba(91,156,196,0.6)' : 'none',
         }}
       />
 
@@ -43,7 +43,7 @@ function ExperienceCard({ item, index }) {
               {item.current && (
                 <span
                   className="inline-block text-xs font-bold font-body px-2 py-0.5 rounded-full text-white mb-2"
-                  style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}
+                  style={{ background: 'var(--accent)' }}
                 >
                   Current
                 </span>
@@ -80,7 +80,7 @@ function ExperienceCard({ item, index }) {
                   {item.highlights?.map((h, i) => (
                     <li key={i} className="flex gap-2 text-sm font-body leading-relaxed" style={{ color: 'var(--color-muted)' }}>
                       <span className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0"
-                        style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)', minWidth: 4, minHeight: 4 }} />
+                        style={{ background: 'var(--accent)', minWidth: 4, minHeight: 4 }} />
                       {h}
                     </li>
                   ))}

@@ -14,6 +14,8 @@
   --color-muted:    rgba(240, 240, 238, 0.5);
   --color-faint:    rgba(240, 240, 238, 0.25);
 
+  --accent: oklch(67% 0.12 215);
+
   --shadow-neu:       5px 5px 12px rgba(0,0,0,0.55), -5px -5px 12px rgba(255,255,255,0.04);
   --shadow-neu-sm:    3px 3px 6px  rgba(0,0,0,0.5),  -3px -3px 6px  rgba(255,255,255,0.03);
   --shadow-neu-lg:    8px 8px 20px rgba(0,0,0,0.6),  -8px -8px 20px rgba(255,255,255,0.04);
@@ -49,24 +51,14 @@
 
 /* ── Utilities ────────────────────────────────────────────── */
 @layer utilities {
-  .text-aurora {
-    background: linear-gradient(135deg, #4158D0, #C850C0, #FFCC70);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .bg-aurora {
-    background: linear-gradient(135deg, #4158D0, #C850C0, #FFCC70);
-  }
-
   .section-pad {
     @apply py-24 px-6 md:px-12 lg:px-20;
   }
 
   .heading-xl {
-    @apply font-display font-bold leading-none;
-    font-size: clamp(2.5rem, 6vw, 5rem);
+    @apply font-display font-bold;
+    font-size: clamp(3.4rem, 8.5vw, 8.2rem);
+    line-height: 0.93;
     letter-spacing: -0.04em;
   }
 
@@ -90,17 +82,14 @@
     inset: 0;
     border-radius: inherit;
     background: radial-gradient(
-      400px circle at var(--mouse-x, -999px) var(--mouse-y, -999px),
-      rgba(65, 88, 208, 0.10),
+      400px circle at var(--mx, -999px) var(--my, -999px),
+      rgba(91, 156, 196, 0.12),
       transparent 60%
     );
-    opacity: 0;
+    opacity: var(--glow, 0);
     transition: opacity 0.25s ease;
     pointer-events: none;
     z-index: 0;
-  }
-  .glow-container:hover .glow-card::before {
-    opacity: 1;
   }
 
   /* Glowing shimmer line */
@@ -111,12 +100,11 @@
   .shimmer-line {
     background: linear-gradient(
       90deg,
-      rgba(65,88,208,0.3) 0%,
-      #4158D0 20%,
-      #C850C0 40%,
-      #FFCC70 60%,
-      #4158D0 80%,
-      rgba(65,88,208,0.3) 100%
+      rgba(91,156,196,0.15) 0%,
+      rgba(91,156,196,0.7) 30%,
+      rgba(91,156,196,1) 50%,
+      rgba(91,156,196,0.7) 70%,
+      rgba(91,156,196,0.15) 100%
     );
     background-size: 200% auto;
     animation: shimmer 3s linear infinite;

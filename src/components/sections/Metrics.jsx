@@ -1,15 +1,7 @@
-import { motion } from 'framer-motion'
 import AnimatedCounter from '../ui/AnimatedCounter'
 import ScrollReveal from '../ui/ScrollReveal'
 import GlowGrid from '../ui/GlowGrid'
 import { achievements } from '../../data/content'
-
-const aurora = {
-  background: 'linear-gradient(135deg, #4158D0, #C850C0, #FFCC70)',
-  WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent',
-  backgroundClip: 'text',
-}
 
 export default function Metrics() {
   return (
@@ -20,20 +12,30 @@ export default function Metrics() {
             Results
           </p>
           <h2 className="heading-lg mb-12" style={{ color: 'var(--color-content)' }}>
-            Numbers that matter.
+            Numbers that matter
           </h2>
         </ScrollReveal>
 
-        <GlowGrid className="grid grid-cols-2 lg:grid-cols-4 gap-px" style={{ background: 'var(--color-stroke)' }}>
+        <GlowGrid className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {achievements.map((item, i) => (
             <ScrollReveal key={item.id} delay={i * 0.05}>
-              <motion.div
-                className="glow-card p-6 md:p-8"
-                style={{ background: 'var(--color-canvas)' }}
-                whileHover={{ background: 'var(--color-surface)' }}
-                transition={{ duration: 0 }}
+              <div
+                className="glow-card rounded-2xl"
+                style={{
+                  background: 'var(--color-surface)',
+                  border: '1px solid var(--color-stroke)',
+                  padding: '40px 36px',
+                }}
               >
-                <div className="font-display font-bold text-3xl md:text-4xl mb-2 tabular-nums" style={aurora}>
+                <div
+                  className="font-display font-bold tabular-nums mb-2"
+                  style={{
+                    fontSize: 'clamp(2.2rem, 4vw, 3.6rem)',
+                    letterSpacing: '-0.04em',
+                    lineHeight: 1,
+                    color: 'var(--color-content)',
+                  }}
+                >
                   {item.prefix || ''}
                   <AnimatedCounter value={item.value} suffix={item.suffix} duration={1400} />
                 </div>
@@ -43,7 +45,7 @@ export default function Metrics() {
                 <div className="font-body text-xs leading-relaxed" style={{ color: 'var(--color-faint)' }}>
                   {item.sub}
                 </div>
-              </motion.div>
+              </div>
             </ScrollReveal>
           ))}
         </GlowGrid>

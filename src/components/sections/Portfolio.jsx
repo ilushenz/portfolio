@@ -8,12 +8,7 @@ import { portfolioCategories } from '../../data/content'
 
 const ICONS = { motion: Video, visuals: Palette, lens: Camera, words: PenLine, code: Code2 }
 
-const aurora = {
-  background: 'linear-gradient(135deg, #4158D0, #C850C0, #FFCC70)',
-  WebkitBackgroundClip: 'text',
-  WebkitTextFillColor: 'transparent',
-  backgroundClip: 'text',
-}
+const accentText = { color: 'var(--accent)' }
 
 const glassModal = {
   background: 'rgba(22,22,22,0.92)',
@@ -59,7 +54,7 @@ function MediaEmbed({ item }) {
       {item.url && (
         <a href={item.url} target="_blank" rel="noreferrer"
           className="flex items-center gap-2 text-sm font-semibold font-body px-4 py-2 rounded-full text-white"
-          style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}>
+          style={{ background: 'var(--accent)' }}>
           <ExternalLink size={13} /> Visit Live
         </a>
       )}
@@ -112,7 +107,7 @@ function ProjectModal({ item, onClose }) {
         </button>
         <div className="flex gap-2 mb-3 flex-wrap">
           <span className="text-xs font-semibold font-body px-2.5 py-1 rounded-full text-white"
-            style={{ background: 'linear-gradient(135deg, #4158D0, #C850C0)' }}>{item.platform}</span>
+            style={{ background: 'var(--accent)' }}>{item.platform}</span>
           <span className="text-xs font-semibold font-body px-2.5 py-1 rounded-full"
             style={{ background: 'var(--color-elevated)', color: 'var(--color-muted)' }}>{item.date}</span>
         </div>
@@ -121,7 +116,7 @@ function ProjectModal({ item, onClose }) {
         </h3>
         <p className="font-body text-sm leading-relaxed mb-4" style={{ color: 'var(--color-muted)' }}>{item.description}</p>
         {item.metrics && (
-          <div className="font-body text-sm font-semibold mb-5" style={aurora}>{item.metrics}</div>
+          <div className="font-body text-sm font-semibold mb-5" style={accentText}>{item.metrics}</div>
         )}
         <MediaEmbed item={item} />
       </motion.div>
@@ -171,7 +166,7 @@ function CategoryModal({ cat, onSelectItem, onClose }) {
                 <ArrowRight size={13} style={{ color: 'var(--color-faint)', flexShrink: 0, marginTop: 2 }} />
               </div>
               {item.metrics && (
-                <div className="mt-1.5 text-xs font-semibold font-body" style={aurora}>{item.metrics}</div>
+                <div className="mt-1.5 text-xs font-semibold font-body" style={accentText}>{item.metrics}</div>
               )}
             </motion.button>
           ))}
@@ -221,7 +216,7 @@ export default function Portfolio() {
                   <p className="font-body text-xs leading-relaxed mb-4" style={{ color: 'var(--color-muted)' }}>
                     {cat.description}
                   </p>
-                  <div className="flex items-center gap-1 text-xs font-body font-medium" style={{ color: '#4158D0' }}>
+                  <div className="flex items-center gap-1 text-xs font-body font-medium" style={{ color: 'var(--accent)' }}>
                     <span>{cat.items.length} project{cat.items.length !== 1 ? 's' : ''}</span>
                     <ArrowRight size={10} />
                   </div>

@@ -48,7 +48,7 @@ export default function About() {
                 style={{ background: 'var(--color-surface)', border: '1px solid var(--color-stroke)' }}
               >
                 <div className="flex items-center gap-2 mb-4">
-                  <Award size={16} style={{ color: '#C850C0' }} />
+                  <Award size={16} style={{ color: 'var(--accent)' }} />
                   <span className="font-body font-semibold text-sm" style={{ color: 'var(--color-content)' }}>
                     Adobe Certified Professional
                   </span>

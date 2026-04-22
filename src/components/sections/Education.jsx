@@ -88,7 +88,7 @@ function EducationCardFull({ item, index }) {
                     <ul className="flex flex-col gap-1.5">
                       {item.courses.map((c) => (
                         <li key={c} className="font-body text-sm flex gap-2" style={{ color: 'var(--color-muted)' }}>
-                          <span style={{ color: '#4158D0', flexShrink: 0 }}>—</span> {c}
+                          <span style={{ color: 'var(--accent)', flexShrink: 0 }}>—</span> {c}
                         </li>
                       ))}
                     </ul>
@@ -107,7 +107,7 @@ function EducationCardFull({ item, index }) {
                     <ul className="flex flex-col gap-1.5">
                       {item.activities.map((a) => (
                         <li key={a} className="font-body text-sm flex gap-2" style={{ color: 'var(--color-muted)' }}>
-                          <span style={{ color: '#C850C0', flexShrink: 0 }}>—</span> {a}
+                          <span style={{ color: 'var(--accent)', flexShrink: 0, opacity: 0.7 }}>—</span> {a}
                         </li>
                       ))}
                     </ul>
