@@ -1,21 +1,53 @@
-import { useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Award } from 'lucide-react'
+import { Award, ExternalLink } from 'lucide-react'
 import ScrollReveal from '../ui/ScrollReveal'
+import GlowGrid from '../ui/GlowGrid'
 import { about } from '../../data/content'
 
-const BADGE_HOST = 'https://www.credly.com'
+/* Adobe app names matching the credlyBadges array order */
+const CERT_NAMES = ['Professional', 'Premiere Pro', 'After Effects', 'Photoshop']
+const CERT_ABBR  = ['Ac',           'Pr',           'Ae',            'Ps']
+
+function BadgeCard({ name, abbr, badgeId }) {
+  return (
+    <a
+      href={`https://www.credly.com/badges/${badgeId}/public_url`}
+      target="_blank"
+      rel="noreferrer"
+      className="glow-card flex flex-col items-center gap-3 text-center"
+      style={{
+        background: 'var(--color-elevated)',
+        border: '1px solid var(--color-stroke)',
+        borderRadius: 12,
+        padding: '20px 12px',
+        textDecoration: 'none',
+        transition: 'border-color 0.2s',
+      }}
+      onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(91,156,196,0.3)' }}
+      onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--color-stroke)' }}
+    >
+      {/* Adobe product icon */}
+      <div style={{
+        width: 40, height: 40, borderRadius: 8,
+        background: 'var(--accent)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        color: '#fff', fontFamily: 'Inter', fontSize: 11, fontWeight: 700,
+        letterSpacing: '-0.02em',
+        flexShrink: 0,
+      }}>
+        {abbr}
+      </div>
+      <span className="font-body" style={{ fontSize: 11, fontWeight: 600, color: 'var(--color-content)', lineHeight: 1.3 }}>
+        Adobe<br />{name}
+      </span>
+      <span style={{ fontSize: 10, color: 'var(--accent)', fontFamily: 'Inter', display: 'flex', alignItems: 'center', gap: 3 }}>
+        Verify <ExternalLink size={9} />
+      </span>
+    </a>
+  )
+}
 
 export default function About() {
-  // Load Credly embed script once
-  useEffect(() => {
-    if (document.querySelector('script[src*="credly.com"]')) return
-    const script = document.createElement('script')
-    script.src = '//cdn.credly.com/assets/utilities/embed.js'
-    script.async = true
-    document.body.appendChild(script)
-  }, [])
-
   return (
     <section id="about" className="section-pad">
       <div className="max-w-6xl mx-auto">
@@ -41,7 +73,7 @@ export default function About() {
               </div>
             </ScrollReveal>
 
-            {/* Adobe certifications */}
+            {/* Adobe certifications — horizontal badge row */}
             <ScrollReveal delay={0.1}>
               <div
                 className="rounded-2xl p-5"
@@ -53,17 +85,16 @@ export default function About() {
                     Adobe Certified Professional
                   </span>
                 </div>
-                <div className="flex flex-wrap gap-3 justify-start">
-                  {about.credlyBadges.map((badgeId) => (
-                    <div
+                <GlowGrid className="grid grid-cols-4 gap-3">
+                  {about.credlyBadges.map((badgeId, i) => (
+                    <BadgeCard
                       key={badgeId}
-                      data-iframe-width="120"
-                      data-iframe-height="220"
-                      data-share-badge-id={badgeId}
-                      data-share-badge-host={BADGE_HOST}
+                      name={CERT_NAMES[i] || about.certifications[i]}
+                      abbr={CERT_ABBR[i] || 'Ac'}
+                      badgeId={badgeId}
                     />
                   ))}
-                </div>
+                </GlowGrid>
               </div>
             </ScrollReveal>
           </div>

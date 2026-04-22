@@ -196,34 +196,99 @@ export default function Portfolio() {
           </p>
         </ScrollReveal>
 
-        <GlowGrid className="grid sm:grid-cols-2 lg:grid-cols-5 gap-px" style={{ background: 'var(--color-stroke)' }}>
-          {portfolioCategories.map((cat, i) => {
-            const Icon = ICONS[cat.id] || Palette
-            return (
-              <ScrollReveal key={cat.id} delay={i * 0.07}>
-                <motion.button
-                  className="glow-card w-full text-left p-6 group"
-                  style={{ background: 'var(--color-canvas)' }}
-                  whileHover={{ background: 'var(--color-surface)' }}
-                  transition={{ duration: 0 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => setActiveCategory(cat)}
-                >
-                  <Icon size={18} className="mb-4" style={{ color: 'var(--color-muted)' }} />
-                  <h3 className="font-display font-bold text-sm mb-1.5" style={{ color: 'var(--color-content)', letterSpacing: '-0.01em' }}>
-                    {cat.title}
-                  </h3>
-                  <p className="font-body text-xs leading-relaxed mb-4" style={{ color: 'var(--color-muted)' }}>
-                    {cat.description}
-                  </p>
-                  <div className="flex items-center gap-1 text-xs font-body font-medium" style={{ color: 'var(--accent)' }}>
-                    <span>{cat.items.length} project{cat.items.length !== 1 ? 's' : ''}</span>
-                    <ArrowRight size={10} />
-                  </div>
-                </motion.button>
-              </ScrollReveal>
-            )
-          })}
+        {/* 2×2 grid + 1 centered below */}
+        <GlowGrid>
+          <div className="grid grid-cols-4 gap-4">
+            {portfolioCategories.slice(0, 4).map((cat, i) => {
+              const Icon = ICONS[cat.id] || Palette
+              return (
+                <div key={cat.id} className="col-span-2">
+                  <ScrollReveal delay={i * 0.07}>
+                    <motion.button
+                      className="glow-card w-full text-left"
+                      style={{
+                        background: 'var(--color-surface)',
+                        border: '1px solid var(--color-stroke)',
+                        borderRadius: 16,
+                        padding: '32px',
+                        cursor: 'pointer',
+                        display: 'block',
+                      }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => setActiveCategory(cat)}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16 }}>
+                        <div style={{ flex: 1 }}>
+                          <Icon size={22} style={{ color: 'var(--accent)', marginBottom: 14, opacity: 0.85 }} />
+                          <h3 className="font-display font-bold" style={{ fontSize: '1.15rem', letterSpacing: '-0.02em', color: 'var(--color-content)', marginBottom: 8 }}>
+                            {cat.title}
+                          </h3>
+                          <p className="font-body" style={{ fontSize: 13, color: 'var(--color-muted)', lineHeight: 1.55 }}>
+                            {cat.description}
+                          </p>
+                        </div>
+                        <div style={{
+                          width: 28, height: 28, borderRadius: '50%',
+                          border: '1px solid var(--color-stroke)',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          color: 'var(--color-faint)', fontSize: 18, flexShrink: 0, marginTop: 2,
+                        }}>+</div>
+                      </div>
+                      <div style={{ marginTop: 16, fontSize: 11, color: 'var(--accent)', fontFamily: 'Inter', fontWeight: 500, letterSpacing: '0.03em' }}>
+                        {cat.items.length} project{cat.items.length !== 1 ? 's' : ''}
+                      </div>
+                    </motion.button>
+                  </ScrollReveal>
+                </div>
+              )
+            })}
+
+            {/* 5th card centered */}
+            <div className="col-start-2 col-span-2">
+              {(() => {
+                const cat = portfolioCategories[4]
+                const Icon = ICONS[cat.id] || Palette
+                return (
+                  <ScrollReveal delay={4 * 0.07}>
+                    <motion.button
+                      className="glow-card w-full text-left"
+                      style={{
+                        background: 'var(--color-surface)',
+                        border: '1px solid var(--color-stroke)',
+                        borderRadius: 16,
+                        padding: '32px',
+                        cursor: 'pointer',
+                        display: 'block',
+                      }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => setActiveCategory(cat)}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16 }}>
+                        <div style={{ flex: 1 }}>
+                          <Icon size={22} style={{ color: 'var(--accent)', marginBottom: 14, opacity: 0.85 }} />
+                          <h3 className="font-display font-bold" style={{ fontSize: '1.15rem', letterSpacing: '-0.02em', color: 'var(--color-content)', marginBottom: 8 }}>
+                            {cat.title}
+                          </h3>
+                          <p className="font-body" style={{ fontSize: 13, color: 'var(--color-muted)', lineHeight: 1.55 }}>
+                            {cat.description}
+                          </p>
+                        </div>
+                        <div style={{
+                          width: 28, height: 28, borderRadius: '50%',
+                          border: '1px solid var(--color-stroke)',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          color: 'var(--color-faint)', fontSize: 18, flexShrink: 0, marginTop: 2,
+                        }}>+</div>
+                      </div>
+                      <div style={{ marginTop: 16, fontSize: 11, color: 'var(--accent)', fontFamily: 'Inter', fontWeight: 500, letterSpacing: '0.03em' }}>
+                        {cat.items.length} project{cat.items.length !== 1 ? 's' : ''}
+                      </div>
+                    </motion.button>
+                  </ScrollReveal>
+                )
+              })()}
+            </div>
+          </div>
         </GlowGrid>
       </div>
 

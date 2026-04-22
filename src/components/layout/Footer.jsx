@@ -27,9 +27,9 @@ export default function Footer() {
               rel="noreferrer"
               aria-label={label}
               className="transition-colors duration-200"
-              style={{ color: 'var(--color-faint)' }}
+              style={{ color: 'var(--accent)' }}
               onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-content)' }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-faint)' }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--accent)' }}
             >
               <Icon size={16} />
             </a>

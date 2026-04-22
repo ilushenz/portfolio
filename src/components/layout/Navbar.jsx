@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, FileText } from 'lucide-react'
+import { Menu, X, FileText, Home } from 'lucide-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import useScrollDirection from '../../hooks/useScrollDirection'
 import { hero } from '../../data/content'
@@ -13,8 +13,8 @@ const glassStyle = {
 }
 
 const links = [
-  { label: 'Work',    href: '#portfolio',     page: '/' },
-  { label: 'Results', href: '#metrics',       page: '/' },
+  { label: 'Work',    href: '/#portfolio',    page: '/' },
+  { label: 'Results', href: '/#metrics',      page: '/' },
   { label: 'About',   href: '/about',         page: '/about' },
   { label: 'Contact', href: '/about#contact', page: '/about' },
 ]
@@ -27,11 +27,11 @@ function NavLink({ link, onClick }) {
     e.preventDefault()
     if (onClick) onClick()
     const [path, anchor] = link.href.split('#')
-    if (path === '' || path === location.pathname || (path === '/' && location.pathname === '/')) {
+    if (path === '' || path === location.pathname) {
       if (anchor) document.getElementById(anchor)?.scrollIntoView({ behavior: 'smooth' })
     } else {
       navigate(path || '/')
-      if (anchor) setTimeout(() => document.getElementById(anchor)?.scrollIntoView({ behavior: 'smooth' }), 350)
+      if (anchor) setTimeout(() => document.getElementById(anchor)?.scrollIntoView({ behavior: 'smooth' }), 380)
     }
   }
 
@@ -57,12 +57,14 @@ function PillContent({ onLinkClick }) {
   const navigate = useNavigate()
   return (
     <div className="flex items-center gap-1 px-2 py-2">
+      {/* Home icon button */}
       <button
         onClick={() => { navigate('/'); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
-        className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold font-display text-white mr-2 flex-shrink-0"
+        className="w-8 h-8 rounded-full flex items-center justify-center text-white mr-2 flex-shrink-0"
         style={{ background: 'var(--accent)' }}
+        aria-label="Home"
       >
-        IC
+        <Home size={14} />
       </button>
 
       {links.map((link) => (
@@ -84,15 +86,16 @@ function PillContent({ onLinkClick }) {
 }
 
 export default function Navbar() {
-  const { direction, atTop } = useScrollDirection(8)
+  const { atTop } = useScrollDirection(8)
   const [mobileOpen, setMobileOpen] = useState(false)
 
-  const showTop    = atTop || direction === 'up'
-  const showBottom = !atTop && direction === 'down'
+  // Top pill only visible at very top; bottom pill always visible when scrolled away
+  const showTop    = atTop
+  const showBottom = !atTop
 
   return (
     <>
-      {/* Desktop top pill */}
+      {/* Desktop top pill — only at page top */}
       <AnimatePresence>
         {showTop && (
           <motion.nav
@@ -111,7 +114,7 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* Desktop bottom pill */}
+      {/* Desktop bottom pill — stays at bottom whenever scrolled */}
       <AnimatePresence>
         {showBottom && (
           <motion.nav

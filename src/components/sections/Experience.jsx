@@ -1,186 +1,291 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown, ChevronUp, MapPin, Calendar } from 'lucide-react'
+import { X, MapPin, Calendar } from 'lucide-react'
 import ScrollReveal from '../ui/ScrollReveal'
 import { timeline } from '../../data/content'
 
-/* ── Expandable card ─────────────────────────────────────── */
-function ExperienceCard({ item, index }) {
-  const [expanded, setExpanded] = useState(false)
+/* ── Per-org gradient accents ─────────────────────────────── */
+const CARD_GRADIENTS = {
+  envy:         'linear-gradient(135deg, rgba(56,189,248,0.12) 0%, rgba(99,102,241,0.18) 100%)',
+  usc:          'linear-gradient(135deg, rgba(255,100,60,0.12) 0%, rgba(220,50,50,0.18) 100%)',
+  red:          'linear-gradient(135deg, rgba(251,113,133,0.12) 0%, rgba(200,40,80,0.18) 100%)',
+  'mgimo-smm':  'linear-gradient(135deg, rgba(45,212,191,0.12) 0%, rgba(16,185,129,0.18) 100%)',
+  mimun:        'linear-gradient(135deg, rgba(139,92,246,0.12) 0%, rgba(99,102,241,0.18) 100%)',
+  'mgimo-coord':'linear-gradient(135deg, rgba(251,191,36,0.12) 0%, rgba(245,158,11,0.18) 100%)',
+  gallery:      'linear-gradient(135deg, rgba(180,140,100,0.12) 0%, rgba(100,80,50,0.18) 100%)',
+}
+
+/* ── Experience card block ───────────────────────────────── */
+function ExperienceBlock({ item, index, onOpen }) {
+  const [hovered, setHovered] = useState(false)
+  const gradient = CARD_GRADIENTS[item.id] || 'linear-gradient(135deg, rgba(91,156,196,0.10), rgba(91,156,196,0.06))'
 
   return (
     <motion.div
-      className="flex-shrink-0 w-80 md:w-96 relative"
-      initial={{ opacity: 0, x: 40 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.5, delay: index * 0.06 }}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.5, delay: index * 0.05 }}
+      onClick={() => onOpen(item)}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        position: 'relative',
+        display: 'flex',
+        minHeight: 160,
+        cursor: 'pointer',
+        borderRadius: 16,
+        overflow: 'hidden',
+        background: 'var(--color-surface)',
+        border: `1px solid ${hovered ? 'rgba(91,156,196,0.25)' : 'var(--color-stroke)'}`,
+        transition: 'border-color 0.25s ease',
+      }}
     >
-      {/* Timeline dot */}
-      <div className="absolute -top-[21px] left-6 w-3 h-3 rounded-full z-10 flex items-center justify-center"
-        style={{
-          background: item.current
-            ? 'var(--accent)'
-            : 'var(--color-elevated)',
-          border: '2px solid var(--color-stroke)',
-          boxShadow: item.current ? '0 0 12px rgba(91,156,196,0.6)' : 'none',
-        }}
-      />
+      {/* Timeline dot on the line */}
+      <div style={{
+        position: 'absolute',
+        left: -25,
+        top: 32,
+        width: 10,
+        height: 10,
+        borderRadius: '50%',
+        background: item.current ? 'var(--accent)' : 'var(--color-elevated)',
+        border: `2px solid ${item.current ? 'var(--accent)' : 'var(--color-stroke)'}`,
+        boxShadow: item.current ? '0 0 10px rgba(91,156,196,0.6)' : 'none',
+        zIndex: 10,
+      }} />
 
-      {/* Card body */}
-      <div
-        className="rounded-2xl overflow-hidden cursor-pointer"
+      {/* LEFT: text info (45%) */}
+      <div style={{ flex: '0 0 45%', padding: '28px 24px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        {item.current && (
+          <span style={{
+            display: 'inline-block',
+            fontSize: 9, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase',
+            padding: '2px 8px', borderRadius: 999,
+            background: 'var(--accent)', color: '#fff',
+            marginBottom: 10, alignSelf: 'flex-start',
+          }}>Current</span>
+        )}
+        <h3 className="font-display font-bold" style={{ fontSize: '1rem', letterSpacing: '-0.02em', color: 'var(--color-content)', marginBottom: 4, lineHeight: 1.3 }}>
+          {item.org}
+        </h3>
+        <p className="font-body" style={{ fontSize: 13, color: 'var(--color-muted)', marginBottom: 6, lineHeight: 1.4 }}>
+          {item.role}
+        </p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, fontSize: 11, color: 'var(--color-faint)', fontFamily: 'Inter', marginBottom: 12 }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+            <Calendar size={10} />{item.period}
+          </span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+            <MapPin size={10} />{item.location}
+          </span>
+        </div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+          {item.tags.slice(0, 3).map(tag => (
+            <span key={tag} style={{
+              fontSize: 10, fontFamily: 'Inter', padding: '2px 8px',
+              borderRadius: 999, background: 'var(--color-elevated)',
+              color: 'var(--color-faint)',
+            }}>{tag}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* RIGHT: gradient image area (55%) */}
+      <div style={{ flex: '1 1 55%', position: 'relative', overflow: 'hidden' }}>
+        {/* The gradient "image" — blurs on hover */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: gradient,
+          filter: hovered ? 'blur(3px) brightness(0.75)' : 'blur(0px) brightness(1)',
+          transform: 'scale(1.08)',
+          transition: 'filter 0.35s ease',
+        }} />
+
+        {/* Subtle noise/texture overlay */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          backgroundImage: 'radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.03) 0%, transparent 70%)',
+        }} />
+
+        {/* "Click to learn more" — appears on hover */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          opacity: hovered ? 1 : 0,
+          transition: 'opacity 0.3s ease',
+          zIndex: 2,
+        }}>
+          <span style={{
+            fontFamily: 'Inter', fontWeight: 500, fontSize: 13,
+            color: 'var(--color-content)',
+            padding: '8px 20px', borderRadius: 999,
+            background: 'rgba(10,10,10,0.65)',
+            border: '1px solid rgba(255,255,255,0.1)',
+            backdropFilter: 'blur(8px)',
+          }}>
+            Click to learn more
+          </span>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
+/* ── Detail modal ────────────────────────────────────────── */
+function ExperienceModal({ item, onClose }) {
+  return (
+    <motion.div
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+    >
+      <div className="absolute inset-0 bg-black/60" style={{ backdropFilter: 'blur(8px)' }} onClick={onClose} />
+      <motion.div
+        className="relative z-10 w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl p-6 md:p-8"
         style={{
-          background: 'var(--color-surface)',
-          border: '1px solid var(--color-stroke)',
+          background: 'rgba(22,22,22,0.96)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          backdropFilter: 'blur(28px)',
+          WebkitBackdropFilter: 'blur(28px)',
         }}
-        onClick={() => setExpanded((e) => !e)}
+        initial={{ scale: 0.92, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.92, opacity: 0, y: 20 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 26 }}
       >
-        <div className="p-6">
-          {/* Header */}
-          <div className="flex items-start justify-between gap-2 mb-3">
-            <div className="flex-1 min-w-0">
-              {item.current && (
-                <span
-                  className="inline-block text-xs font-bold font-body px-2 py-0.5 rounded-full text-white mb-2"
-                  style={{ background: 'var(--accent)' }}
-                >
-                  Current
-                </span>
-              )}
-              <h3 className="font-display font-bold text-lg leading-tight" style={{ color: 'var(--color-content)', letterSpacing: '-0.02em' }}>
-                {item.org}
-              </h3>
-              <p className="font-body text-sm mt-0.5" style={{ color: 'var(--color-muted)' }}>{item.role}</p>
-            </div>
-            <div style={{ color: 'var(--color-faint)', flexShrink: 0 }}>
-              {expanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-            </div>
-          </div>
+        <button onClick={onClose}
+          className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center"
+          style={{ background: 'var(--color-elevated)', color: 'var(--color-muted)' }}>
+          <X size={14} />
+        </button>
 
-          <div className="flex flex-wrap gap-3 text-xs font-body" style={{ color: 'var(--color-faint)' }}>
-            <span className="flex items-center gap-1"><Calendar size={11} />{item.period}</span>
-            <span className="flex items-center gap-1"><MapPin size={11} />{item.location}</span>
-          </div>
+        {item.current && (
+          <span style={{
+            display: 'inline-block', fontSize: 9, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase',
+            padding: '2px 8px', borderRadius: 999, background: 'var(--accent)', color: '#fff', marginBottom: 12,
+          }}>Current role</span>
+        )}
+
+        <h3 className="font-display font-bold" style={{ fontSize: '1.5rem', letterSpacing: '-0.02em', color: 'var(--color-content)', marginBottom: 4, paddingRight: 32 }}>
+          {item.org}
+        </h3>
+        <p className="font-body" style={{ color: 'var(--color-muted)', fontSize: 14, marginBottom: 4 }}>{item.role}</p>
+        <div style={{ display: 'flex', gap: 12, fontSize: 12, color: 'var(--color-faint)', fontFamily: 'Inter', marginBottom: 20 }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><Calendar size={11} />{item.period}</span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><MapPin size={11} />{item.location}</span>
         </div>
 
-        {/* Expandable highlights */}
-        <AnimatePresence initial={false}>
-          {expanded && (
-            <motion.div
-              key="highlights"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-              style={{ overflow: 'hidden' }}
-            >
-              <div className="px-6 pb-6 pt-0" style={{ borderTop: '1px solid var(--color-stroke)' }}>
-                <ul className="mt-4 flex flex-col gap-2">
-                  {item.highlights?.map((h, i) => (
-                    <li key={i} className="flex gap-2 text-sm font-body leading-relaxed" style={{ color: 'var(--color-muted)' }}>
-                      <span className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0"
-                        style={{ background: 'var(--accent)', minWidth: 4, minHeight: 4 }} />
-                      {h}
-                    </li>
-                  ))}
-                </ul>
-                {item.tags && (
-                  <div className="flex flex-wrap gap-1.5 mt-4">
-                    {item.tags.map((tag) => (
-                      <span key={tag} className="text-xs font-body px-2 py-0.5 rounded-full"
-                        style={{ background: 'var(--color-elevated)', color: 'var(--color-faint)' }}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+        <div style={{ height: 1, background: 'var(--color-stroke)', marginBottom: 20 }} />
+
+        <p className="font-body font-semibold text-sm" style={{ color: 'var(--color-content)', marginBottom: 12 }}>
+          Key highlights
+        </p>
+        <ul style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 20 }}>
+          {item.highlights.map((h, i) => (
+            <li key={i} style={{ display: 'flex', gap: 10, fontSize: 13.5, color: 'var(--color-muted)', lineHeight: 1.55, fontFamily: 'Inter' }}>
+              <span style={{
+                width: 5, height: 5, borderRadius: '50%',
+                background: 'var(--accent)', flexShrink: 0, marginTop: 8,
+              }} />
+              {h}
+            </li>
+          ))}
+        </ul>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+          {item.tags.map(tag => (
+            <span key={tag} style={{
+              fontSize: 11, fontFamily: 'Inter', padding: '3px 10px',
+              borderRadius: 999, background: 'var(--color-elevated)',
+              color: 'var(--color-faint)', border: '1px solid var(--color-stroke)',
+            }}>{tag}</span>
+          ))}
+        </div>
+      </motion.div>
     </motion.div>
   )
 }
 
 /* ── Main section ────────────────────────────────────────── */
 export default function Experience() {
-  const sectionRef = useRef(null)
-  const trackRef   = useRef(null)
-  const pinned     = useRef(false)
-  const scrollStart = useRef(0)
+  const sectionRef = useRef()
+  const lineRef    = useRef()
+  const [activeItem, setActiveItem] = useState(null)
 
+  /* Scroll-driven glowing line growth */
   useEffect(() => {
-    const section = sectionRef.current
-    const track   = trackRef.current
-    if (!section || !track) return
-
-    const onWheel = (e) => {
+    const onScroll = () => {
+      const section = sectionRef.current
+      const line    = lineRef.current
+      if (!section || !line) return
       const rect = section.getBoundingClientRect()
-      const inView = rect.top <= 80 && rect.bottom >= window.innerHeight * 0.5
-      if (!inView) return
-
-      const maxScroll = track.scrollWidth - track.clientWidth
-      const atStart   = track.scrollLeft <= 0
-      const atEnd     = track.scrollLeft >= maxScroll - 2
-
-      if ((e.deltaY > 0 && !atEnd) || (e.deltaY < 0 && !atStart)) {
-        e.preventDefault()
-        track.scrollLeft += e.deltaY * 1.2
-      }
+      const sectionH = section.offsetHeight
+      const viewH    = window.innerHeight
+      // 0 when section top reaches viewport bottom → 1 when section bottom reaches viewport top
+      const progress = Math.min(1, Math.max(0,
+        (viewH - rect.top) / (sectionH + viewH * 0.5)
+      ))
+      line.style.height = `${progress * 100}%`
     }
-
-    window.addEventListener('wheel', onWheel, { passive: false })
-    return () => window.removeEventListener('wheel', onWheel)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   return (
     <section id="experience" ref={sectionRef} className="section-pad">
-      <div className="max-w-6xl mx-auto mb-10">
+      <div className="max-w-6xl mx-auto">
         <ScrollReveal>
           <p className="text-xs font-body font-semibold tracking-widest uppercase mb-4" style={{ color: 'var(--color-faint)' }}>
             Experience
           </p>
-          <h2 className="heading-lg" style={{ color: 'var(--color-content)' }}>
-            Career journey.
+          <h2 className="heading-lg mb-12" style={{ color: 'var(--color-content)' }}>
+            Work history
           </h2>
         </ScrollReveal>
-        <p className="font-body text-sm mt-2" style={{ color: 'var(--color-faint)' }}>
-          Scroll horizontally or use your mouse wheel to browse — click any card to expand.
-        </p>
+
+        {/* Content area with glowing line on the left */}
+        <div style={{ position: 'relative', paddingLeft: 32 }}>
+          {/* Line track (full height) */}
+          <div style={{
+            position: 'absolute',
+            left: 4, top: 0, bottom: 0,
+            width: 2,
+            background: 'var(--color-elevated)',
+            borderRadius: 999,
+          }}>
+            {/* Growing glowing line */}
+            <div ref={lineRef} style={{
+              position: 'absolute',
+              top: 0, left: 0,
+              width: '100%',
+              height: '0%',
+              background: 'linear-gradient(to bottom, var(--accent) 0%, rgba(91,156,196,0.25) 100%)',
+              boxShadow: '0 0 8px rgba(91,156,196,0.5), 0 0 16px rgba(91,156,196,0.25)',
+              borderRadius: 999,
+              transition: 'height 0.08s linear',
+            }} />
+          </div>
+
+          {/* Experience cards */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {timeline.map((item, i) => (
+              <ExperienceBlock
+                key={item.id}
+                item={item}
+                index={i}
+                onOpen={setActiveItem}
+              />
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* Horizontal track */}
-      <div className="relative">
-        {/* Shimmer timeline line */}
-        <div className="mx-6 md:mx-12 lg:mx-20 mb-0">
-          <div className="h-px w-full shimmer-line opacity-60" />
-        </div>
-
-        {/* Scrollable cards */}
-        <div
-          ref={trackRef}
-          className="flex gap-5 overflow-x-auto px-6 md:px-12 lg:px-20 pt-8 pb-6 scroll-smooth"
-          style={{
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none',
-            WebkitOverflowScrolling: 'touch',
-          }}
-        >
-          {timeline.map((item, i) => (
-            <ExperienceCard key={item.id} item={item} index={i} />
-          ))}
-          {/* End padding */}
-          <div className="flex-shrink-0 w-6" />
-        </div>
-
-        {/* Right fade */}
-        <div
-          className="absolute top-0 right-0 bottom-0 w-24 pointer-events-none"
-          style={{ background: 'linear-gradient(to left, var(--color-canvas), transparent)' }}
-        />
-      </div>
+      <AnimatePresence>
+        {activeItem && (
+          <ExperienceModal item={activeItem} onClose={() => setActiveItem(null)} />
+        )}
+      </AnimatePresence>
     </section>
   )
 }

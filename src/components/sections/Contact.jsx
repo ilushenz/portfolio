@@ -66,7 +66,7 @@ export default function Contact() {
             Contact
           </p>
           <h2 className="heading-lg mb-4" style={{ color: 'var(--color-content)' }}>
-            Let's work together.
+            Let's work together!
           </h2>
           <p className="font-body text-base mb-12 max-w-lg" style={{ color: 'var(--color-muted)' }}>
             Open to full-time roles, freelance projects, and creative collaborations.

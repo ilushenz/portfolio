@@ -150,7 +150,7 @@ export default function Hero() {
           </motion.p>
 
           <motion.h1 {...fade(0.2)} className="heading-xl mb-6" style={{ color: 'var(--color-content)' }}>
-            <span style={{ display: 'block', fontWeight: 200 }}>Ilia</span>
+            <span style={{ display: 'block', fontWeight: 800 }}>Ilia</span>
             <span style={{ display: 'block', fontWeight: 800 }}>Chapchakhov</span>
           </motion.h1>
 

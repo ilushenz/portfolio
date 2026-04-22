@@ -122,30 +122,57 @@ function EducationCardFull({ item, index }) {
   )
 }
 
-/* ── Compact strip (Professional page) ───────────────────── */
+/* ── Compact strip (Professional page) — styled like WorkCards ── */
 export function EducationCompact() {
   return (
     <section id="education-compact" className="section-pad pt-0">
       <div className="max-w-6xl mx-auto">
         <ScrollReveal>
-          <p className="text-xs font-body font-semibold tracking-widest uppercase mb-6" style={{ color: 'var(--color-faint)' }}>
+          <p className="text-xs font-body font-semibold tracking-widest uppercase mb-4" style={{ color: 'var(--color-faint)' }}>
             Education
           </p>
+          <h2 className="heading-lg mb-12" style={{ color: 'var(--color-content)' }}>
+            Academic background
+          </h2>
         </ScrollReveal>
-        <GlowGrid className="grid sm:grid-cols-3 gap-px" style={{ background: 'var(--color-stroke)' }}>
+        <GlowGrid className="grid grid-cols-3 gap-4">
           {education.map((item, i) => (
             <ScrollReveal key={item.id} delay={i * 0.08}>
-              <div className="glow-card p-5" style={{ background: 'var(--color-canvas)' }}>
-                <div className="w-10 h-10 rounded-lg overflow-hidden mb-3 flex items-center justify-center p-1"
-                  style={{ background: 'var(--color-elevated)' }}>
-                  <img src={item.logo} alt={item.school} className="w-full h-full object-contain"
-                    onError={(e) => { e.currentTarget.style.display = 'none' }} />
+              <div
+                className="glow-card"
+                style={{
+                  background: 'var(--color-surface)',
+                  border: '1px solid var(--color-stroke)',
+                  borderRadius: 16,
+                  padding: '32px',
+                }}
+              >
+                {/* University logo */}
+                <div
+                  className="flex items-center justify-center p-2 mb-5"
+                  style={{
+                    width: 52, height: 52,
+                    borderRadius: 12,
+                    background: 'var(--color-elevated)',
+                  }}
+                >
+                  <img
+                    src={item.logo}
+                    alt={item.school}
+                    style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    onError={(e) => { e.currentTarget.style.display = 'none' }}
+                  />
                 </div>
-                <div className="font-display font-bold text-sm mb-0.5" style={{ color: 'var(--color-content)', letterSpacing: '-0.01em' }}>
-                  {item.school}
-                </div>
-                <div className="font-body text-xs" style={{ color: 'var(--color-muted)' }}>{item.degree}</div>
-                <div className="font-body text-xs mt-1" style={{ color: 'var(--color-faint)' }}>{item.years}</div>
+
+                <h3 className="font-display font-bold" style={{ fontSize: '1.05rem', letterSpacing: '-0.02em', color: 'var(--color-content)', marginBottom: 6 }}>
+                  {item.institution}
+                </h3>
+                <p className="font-body" style={{ fontSize: 13, color: 'var(--color-muted)', lineHeight: 1.5, marginBottom: 8 }}>
+                  {item.degree}
+                </p>
+                <p className="font-body" style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 500 }}>
+                  {item.years} · {item.location}
+                </p>
               </div>
             </ScrollReveal>
           ))}
@@ -165,7 +192,7 @@ export default function Education() {
             Education
           </p>
           <h2 className="heading-lg mb-12" style={{ color: 'var(--color-content)' }}>
-            Academic background.
+            Academic background
           </h2>
         </ScrollReveal>
 
