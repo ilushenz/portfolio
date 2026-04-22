@@ -113,6 +113,17 @@ export default function About() {
               </p>
             </ScrollReveal>
 
+            {/* Photo strip */}
+            <ScrollReveal delay={0.25}>
+              <div className="grid grid-cols-3 gap-2 mb-10">
+                {['/portfolio/photos/photo1.jpg', '/portfolio/photos/photo2.jpg', '/portfolio/photos/photo3.jpg'].map((src, i) => (
+                  <div key={i} className="rounded-xl overflow-hidden" style={{ aspectRatio: '1/1' }}>
+                    <img src={src} alt="" className="w-full h-full object-cover" />
+                  </div>
+                ))}
+              </div>
+            </ScrollReveal>
+
             {/* Languages */}
             <ScrollReveal delay={0.3}>
               <p className="text-xs font-body font-semibold tracking-widest uppercase mb-4" style={{ color: 'var(--color-faint)' }}>

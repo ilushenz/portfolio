@@ -362,6 +362,7 @@ export const education = [
     years: '2024 – 2025',
     location: 'Los Angeles, CA',
     logo: '/portfolio/logos/usc.png',
+    photo: '/portfolio/photos/education.jpg',
     highlights: [
       'GPA: 4.0',
       'USC Annenberg Global Merit Scholarship',

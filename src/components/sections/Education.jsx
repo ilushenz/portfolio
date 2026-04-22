@@ -95,8 +95,16 @@ function EducationCardFull({ item, index }) {
                   </div>
                 )}
 
-                {/* Activities */}
-                {item.activities && (
+                {/* Activities or photo */}
+                {item.photo ? (
+                  <div className="rounded-xl overflow-hidden" style={{ aspectRatio: '4/3' }}>
+                    <img
+                      src={item.photo}
+                      alt={item.institution}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ) : item.activities ? (
                   <div>
                     <div className="flex items-center gap-2 mb-3">
                       <Users size={13} style={{ color: 'var(--color-faint)' }} />
@@ -112,7 +120,7 @@ function EducationCardFull({ item, index }) {
                       ))}
                     </ul>
                   </div>
-                )}
+                ) : null}
               </div>
             </motion.div>
           )}
