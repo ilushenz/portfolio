@@ -84,13 +84,13 @@ export const portfolioCategories = [
     items: [
       {
         id: 'envy-carousels',
-        title: 'Envy Smile Dental — Carousel Series',
-        platform: 'Instagram',
-        date: '2025-2026',
-        description: 'Visually consistent multi-slide carousels for educational dental content. Built a full carousel template system from scratch, branded, flexible, and optimized for Instagram\'s highest-save format. The gum bacteria carousel reached ~580K combined views and ~12,100 shares across TikTok and Instagram in 3 weeks — zero paid spend.',
+        title: 'Gum Bacteria Carousel — Envy Smile',
+        platform: 'TikTok / Instagram',
+        date: '2025',
+        description: 'Educational dental carousel about gum bacteria, designed for cross-platform sharing. Built the slide system from scratch — branded template, motion-optimised layout, accessible captions. Reached ~580K combined views and ~12,100 shares across TikTok and Instagram in 3 weeks with zero paid spend.',
         metrics: '~580K combined views, ~12,100 shares, zero paid spend',
-        type: 'placeholder',
-        placeholderColor: 'from-blue-400 to-purple-500',
+        type: 'tiktok',
+        embedUrl: 'https://www.tiktok.com/embed/v2/7623445905089350943',
         driveLink: 'https://drive.google.com/drive/folders/1tUHNsxFZsAlUdDrnAyK3xAundS5mpVQH',
       },
       {

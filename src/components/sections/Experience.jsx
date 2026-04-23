@@ -93,16 +93,31 @@ function ExperienceBlock({ item, index, onOpen }) {
         </div>
       </div>
 
-      {/* RIGHT: gradient image area — hidden on mobile */}
+      {/* RIGHT: image or gradient panel — hidden on mobile */}
       <div className="hidden sm:block" style={{ flex: '1 1 55%', position: 'relative', overflow: 'hidden' }}>
-        {/* The gradient "image" — blurs on hover */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: gradient,
-          filter: hovered ? 'blur(3px) brightness(0.75)' : 'blur(0px) brightness(1)',
-          transform: 'scale(1.08)',
-          transition: 'filter 0.35s ease',
-        }} />
+        {/* Background: real photo (if provided) or per-org colour gradient */}
+        {item.image ? (
+          <img
+            src={item.image}
+            alt=""
+            style={{
+              position: 'absolute', inset: 0,
+              width: '100%', height: '100%',
+              objectFit: 'cover',
+              filter: hovered ? 'blur(3px) brightness(0.6)' : 'blur(0px) brightness(0.82)',
+              transform: 'scale(1.08)',
+              transition: 'filter 0.35s ease',
+            }}
+          />
+        ) : (
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: gradient,
+            filter: hovered ? 'blur(3px) brightness(0.75)' : 'blur(0px) brightness(1)',
+            transform: 'scale(1.08)',
+            transition: 'filter 0.35s ease',
+          }} />
+        )}
 
         {/* Subtle noise/texture overlay */}
         <div style={{

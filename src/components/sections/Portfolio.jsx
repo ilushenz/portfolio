@@ -20,9 +20,35 @@ const glassModal = {
 /* ── Media renderers ─────────────────────────────────────── */
 function MediaEmbed({ item }) {
   if (item.type === 'tiktok') return (
-    <div className="w-full flex justify-center">
-      <iframe src={item.embedUrl} className="rounded-xl" width="320" height="580"
-        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture" allowFullScreen title={item.title} />
+    <div className="flex flex-col gap-4">
+      <div className="w-full flex justify-center">
+        <iframe src={item.embedUrl} className="rounded-xl" width="320" height="580"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture" allowFullScreen title={item.title} />
+      </div>
+      {item.driveLink && (
+        <a href={item.driveLink} target="_blank" rel="noreferrer"
+          className="flex items-center gap-2 text-xs font-semibold font-body px-3 py-1.5 rounded-full self-start border"
+          style={{ color: 'var(--color-faint)', borderColor: 'var(--color-stroke)' }}>
+          <ExternalLink size={11} /> Browse full series on Drive
+        </a>
+      )}
+    </div>
+  )
+  if (item.type === 'gallery') return (
+    <div className="flex flex-col gap-4">
+      <div className="grid grid-cols-2 gap-2">
+        {item.images.map((src, i) => (
+          <img key={i} src={src} alt="" className="rounded-lg w-full object-cover"
+            style={{ aspectRatio: '4/3' }} />
+        ))}
+      </div>
+      {item.driveLink && (
+        <a href={item.driveLink} target="_blank" rel="noreferrer"
+          className="flex items-center gap-2 text-xs font-semibold font-body px-3 py-1.5 rounded-full self-start border"
+          style={{ color: 'var(--color-faint)', borderColor: 'var(--color-stroke)' }}>
+          <ExternalLink size={11} /> View full project on Drive
+        </a>
+      )}
     </div>
   )
   if (item.type === 'youtube') return (

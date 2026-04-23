@@ -6,11 +6,14 @@ import { about } from '../../data/content'
 
 /* ── Certification metadata ───────────────────────────────── */
 // abbr: null → show video icon instead (Video Design cert)
+// Order matches about.credlyBadges array (verified via live Credly URLs):
+// [0] 1e0cfb4f → Premiere Pro  [1] 6ce888d5 → Video Design
+// [2] dd413cfd → Photoshop     [3] 32cf9f27 → After Effects
 const CERTS = [
-  { name: 'Video Design',   abbr: null,  },
-  { name: 'Premiere Pro',   abbr: 'Pr',  },
-  { name: 'After Effects',  abbr: 'Ae',  },
-  { name: 'Photoshop',      abbr: 'Ps',  },
+  { name: 'Premiere Pro',  abbr: 'Pr',  },
+  { name: 'Video Design',  abbr: null,  },
+  { name: 'Photoshop',     abbr: 'Ps',  },
+  { name: 'After Effects', abbr: 'Ae',  },
 ]
 
 /* ── Badge card — styled like Adobe's product tiles ──────── */
