@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { Play, Award, ExternalLink } from 'lucide-react'
 import ScrollReveal from '../ui/ScrollReveal'
 import GlowGrid from '../ui/GlowGrid'
@@ -87,18 +88,32 @@ export default function About() {
         </ScrollReveal>
 
         {/* Two-column: photo left, bio right */}
-        <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start mb-12">
+        <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-start mb-12">
 
-          {/* Left: photo */}
-          <ScrollReveal>
-            <div className="rounded-2xl overflow-hidden aspect-[4/5]" style={{ boxShadow: 'var(--shadow-neu-lg)' }}>
+          {/* Left: photo — polaroid toss animation */}
+          <motion.div
+            initial={{ y: 80, opacity: 0, rotate: -7 }}
+            animate={{ y: 0,  opacity: 1, rotate: -2.5 }}
+            transition={{
+              type: 'spring',
+              stiffness: 65,
+              damping: 13,
+              mass: 1.1,
+              delay: 0.15,
+            }}
+            style={{ transformOrigin: '50% 90%' }}
+          >
+            <div
+              className="rounded-2xl overflow-hidden"
+              style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.55), 0 4px 16px rgba(0,0,0,0.4)' }}
+            >
               <img
                 src="/portfolio/photos/photo2.jpg"
                 alt="Ilia Chapchakhov"
-                className="w-full h-full object-cover"
+                className="w-full h-auto block"
               />
             </div>
-          </ScrollReveal>
+          </motion.div>
 
           {/* Right: bio + photo strip + languages */}
           <div>
