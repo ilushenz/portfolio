@@ -115,4 +115,15 @@
   .page-enter-active { opacity: 1; transform: translateY(0); transition: opacity 0.35s ease, transform 0.35s ease; }
   .page-exit { opacity: 1; }
   .page-exit-active { opacity: 0; transition: opacity 0.2s ease; }
+
+  /* ── Mobile overrides ─────────────────────────────────── */
+  @media (max-width: 639px) {
+    .heading-xl {
+      font-size: clamp(2.4rem, 10vw, 3.4rem);
+      line-height: 0.95;
+    }
+    .section-pad {
+      @apply py-16 px-5;
+    }
+  }
 }

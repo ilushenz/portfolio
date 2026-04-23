@@ -29,9 +29,9 @@ function ExperienceBlock({ item, index, onOpen }) {
       onClick={() => onOpen(item)}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      className="flex flex-col sm:flex-row"
       style={{
         position: 'relative',
-        display: 'flex',
         minHeight: 160,
         cursor: 'pointer',
         borderRadius: 16,
@@ -55,8 +55,10 @@ function ExperienceBlock({ item, index, onOpen }) {
         zIndex: 10,
       }} />
 
-      {/* LEFT: text info (45%) */}
-      <div style={{ flex: '0 0 45%', padding: '28px 24px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      {/* LEFT: text info */}
+      <div style={{ flex: '0 0 45%', padding: '24px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+        className="w-full sm:w-auto"
+      >
         {item.current && (
           <span style={{
             display: 'inline-block',
@@ -91,8 +93,8 @@ function ExperienceBlock({ item, index, onOpen }) {
         </div>
       </div>
 
-      {/* RIGHT: gradient image area (55%) */}
-      <div style={{ flex: '1 1 55%', position: 'relative', overflow: 'hidden' }}>
+      {/* RIGHT: gradient image area — hidden on mobile */}
+      <div className="hidden sm:block" style={{ flex: '1 1 55%', position: 'relative', overflow: 'hidden' }}>
         {/* The gradient "image" — blurs on hover */}
         <div style={{
           position: 'absolute', inset: 0,

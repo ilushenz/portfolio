@@ -198,11 +198,11 @@ export default function Portfolio() {
 
         {/* 2×2 grid + 1 centered below */}
         <GlowGrid>
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {portfolioCategories.slice(0, 4).map((cat, i) => {
               const Icon = ICONS[cat.id] || Palette
               return (
-                <div key={cat.id} className="col-span-2">
+                <div key={cat.id} className="lg:col-span-2">
                   <ScrollReveal delay={i * 0.07}>
                     <motion.button
                       className="glow-card w-full text-left"
@@ -244,7 +244,7 @@ export default function Portfolio() {
             })}
 
             {/* 5th card centered */}
-            <div className="col-start-2 col-span-2">
+            <div className="sm:col-span-2 lg:col-start-2 lg:col-span-2">
               {(() => {
                 const cat = portfolioCategories[4]
                 const Icon = ICONS[cat.id] || Palette

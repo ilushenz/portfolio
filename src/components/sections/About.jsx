@@ -1,46 +1,72 @@
-import { motion } from 'framer-motion'
-import { Award, ExternalLink } from 'lucide-react'
+import { Play, Award, ExternalLink } from 'lucide-react'
 import ScrollReveal from '../ui/ScrollReveal'
 import GlowGrid from '../ui/GlowGrid'
 import { about } from '../../data/content'
 
-/* Adobe app names matching the credlyBadges array order */
-const CERT_NAMES = ['Professional', 'Premiere Pro', 'After Effects', 'Photoshop']
-const CERT_ABBR  = ['Ac',           'Pr',           'Ae',            'Ps']
+/* ── Certification metadata ───────────────────────────────── */
+// abbr: null → show video icon instead (Video Design cert)
+const CERTS = [
+  { name: 'Video Design',   abbr: null,  },
+  { name: 'Premiere Pro',   abbr: 'Pr',  },
+  { name: 'After Effects',  abbr: 'Ae',  },
+  { name: 'Photoshop',      abbr: 'Ps',  },
+]
 
+/* ── Badge card — styled like Adobe's product tiles ──────── */
 function BadgeCard({ name, abbr, badgeId }) {
   return (
     <a
       href={`https://www.credly.com/badges/${badgeId}/public_url`}
       target="_blank"
       rel="noreferrer"
-      className="glow-card flex flex-col items-center gap-3 text-center"
+      className="glow-card flex flex-col"
       style={{
-        background: 'var(--color-elevated)',
+        background: 'var(--color-surface)',
         border: '1px solid var(--color-stroke)',
-        borderRadius: 12,
-        padding: '20px 12px',
+        borderRadius: 16,
+        padding: '28px 24px',
         textDecoration: 'none',
         transition: 'border-color 0.2s',
       }}
       onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(91,156,196,0.3)' }}
       onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--color-stroke)' }}
     >
-      {/* Adobe product icon */}
-      <div style={{
-        width: 40, height: 40, borderRadius: 8,
-        background: 'var(--accent)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        color: '#fff', fontFamily: 'Inter', fontSize: 11, fontWeight: 700,
-        letterSpacing: '-0.02em',
-        flexShrink: 0,
-      }}>
-        {abbr}
+      {/* Adobe-style product icon tile */}
+      <div
+        style={{
+          width: 52, height: 52,
+          borderRadius: 10,
+          background: 'var(--accent)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginBottom: 16,
+          flexShrink: 0,
+        }}
+      >
+        {abbr === null ? (
+          <Play size={20} color="#fff" strokeWidth={2.5} />
+        ) : (
+          <span style={{
+            fontFamily: '"Inter", system-ui, sans-serif',
+            fontWeight: 900,
+            fontSize: 15,
+            letterSpacing: '-0.04em',
+            color: '#fff',
+            lineHeight: 1,
+          }}>
+            {abbr}
+          </span>
+        )}
       </div>
-      <span className="font-body" style={{ fontSize: 11, fontWeight: 600, color: 'var(--color-content)', lineHeight: 1.3 }}>
-        Adobe<br />{name}
-      </span>
-      <span style={{ fontSize: 10, color: 'var(--accent)', fontFamily: 'Inter', display: 'flex', alignItems: 'center', gap: 3 }}>
+
+      <p className="font-body" style={{ fontSize: 11, fontWeight: 600, color: 'var(--color-faint)', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 4 }}>
+        Adobe
+      </p>
+      <p className="font-display font-bold" style={{ fontSize: '1rem', letterSpacing: '-0.02em', color: 'var(--color-content)', marginBottom: 12, lineHeight: 1.2 }}>
+        {name}
+      </p>
+      <span style={{ fontSize: 10, color: 'var(--accent)', fontFamily: 'Inter', display: 'flex', alignItems: 'center', gap: 3, marginTop: 'auto' }}>
         Verify <ExternalLink size={9} />
       </span>
     </a>
@@ -60,46 +86,21 @@ export default function About() {
           </h2>
         </ScrollReveal>
 
-        <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
-          {/* Left: photo + certifications */}
-          <div className="flex flex-col gap-8">
-            <ScrollReveal>
-              <div className="rounded-2xl overflow-hidden aspect-[4/5]" style={{ boxShadow: 'var(--shadow-neu-lg)' }}>
-                <img
-                  src="/portfolio/headshot.jpg"
-                  alt="Ilia Chapchakhov"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </ScrollReveal>
+        {/* Two-column: photo left, bio right */}
+        <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start mb-12">
 
-            {/* Adobe certifications — horizontal badge row */}
-            <ScrollReveal delay={0.1}>
-              <div
-                className="rounded-2xl p-5"
-                style={{ background: 'var(--color-surface)', border: '1px solid var(--color-stroke)' }}
-              >
-                <div className="flex items-center gap-2 mb-4">
-                  <Award size={16} style={{ color: 'var(--accent)' }} />
-                  <span className="font-body font-semibold text-sm" style={{ color: 'var(--color-content)' }}>
-                    Adobe Certified Professional
-                  </span>
-                </div>
-                <GlowGrid className="grid grid-cols-4 gap-3">
-                  {about.credlyBadges.map((badgeId, i) => (
-                    <BadgeCard
-                      key={badgeId}
-                      name={CERT_NAMES[i] || about.certifications[i]}
-                      abbr={CERT_ABBR[i] || 'Ac'}
-                      badgeId={badgeId}
-                    />
-                  ))}
-                </GlowGrid>
-              </div>
-            </ScrollReveal>
-          </div>
+          {/* Left: photo */}
+          <ScrollReveal>
+            <div className="rounded-2xl overflow-hidden aspect-[4/5]" style={{ boxShadow: 'var(--shadow-neu-lg)' }}>
+              <img
+                src="/portfolio/photos/photo2.jpg"
+                alt="Ilia Chapchakhov"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </ScrollReveal>
 
-          {/* Right: bio + languages */}
+          {/* Right: bio + photo strip + languages */}
           <div>
             <ScrollReveal delay={0.1}>
               <p className="font-body text-base leading-relaxed mb-5" style={{ color: 'var(--color-muted)' }}>
@@ -108,7 +109,7 @@ export default function About() {
             </ScrollReveal>
 
             <ScrollReveal delay={0.2}>
-              <p className="font-body text-base leading-relaxed mb-10" style={{ color: 'var(--color-muted)' }}>
+              <p className="font-body text-base leading-relaxed mb-8" style={{ color: 'var(--color-muted)' }}>
                 {about.bio2}
               </p>
             </ScrollReveal>
@@ -116,7 +117,11 @@ export default function About() {
             {/* Photo strip */}
             <ScrollReveal delay={0.25}>
               <div className="grid grid-cols-3 gap-2 mb-10">
-                {['/portfolio/photos/photo1.jpg', '/portfolio/photos/photo2.jpg', '/portfolio/photos/photo3.jpg'].map((src, i) => (
+                {[
+                  '/portfolio/photos/photo1.jpg',
+                  '/portfolio/photos/photo3.jpg',
+                  '/portfolio/photos/photo5.jpg',
+                ].map((src, i) => (
                   <div key={i} className="rounded-xl overflow-hidden" style={{ aspectRatio: '1/1' }}>
                     <img src={src} alt="" className="w-full h-full object-cover" />
                   </div>
@@ -148,6 +153,31 @@ export default function About() {
             </ScrollReveal>
           </div>
         </div>
+
+        {/* Full-width Adobe certifications block */}
+        <ScrollReveal delay={0.15}>
+          <div
+            className="rounded-2xl p-6 sm:p-8"
+            style={{ background: 'var(--color-surface)', border: '1px solid var(--color-stroke)' }}
+          >
+            <div className="flex items-center gap-2 mb-6">
+              <Award size={16} style={{ color: 'var(--accent)' }} />
+              <span className="font-body font-semibold text-sm" style={{ color: 'var(--color-content)' }}>
+                Adobe Certified Professional
+              </span>
+            </div>
+            <GlowGrid className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+              {about.credlyBadges.map((badgeId, i) => (
+                <BadgeCard
+                  key={badgeId}
+                  name={CERTS[i]?.name || 'Certified'}
+                  abbr={CERTS[i]?.abbr ?? null}
+                  badgeId={badgeId}
+                />
+              ))}
+            </GlowGrid>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   )

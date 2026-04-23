@@ -20,17 +20,16 @@ export default function Metrics() {
           {achievements.map((item, i) => (
             <ScrollReveal key={item.id} delay={i * 0.05}>
               <div
-                className="glow-card rounded-2xl"
+                className="glow-card rounded-2xl p-5 sm:p-10"
                 style={{
                   background: 'var(--color-surface)',
                   border: '1px solid var(--color-stroke)',
-                  padding: '40px 36px',
                 }}
               >
                 <div
                   className="font-display font-bold tabular-nums mb-2"
                   style={{
-                    fontSize: 'clamp(2.2rem, 4vw, 3.6rem)',
+                    fontSize: 'clamp(1.8rem, 4vw, 3.6rem)',
                     letterSpacing: '-0.04em',
                     lineHeight: 1,
                     color: 'var(--color-content)',

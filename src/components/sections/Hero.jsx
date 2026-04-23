@@ -109,10 +109,10 @@ const slideLeft = (delay = 0) => ({
 export default function Hero() {
   const textRef = useRef()
 
-  // Scroll parallax — text block drifts slightly right as user scrolls
+  // Scroll parallax — text block drifts slightly right as user scrolls (desktop only)
   useEffect(() => {
     const onScroll = () => {
-      if (textRef.current) {
+      if (textRef.current && window.innerWidth >= 768) {
         textRef.current.style.transform = `translateX(${window.scrollY * 0.055}px)`
       }
     }
@@ -191,8 +191,10 @@ export default function Hero() {
           className="flex justify-center md:justify-end"
         >
           <div
+            className="w-full sm:w-auto"
             style={{
-              width: 'clamp(220px, 22vw, 360px)',
+              width: 'clamp(180px, 22vw, 360px)',
+              maxWidth: '80vw',
               aspectRatio: '3/4',
               borderRadius: 20,
               overflow: 'hidden',

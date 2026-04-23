@@ -143,7 +143,7 @@ export function EducationCompact() {
             Academic background
           </h2>
         </ScrollReveal>
-        <GlowGrid className="grid grid-cols-3 gap-4">
+        <GlowGrid className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {education.map((item, i) => (
             <ScrollReveal key={item.id} delay={i * 0.08}>
               <div
