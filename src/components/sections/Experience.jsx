@@ -1,8 +1,30 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, MapPin, Calendar } from 'lucide-react'
+import { X, MapPin, Calendar, ArrowRight } from 'lucide-react'
 import ScrollReveal from '../ui/ScrollReveal'
-import { timeline } from '../../data/content'
+import { timeline, portfolioCategories } from '../../data/content'
+
+/* ── Helpers ────────────────────────────────────────────── */
+// Flatten all portfolio items into a lookup map by id
+const allPortfolioItems = Object.fromEntries(
+  portfolioCategories.flatMap(c => c.items).map(item => [item.id, item])
+)
+
+function getItemThumbnail(item) {
+  if (!item) return null
+  if (item.images?.length) return item.images[0]
+  return null
+}
+
+const ITEM_GRADIENT = {
+  'invisalign-reel':    'linear-gradient(135deg, rgba(139,92,246,0.4), rgba(59,130,246,0.4))',
+  'envy-carousels':     'linear-gradient(135deg, rgba(56,189,248,0.4), rgba(99,102,241,0.4))',
+  'envy-design-series': 'linear-gradient(135deg, rgba(56,189,248,0.3), rgba(245,158,11,0.3))',
+  'groundhog-email':    'linear-gradient(135deg, rgba(251,191,36,0.4), rgba(245,158,11,0.4))',
+  'valentine-series':   'linear-gradient(135deg, rgba(251,113,133,0.4), rgba(200,40,80,0.4))',
+  'usc-carousel':       'linear-gradient(135deg, rgba(255,100,60,0.4), rgba(220,50,50,0.4))',
+  'slavic-youtube':     'linear-gradient(135deg, rgba(220,38,38,0.4), rgba(153,27,27,0.4))',
+}
 
 /* ── Per-org gradient accents ─────────────────────────────── */
 const CARD_GRADIENTS = {
@@ -151,6 +173,10 @@ function ExperienceBlock({ item, index, onOpen }) {
 
 /* ── Detail modal ────────────────────────────────────────── */
 function ExperienceModal({ item, onClose }) {
+  const relatedItems = (item.relatedWork || [])
+    .map(id => allPortfolioItems[id])
+    .filter(Boolean)
+
   return (
     <motion.div
       className="fixed inset-0 z-[100] flex items-center justify-center p-4"
@@ -158,7 +184,7 @@ function ExperienceModal({ item, onClose }) {
     >
       <div className="absolute inset-0 bg-black/60" style={{ backdropFilter: 'blur(8px)' }} onClick={onClose} />
       <motion.div
-        className="relative z-10 w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl p-6 md:p-8"
+        className="relative z-10 w-full max-w-2xl max-h-[88vh] overflow-y-auto rounded-2xl p-6 md:p-8"
         style={{
           background: 'rgba(22,22,22,0.96)',
           border: '1px solid rgba(255,255,255,0.08)',
@@ -209,7 +235,7 @@ function ExperienceModal({ item, onClose }) {
           ))}
         </ul>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: relatedItems.length ? 24 : 0 }}>
           {item.tags.map(tag => (
             <span key={tag} style={{
               fontSize: 11, fontFamily: 'Inter', padding: '3px 10px',
@@ -218,6 +244,70 @@ function ExperienceModal({ item, onClose }) {
             }}>{tag}</span>
           ))}
         </div>
+
+        {/* Related work */}
+        {relatedItems.length > 0 && (
+          <>
+            <div style={{ height: 1, background: 'var(--color-stroke)', marginBottom: 20 }} />
+            <p className="font-body font-semibold text-sm" style={{ color: 'var(--color-content)', marginBottom: 12 }}>
+              Selected work from this role
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {relatedItems.map(workItem => {
+                const thumb = getItemThumbnail(workItem)
+                const gradient = ITEM_GRADIENT[workItem.id] || 'linear-gradient(135deg, rgba(91,156,196,0.3), rgba(99,102,241,0.3))'
+                return (
+                  <button
+                    key={workItem.id}
+                    onClick={() => {
+                      onClose()
+                      setTimeout(() => {
+                        document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })
+                      }, 200)
+                    }}
+                    className="text-left group"
+                    style={{
+                      borderRadius: 12,
+                      overflow: 'hidden',
+                      border: '1px solid var(--color-stroke)',
+                      background: 'var(--color-surface)',
+                      transition: 'border-color 0.2s',
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(91,156,196,0.35)'}
+                    onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--color-stroke)'}
+                  >
+                    {/* Thumbnail */}
+                    <div style={{ position: 'relative', aspectRatio: '16/9', overflow: 'hidden', background: gradient }}>
+                      {thumb && (
+                        <img src={thumb} alt="" style={{
+                          position: 'absolute', inset: 0, width: '100%', height: '100%',
+                          objectFit: 'cover', opacity: 0.85,
+                        }} />
+                      )}
+                      <div style={{
+                        position: 'absolute', inset: 0,
+                        background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%)',
+                      }} />
+                      <ArrowRight size={12} style={{
+                        position: 'absolute', bottom: 8, right: 8,
+                        color: 'rgba(255,255,255,0.6)',
+                      }} />
+                    </div>
+                    {/* Label */}
+                    <div style={{ padding: '8px 10px' }}>
+                      <p className="font-body font-semibold" style={{ fontSize: 11, color: 'var(--color-content)', lineHeight: 1.3 }}>
+                        {workItem.title}
+                      </p>
+                      <p className="font-body" style={{ fontSize: 10, color: 'var(--color-faint)', marginTop: 2 }}>
+                        {workItem.platform}
+                      </p>
+                    </div>
+                  </button>
+                )
+              })}
+            </div>
+          </>
+        )}
       </motion.div>
     </motion.div>
   )

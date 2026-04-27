@@ -9,14 +9,38 @@ export const hero = {
 }
 
 export const achievements = [
-  { id: 'reach',       value: 284,   suffix: 'K',  label: 'Organic TikTok Views',    sub: 'Single post, zero paid spend' },
-  { id: 'email',       value: 52,    suffix: '%',  label: 'Email Open Rate',          sub: '2× the industry benchmark' },
-  { id: 'revenue',     value: 117,   prefix: '$',  suffix: 'K', label: 'Revenue Attributed', sub: '16 campaigns, 3.5 months' },
-  { id: 'conversion',  value: 160,   suffix: '%',  label: 'Conversion Growth',        sub: '0.5% to 1.3% over 4 months' },
-  { id: 'reel',        value: 348,   suffix: 'K',  label: 'Reel Views',               sub: 'Invisalign, fully organic' },
-  { id: 'shares',      value: 12.1,  suffix: 'K',  label: 'Cross-Platform Shares',    sub: 'Gum bacteria carousel, 580K views' },
-  { id: 'accountreach',value: 254,   suffix: '%',  label: 'Account Reach Growth',     sub: 'Envy Smile Dental, 2025-26' },
-  { id: 'engagement',  value: 18.57, suffix: '%',  label: 'Engagement Rate',          sub: 'Sustained average, Reels format' },
+  {
+    id: 'reach', value: 284, suffix: 'K', label: 'Organic TikTok Views', sub: 'Single post, zero paid spend',
+    context: 'An educational Reel on Invisalign aligner sequencing that I developed, directed, and produced for Envy Smile Dental Spa — filmed in-office with zero paid spend. The video\'s 39.91% average watch time (vs. 3–5% industry norm for dental content) reflects strong hook design and pacing. It remains one of the highest-performing posts in the account\'s history.',
+  },
+  {
+    id: 'email', value: 52, suffix: '%', label: 'Email Open Rate', sub: '2× the industry benchmark',
+    context: 'Average open rate across 16 campaigns over 3.5 months — more than double the ~25% dental industry benchmark. Achieved through RevenueWell audience segmentation, subject line testing, and sends timed to seasonal hooks and patient lifecycle moments. The 5 best-performing campaigns all exceeded 56%.',
+  },
+  {
+    id: 'revenue', value: 117, prefix: '$', suffix: 'K', label: 'Revenue Attributed', sub: '16 campaigns, 3.5 months',
+    context: 'Direct patient revenue generated through email and SMS campaigns between September 2025 and January 2026 — covering 16 campaigns and 78 attributed patient visits. Standouts: Groundhog Day VIP Package ($21,715, 14 visits) and Valentine\'s Day 4-email series ($32,440, 26 visits).',
+  },
+  {
+    id: 'conversion', value: 160, suffix: '%', label: 'Conversion Growth', sub: '0.5% → 1.3% over 4 months',
+    context: 'Website conversion rate grew from 0.5% to 1.3% over four months — driven by landing page copy refinements, sharper Meta ad creative, and tighter CTA alignment between email flows and social posts. The patient booking pipeline became measurably more efficient without additional paid budget.',
+  },
+  {
+    id: 'reel', value: 348, suffix: 'K', label: 'Reel Views', sub: 'Invisalign, fully organic',
+    context: 'An Invisalign-focused educational Reel I directed, produced, and edited for Envy Smile — fully organic, no boost. It became one of the account\'s landmark pieces, demonstrating that dental education content can capture sustained attention when the visual quality and scripting are right.',
+  },
+  {
+    id: 'shares', value: 12.1, suffix: 'K', label: 'Cross-Platform Shares', sub: 'Zero paid spend, 3 weeks',
+    context: 'The gum bacteria educational carousel — built from scratch with a branded slide system, kinetic layout, and accessible captions — was shared 12,100 times across TikTok and Instagram in 3 weeks, driving ~580K combined views with zero paid spend. Shares measure genuine audience advocacy, not platform amplification.',
+  },
+  {
+    id: 'accountreach', value: 254, suffix: '%', label: 'Account Reach Growth', sub: 'Envy Smile Dental, 2025–26',
+    context: 'Total post reach across the Envy Smile Instagram and TikTok accounts grew 254% over the 2025–26 period. Driven by a consistent Reels output schedule, high-shareability carousel design, and algorithmic lift from strong early engagement rates on each new post.',
+  },
+  {
+    id: 'engagement', value: 18.57, suffix: '%', label: 'Engagement Rate', sub: 'Sustained average, Reels format',
+    context: 'Sustained average engagement rate across Reels at Envy Smile — well above the 3–6% benchmark for healthcare accounts. This was maintained over months, not a single viral spike, indicating the content system — hooks, pacing, community response — was working consistently across multiple formats.',
+  },
 ]
 
 export const about = {
@@ -50,10 +74,10 @@ export const portfolioCategories = [
         title: 'Invisalign Aligner Reel',
         platform: 'TikTok / Instagram',
         date: '2025',
-        description: 'Educational talking-head Reel on Invisalign aligner sequencing. Conceptualized, filmed, edited, and captioned independently. Kinetic captions synced to speech via Premiere Pro.',
-        metrics: '348K TikTok views, 39.91% avg watch time',
-        type: 'tiktok',
-        embedUrl: 'https://www.tiktok.com/embed/v2/7451628726568649003',
+        description: 'Educational talking-head Reel on Invisalign aligner sequencing, produced for Envy Smile Dental Spa. I proposed the concept, wrote the script, directed the shoot, and handled the full edit — kinetic captions synced to speech via Premiere Pro. Published on the client\'s account.',
+        metrics: '348K TikTok views · 39.91% avg watch time · Fully organic',
+        type: 'placeholder',
+        placeholderColor: 'from-violet-500 to-blue-600',
       },
       {
         id: 'slavic-youtube',
@@ -88,10 +112,9 @@ export const portfolioCategories = [
         platform: 'TikTok / Instagram',
         date: '2025',
         description: 'Educational dental carousel about gum bacteria, designed for cross-platform sharing. Built the slide system from scratch — branded template, motion-optimised layout, accessible captions. Reached ~580K combined views and ~12,100 shares across TikTok and Instagram in 3 weeks with zero paid spend.',
-        metrics: '~580K combined views, ~12,100 shares, zero paid spend',
+        metrics: '~580K combined views · ~12,100 shares · Zero paid spend',
         type: 'tiktok',
         embedUrl: 'https://www.tiktok.com/embed/v2/7623445905089350943',
-        driveLink: 'https://drive.google.com/drive/folders/1tUHNsxFZsAlUdDrnAyK3xAundS5mpVQH',
       },
       {
         id: 'envy-design-series',
@@ -119,7 +142,7 @@ export const portfolioCategories = [
         platform: 'Instagram',
         date: '2025',
         description: 'Seamless panoramic carousel for USC CLC\'s 4-day multilingual programming event. Typography-led design, bold color system, speech bubble motif. Dual-read: works as panorama across slides and as standalone per frame.',
-        metrics: '21 likes, 8 shares (strong for academic account)',
+        metrics: '21 likes · 8 shares (strong for academic account)',
         type: 'gallery',
         images: [
           '/portfolio/work/usc-carousel/career-week-flyer.jpg',
@@ -129,15 +152,21 @@ export const portfolioCategories = [
           '/portfolio/work/usc-carousel/holiday-idioms.jpg',
           '/portfolio/work/usc-carousel/festive-foods.jpg',
         ],
-        driveLink: 'https://drive.google.com/drive/folders/19H3flS-MvpKJs8JyU2kcT4TXed0If1WE',
       },
+    ],
+  },
+  {
+    id: 'strategy',
+    title: 'Creative Strategy',
+    description: 'Campaign concepts, brand positioning, integrated communication plans',
+    items: [
       {
         id: 'twister',
         title: 'Twister: 60th Anniversary Campaign',
         platform: 'USC Course Project',
         date: '2026',
-        description: 'Full campaign concept for Twister\'s 60th anniversary: strategy, visual identity, and social content built as part of USC Annenberg coursework. Blends nostalgia with modern design language.',
-        metrics: 'USC Annenberg, Strategic Campaign Design',
+        description: 'Full integrated campaign for Twister\'s 60th anniversary — strategy, visual identity, channel plan, and social content. Built as part of USC Annenberg coursework: blends nostalgia with modern brand language across OOH, social, and experiential touchpoints.',
+        metrics: 'USC Annenberg · Strategic Campaign Design',
         type: 'gallery',
         images: [
           '/portfolio/work/twister/mall-mockup.jpg',
@@ -145,15 +174,14 @@ export const portfolioCategories = [
           '/portfolio/work/twister/times-square.jpg',
           '/portfolio/work/twister/rock-climbing.jpg',
         ],
-        driveLink: 'https://drive.google.com/drive/folders/1HSwnUc-E7Fs39xZiOIfMWG9ovn2sxA9G',
       },
       {
         id: 'avatar',
         title: 'Avatar: Fire and Ash — Campaign',
         platform: 'USC Course Project',
         date: '2026',
-        description: 'Campaign brief and visual direction for the Avatar: Fire and Ash franchise. Designed for multi-channel rollout with consistent brand language across social, OOH, and digital.',
-        metrics: 'USC Annenberg, Integrated Campaign Strategy',
+        description: 'Campaign brief and visual direction for the Avatar: Fire and Ash franchise — multi-channel rollout with consistent brand language across social, OOH, and digital. Includes audience analysis, messaging framework, and cross-platform content strategy.',
+        metrics: 'USC Annenberg · Integrated Campaign Strategy',
         type: 'gallery',
         images: [
           '/portfolio/work/avatar/lego-collab.jpg',
@@ -163,15 +191,14 @@ export const portfolioCategories = [
           '/portfolio/work/avatar/popcorn.jpg',
           '/portfolio/work/avatar/vr-collab.jpg',
         ],
-        driveLink: 'https://drive.google.com/drive/folders/1O3_2U43gAmKWvX9-dy8wszG_VqjKHsLR',
       },
       {
         id: 'lego',
         title: 'LEGO x Habitat for Humanity',
         platform: 'USC Course Project',
         date: '2026',
-        description: 'Cause-marketing campaign pairing LEGO\'s playful brand identity with Habitat for Humanity\'s mission. Developed full creative strategy, messaging framework, and content calendar.',
-        metrics: 'USC Annenberg, Cause-Marketing Campaign',
+        description: 'Cause-marketing campaign pairing LEGO\'s playful brand identity with Habitat for Humanity\'s mission. Developed the full creative strategy, messaging framework, content calendar, and visual identity system.',
+        metrics: 'USC Annenberg · Cause-Marketing Campaign',
         type: 'gallery',
         images: [
           '/portfolio/work/lego/print-ad.jpg',
@@ -179,7 +206,6 @@ export const portfolioCategories = [
           '/portfolio/work/lego/outdoor-2.jpg',
           '/portfolio/work/lego/storyboard.jpg',
         ],
-        driveLink: 'https://drive.google.com/drive/folders/10fs8NqUWXrpjzlGLn8OOs7-3UQPMF64K',
       },
     ],
   },
@@ -262,7 +288,7 @@ export const portfolioCategories = [
         date: '2026',
         description: 'An appointment scheduling micro-site built for Envy Smile Dental\'s PBA outreach. Replaced messy sign-up sheets with a form that emails confirmations to leads, notifies the marketing inbox, and logs every submission to a Google Sheet automatically.',
         metrics: 'Live at envy-smile-pba.netlify.app',
-        type: 'link',
+        type: 'iframe-preview',
         url: 'https://envy-smile-pba.netlify.app',
       },
       {
@@ -308,6 +334,7 @@ export const timeline = [
     ],
     tags: ['Instagram', 'TikTok', 'Email Marketing', 'Meta Ads', 'Video Production', 'Graphic Design'],
     image: '/portfolio/work/experience/envy.jpg',
+    relatedWork: ['invisalign-reel', 'envy-carousels', 'envy-design-series', 'groundhog-email', 'valentine-series'],
   },
   {
     id: 'usc',
@@ -325,6 +352,7 @@ export const timeline = [
     ],
     tags: ['Academic', 'Content Design', 'WordPress', 'Photography', 'Edutainment'],
     image: '/portfolio/work/experience/usc.jpg',
+    relatedWork: ['usc-carousel', 'slavic-youtube'],
   },
   {
     id: 'red',

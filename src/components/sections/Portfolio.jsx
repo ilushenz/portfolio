@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Video, Palette, Camera, PenLine, Code2, X, ArrowRight, ExternalLink, Lock } from 'lucide-react'
+import { Video, Palette, Camera, PenLine, Code2, Target, X, ArrowRight, ExternalLink, Lock } from 'lucide-react'
 import { GithubIcon } from '../ui/SocialIcons'
 import ScrollReveal from '../ui/ScrollReveal'
 import GlowGrid from '../ui/GlowGrid'
 import { portfolioCategories } from '../../data/content'
 
-const ICONS = { motion: Video, visuals: Palette, lens: Camera, words: PenLine, code: Code2 }
+const ICONS = { motion: Video, visuals: Palette, lens: Camera, words: PenLine, code: Code2, strategy: Target }
 
 const accentText = { color: 'var(--accent)' }
 
@@ -96,6 +96,34 @@ function MediaEmbed({ item }) {
   if (item.type === 'coming-soon') return (
     <div className="flex items-center gap-2 text-sm font-body" style={{ color: 'var(--color-faint)' }}>
       <Lock size={14} /> Under wraps. Stay tuned.
+    </div>
+  )
+  if (item.type === 'iframe-preview') return (
+    <div className="w-full rounded-xl overflow-hidden" style={{ position: 'relative', height: 420 }}>
+      {/* Non-interactive iframe */}
+      <iframe
+        src={item.url}
+        title={item.title}
+        style={{ width: '100%', height: '100%', border: 'none', pointerEvents: 'none', borderRadius: 12 }}
+        scrolling="no"
+      />
+      {/* Overlay to block interaction */}
+      <div style={{
+        position: 'absolute', inset: 0, borderRadius: 12,
+        background: 'linear-gradient(to top, rgba(10,10,10,0.6) 0%, transparent 60%)',
+        display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between',
+        padding: '16px',
+      }}>
+        <span className="font-body text-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>
+          Preview only — form not active
+        </span>
+        <a href={item.url} target="_blank" rel="noreferrer"
+          className="flex items-center gap-1.5 text-xs font-semibold font-body px-3 py-1.5 rounded-full"
+          style={{ background: 'var(--accent)', color: '#fff' }}
+          onClick={e => e.stopPropagation()}>
+          <ExternalLink size={10} /> Open live
+        </a>
+      </div>
     </div>
   )
   if (item.type === 'placeholder') return (
@@ -218,102 +246,55 @@ export default function Portfolio() {
             Selected work
           </h2>
           <p className="font-body text-base mb-16 max-w-xl" style={{ color: 'var(--color-muted)' }}>
-            Video production, graphic design, photography, copywriting, and vibe-coded projects. Click any category to explore.
+            Video, design, creative strategy, photography, copywriting, and vibe-coded projects. Click any category to explore.
           </p>
         </ScrollReveal>
 
-        {/* 2×2 grid + 1 centered below */}
+        {/* 3×2 grid — 6 categories */}
         <GlowGrid>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {portfolioCategories.slice(0, 4).map((cat, i) => {
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {portfolioCategories.map((cat, i) => {
               const Icon = ICONS[cat.id] || Palette
               return (
-                <div key={cat.id} className="lg:col-span-2">
-                  <ScrollReveal delay={i * 0.07}>
-                    <motion.button
-                      className="glow-card w-full text-left"
-                      style={{
-                        background: 'var(--color-surface)',
+                <ScrollReveal key={cat.id} delay={i * 0.07} className="h-full">
+                  <motion.button
+                    className="glow-card w-full text-left h-full"
+                    style={{
+                      background: 'var(--color-surface)',
+                      border: '1px solid var(--color-stroke)',
+                      borderRadius: 16,
+                      padding: '32px',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => setActiveCategory(cat)}
+                  >
+                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, flex: 1 }}>
+                      <div style={{ flex: 1 }}>
+                        <Icon size={22} style={{ color: 'var(--accent)', marginBottom: 14, opacity: 0.85 }} />
+                        <h3 className="font-display font-bold" style={{ fontSize: '1.15rem', letterSpacing: '-0.02em', color: 'var(--color-content)', marginBottom: 8 }}>
+                          {cat.title}
+                        </h3>
+                        <p className="font-body" style={{ fontSize: 13, color: 'var(--color-muted)', lineHeight: 1.55 }}>
+                          {cat.description}
+                        </p>
+                      </div>
+                      <div style={{
+                        width: 28, height: 28, borderRadius: '50%',
                         border: '1px solid var(--color-stroke)',
-                        borderRadius: 16,
-                        padding: '32px',
-                        cursor: 'pointer',
-                        display: 'block',
-                      }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => setActiveCategory(cat)}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16 }}>
-                        <div style={{ flex: 1 }}>
-                          <Icon size={22} style={{ color: 'var(--accent)', marginBottom: 14, opacity: 0.85 }} />
-                          <h3 className="font-display font-bold" style={{ fontSize: '1.15rem', letterSpacing: '-0.02em', color: 'var(--color-content)', marginBottom: 8 }}>
-                            {cat.title}
-                          </h3>
-                          <p className="font-body" style={{ fontSize: 13, color: 'var(--color-muted)', lineHeight: 1.55 }}>
-                            {cat.description}
-                          </p>
-                        </div>
-                        <div style={{
-                          width: 28, height: 28, borderRadius: '50%',
-                          border: '1px solid var(--color-stroke)',
-                          display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          color: 'var(--color-faint)', fontSize: 18, flexShrink: 0, marginTop: 2,
-                        }}>+</div>
-                      </div>
-                      <div style={{ marginTop: 16, fontSize: 11, color: 'var(--accent)', fontFamily: 'Inter', fontWeight: 500, letterSpacing: '0.03em' }}>
-                        {cat.items.length} project{cat.items.length !== 1 ? 's' : ''}
-                      </div>
-                    </motion.button>
-                  </ScrollReveal>
-                </div>
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        color: 'var(--color-faint)', fontSize: 18, flexShrink: 0, marginTop: 2,
+                      }}>+</div>
+                    </div>
+                    <div style={{ marginTop: 16, fontSize: 11, color: 'var(--accent)', fontFamily: 'Inter', fontWeight: 500, letterSpacing: '0.03em' }}>
+                      {cat.items.length} project{cat.items.length !== 1 ? 's' : ''}
+                    </div>
+                  </motion.button>
+                </ScrollReveal>
               )
             })}
-
-            {/* 5th card centered */}
-            <div className="sm:col-span-2 lg:col-start-2 lg:col-span-2">
-              {(() => {
-                const cat = portfolioCategories[4]
-                const Icon = ICONS[cat.id] || Palette
-                return (
-                  <ScrollReveal delay={4 * 0.07}>
-                    <motion.button
-                      className="glow-card w-full text-left"
-                      style={{
-                        background: 'var(--color-surface)',
-                        border: '1px solid var(--color-stroke)',
-                        borderRadius: 16,
-                        padding: '32px',
-                        cursor: 'pointer',
-                        display: 'block',
-                      }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => setActiveCategory(cat)}
-                    >
-                      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16 }}>
-                        <div style={{ flex: 1 }}>
-                          <Icon size={22} style={{ color: 'var(--accent)', marginBottom: 14, opacity: 0.85 }} />
-                          <h3 className="font-display font-bold" style={{ fontSize: '1.15rem', letterSpacing: '-0.02em', color: 'var(--color-content)', marginBottom: 8 }}>
-                            {cat.title}
-                          </h3>
-                          <p className="font-body" style={{ fontSize: 13, color: 'var(--color-muted)', lineHeight: 1.55 }}>
-                            {cat.description}
-                          </p>
-                        </div>
-                        <div style={{
-                          width: 28, height: 28, borderRadius: '50%',
-                          border: '1px solid var(--color-stroke)',
-                          display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          color: 'var(--color-faint)', fontSize: 18, flexShrink: 0, marginTop: 2,
-                        }}>+</div>
-                      </div>
-                      <div style={{ marginTop: 16, fontSize: 11, color: 'var(--accent)', fontFamily: 'Inter', fontWeight: 500, letterSpacing: '0.03em' }}>
-                        {cat.items.length} project{cat.items.length !== 1 ? 's' : ''}
-                      </div>
-                    </motion.button>
-                  </ScrollReveal>
-                )
-              })()}
-            </div>
           </div>
         </GlowGrid>
       </div>
