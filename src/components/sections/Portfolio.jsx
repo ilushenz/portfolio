@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Video, Palette, Camera, PenLine, Code2, Target, X, ArrowRight, ExternalLink, Lock } from 'lucide-react'
 import { GithubIcon } from '../ui/SocialIcons'
@@ -7,6 +7,11 @@ import GlowGrid from '../ui/GlowGrid'
 import { portfolioCategories } from '../../data/content'
 
 const ICONS = { motion: Video, visuals: Palette, lens: Camera, words: PenLine, code: Code2, strategy: Target }
+
+// Flat lookup: item id → item object (used by Experience modal deep-link)
+const allItems = Object.fromEntries(
+  portfolioCategories.flatMap(c => c.items).map(item => [item.id, item])
+)
 
 const accentText = { color: 'var(--accent)' }
 
@@ -275,6 +280,19 @@ function CategoryModal({ cat, onSelectItem, onClose }) {
 export default function Portfolio() {
   const [activeCategory, setActiveCategory] = useState(null)
   const [activeItem, setActiveItem] = useState(null)
+
+  // Listen for deep-link events fired by the Experience modal
+  useEffect(() => {
+    const handler = (e) => {
+      const item = allItems[e.detail.itemId]
+      if (!item) return
+      document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })
+      // Small delay so scroll starts before modal appears
+      setTimeout(() => setActiveItem(item), 150)
+    }
+    window.addEventListener('openPortfolioItem', handler)
+    return () => window.removeEventListener('openPortfolioItem', handler)
+  }, [])
 
   return (
     <section id="portfolio" className="section-pad">

@@ -76,8 +76,8 @@ export const portfolioCategories = [
         date: '2025',
         description: 'Educational talking-head Reel on Invisalign aligner sequencing, produced for Envy Smile Dental Spa. I proposed the concept, wrote the script, directed the shoot, and handled the full edit — kinetic captions synced to speech via Premiere Pro. Published on the client\'s account.',
         metrics: '348K TikTok views · 39.91% avg watch time · Fully organic',
-        type: 'placeholder',
-        placeholderColor: 'from-violet-500 to-blue-600',
+        type: 'tiktok',
+        embedUrl: 'https://www.tiktok.com/embed/v2/7587159535773650207',
       },
       {
         id: 'slavic-youtube',

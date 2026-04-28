@@ -262,8 +262,8 @@ function ExperienceModal({ item, onClose }) {
                     onClick={() => {
                       onClose()
                       setTimeout(() => {
-                        document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })
-                      }, 200)
+                        window.dispatchEvent(new CustomEvent('openPortfolioItem', { detail: { itemId: workItem.id } }))
+                      }, 320)
                     }}
                     className="text-left group"
                     style={{
