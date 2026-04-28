@@ -19,6 +19,27 @@ const glassModal = {
 
 /* ── Media renderers ─────────────────────────────────────── */
 function MediaEmbed({ item }) {
+  if (item.type === 'instagram') return (
+    <div className="flex flex-col items-center gap-4">
+      <iframe
+        src={`https://www.instagram.com/p/${item.shortcode}/embed/`}
+        width="400"
+        height="510"
+        frameBorder="0"
+        scrolling="no"
+        allowTransparency="true"
+        className="rounded-xl"
+        style={{ maxWidth: '100%' }}
+        title={item.title}
+      />
+      <a href={`https://www.instagram.com/p/${item.shortcode}/`}
+        target="_blank" rel="noreferrer"
+        className="flex items-center gap-2 text-xs font-semibold font-body px-3 py-1.5 rounded-full self-start border"
+        style={{ color: 'var(--color-faint)', borderColor: 'var(--color-stroke)' }}>
+        <ExternalLink size={11} /> View on Instagram
+      </a>
+    </div>
+  )
   if (item.type === 'tiktok') return (
     <div className="flex flex-col gap-4">
       <div className="w-full flex justify-center">
@@ -42,11 +63,11 @@ function MediaEmbed({ item }) {
             style={{ aspectRatio: '4/3' }} />
         ))}
       </div>
-      {item.driveLink && (
-        <a href={item.driveLink} target="_blank" rel="noreferrer"
-          className="flex items-center gap-2 text-xs font-semibold font-body px-3 py-1.5 rounded-full self-start border"
-          style={{ color: 'var(--color-faint)', borderColor: 'var(--color-stroke)' }}>
-          <ExternalLink size={11} /> View full project on Drive
+      {item.deckUrl && (
+        <a href={item.deckUrl} target="_blank" rel="noreferrer"
+          className="flex items-center gap-2 text-xs font-semibold font-body px-3 py-1.5 rounded-full self-start"
+          style={{ background: 'var(--accent)', color: '#fff' }}>
+          <ExternalLink size={11} /> View full deck
         </a>
       )}
     </div>
@@ -81,7 +102,7 @@ function MediaEmbed({ item }) {
         <a href={item.url} target="_blank" rel="noreferrer"
           className="flex items-center gap-2 text-sm font-semibold font-body px-4 py-2 rounded-full text-white"
           style={{ background: 'var(--accent)' }}>
-          <ExternalLink size={13} /> Visit Live
+          <ExternalLink size={13} /> {item.urlLabel || 'Visit Live'}
         </a>
       )}
       {item.github && (
