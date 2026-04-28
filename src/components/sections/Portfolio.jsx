@@ -63,11 +63,11 @@ function MediaEmbed({ item }) {
             style={{ aspectRatio: '4/3' }} />
         ))}
       </div>
-      {item.deckUrl && (
-        <a href={item.deckUrl} target="_blank" rel="noreferrer"
+      {item.canvaUrl && (
+        <a href={item.canvaUrl} target="_blank" rel="noreferrer"
           className="flex items-center gap-2 text-xs font-semibold font-body px-3 py-1.5 rounded-full self-start"
           style={{ background: 'var(--accent)', color: '#fff' }}>
-          <ExternalLink size={11} /> View full deck
+          <ExternalLink size={11} /> Open on Canva
         </a>
       )}
     </div>
@@ -112,6 +112,26 @@ function MediaEmbed({ item }) {
           <GithubIcon size={13} /> GitHub
         </a>
       )}
+    </div>
+  )
+  if (item.type === 'multi-link') return (
+    <div className="flex flex-col gap-2">
+      {item.links.map((link, i) => (
+        <a key={i} href={link.url} target="_blank" rel="noreferrer"
+          className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl font-body text-sm transition-colors"
+          style={{
+            background: 'var(--color-elevated)',
+            border: '1px solid var(--color-stroke)',
+            color: 'var(--color-content)',
+            textDecoration: 'none',
+          }}
+          onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(91,156,196,0.4)'}
+          onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--color-stroke)'}
+        >
+          <span style={{ lineHeight: 1.3 }}>{link.label}</span>
+          <ExternalLink size={13} style={{ color: 'var(--color-faint)', flexShrink: 0 }} />
+        </a>
+      ))}
     </div>
   )
   if (item.type === 'coming-soon') return (
