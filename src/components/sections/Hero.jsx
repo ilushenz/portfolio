@@ -204,7 +204,7 @@ export default function Hero() {
             }}
           >
             <img
-              src="/headshot.jpg"
+              src="/headshot.webp"
               alt="Ilia Chapchakhov"
               style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
             />

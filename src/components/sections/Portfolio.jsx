@@ -65,7 +65,7 @@ function MediaEmbed({ item }) {
       <div className="grid grid-cols-2 gap-2">
         {item.images.map((src, i) => (
           <img key={i} src={src} alt="" className="rounded-lg w-full object-cover"
-            style={{ aspectRatio: '4/3' }} />
+            style={{ aspectRatio: '4/3' }} loading="lazy" />
         ))}
       </div>
       {item.canvaUrl && (

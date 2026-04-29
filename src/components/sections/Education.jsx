@@ -27,6 +27,7 @@ function EducationCardFull({ item, index }) {
                 src={item.logo}
                 alt={item.school}
                 className="w-full h-full object-contain"
+                loading="lazy"
                 onError={(e) => { e.currentTarget.style.display = 'none' }}
               />
             </div>
@@ -102,6 +103,7 @@ function EducationCardFull({ item, index }) {
                       src={item.photo}
                       alt={item.institution}
                       className="w-full h-full object-cover"
+                      loading="lazy"
                     />
                   </div>
                 ) : item.activities ? (
@@ -168,6 +170,7 @@ export function EducationCompact() {
                     src={item.logo}
                     alt={item.school}
                     style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    loading="lazy"
                     onError={(e) => { e.currentTarget.style.display = 'none' }}
                   />
                 </div>

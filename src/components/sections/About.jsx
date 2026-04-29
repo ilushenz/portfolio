@@ -111,9 +111,10 @@ export default function About() {
               style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.55), 0 4px 16px rgba(0,0,0,0.4)' }}
             >
               <img
-                src="/photos/photo2.jpg"
+                src="/photos/photo2.webp"
                 alt="Ilia Chapchakhov"
                 className="w-full h-auto block"
+                fetchpriority="high"
               />
             </div>
           </motion.div>
@@ -136,12 +137,12 @@ export default function About() {
             <ScrollReveal delay={0.25}>
               <div className="grid grid-cols-3 gap-2 mb-10">
                 {[
-                  '/photos/photo1.jpg',
-                  '/photos/photo3.jpg',
-                  '/photos/photo5.jpg',
+                  '/photos/photo1.webp',
+                  '/photos/photo3.webp',
+                  '/photos/photo5.webp',
                 ].map((src, i) => (
                   <div key={i} className="rounded-xl overflow-hidden" style={{ aspectRatio: '1/1' }}>
-                    <img src={src} alt="" className="w-full h-full object-cover" />
+                    <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
                   </div>
                 ))}
               </div>
