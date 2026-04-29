@@ -115,6 +115,7 @@ export default function About() {
                 alt="Ilia Chapchakhov"
                 className="w-full h-auto block"
                 fetchpriority="high"
+                draggable="false"
               />
             </div>
           </motion.div>
@@ -139,10 +140,10 @@ export default function About() {
                 {[
                   '/photos/photo1.webp',
                   '/photos/photo3.webp',
-                  '/photos/photo5.webp',
+                  '/photos/photo5v2.webp',
                 ].map((src, i) => (
                   <div key={i} className="rounded-xl overflow-hidden" style={{ aspectRatio: '1/1' }}>
-                    <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
+                    <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" draggable="false" />
                   </div>
                 ))}
               </div>
