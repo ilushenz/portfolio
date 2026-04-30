@@ -5,7 +5,7 @@ export const hero = {
   email: 'i.chapchakhov@gmail.com',
   linkedin: 'https://linkedin.com/in/ilushenz/',
   instagram: 'https://instagram.com/ilushenz',
-  resumeUrl: '/resume.pdf',
+  resumeUrl: '/resume-2025.pdf',
 }
 
 export const achievements = [
