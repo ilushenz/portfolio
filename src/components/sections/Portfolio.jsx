@@ -161,7 +161,7 @@ function MediaEmbed({ item }) {
         padding: '16px',
       }}>
         <span className="font-body text-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>
-          Preview only — form not active
+          Preview only: form not active
         </span>
         <a href={item.url} target="_blank" rel="noreferrer"
           className="flex items-center gap-1.5 text-xs font-semibold font-body px-3 py-1.5 rounded-full"

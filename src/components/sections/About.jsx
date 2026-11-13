@@ -85,7 +85,10 @@ export default function About() {
           <p className="text-xs font-body font-semibold tracking-widest uppercase mb-4" style={{ color: 'var(--color-faint)' }}>
             About
           </p>
-          <h2 className="heading-lg mb-12" style={{ color: 'var(--color-content)' }}>
+          <h2
+            className="font-display font-bold mb-12"
+            style={{ color: 'var(--color-content)', fontSize: 'clamp(2.6rem, 6vw, 5rem)', letterSpacing: '-0.04em', lineHeight: 1 }}
+          >
             {about.headline}
           </h2>
         </ScrollReveal>
@@ -104,7 +107,7 @@ export default function About() {
               mass: 1.1,
               delay: 0.15,
             }}
-            style={{ transformOrigin: '50% 90%' }}
+            style={{ transformOrigin: '50% 90%', width: '80%', marginInline: 'auto' }}
           >
             <div
               className="rounded-2xl overflow-hidden"
@@ -114,7 +117,7 @@ export default function About() {
                 src="/photos/photo2.webp"
                 alt="Ilia Chapchakhov"
                 className="w-full h-auto block"
-                fetchpriority="high"
+                fetchPriority="high"
                 draggable="false"
               />
             </div>

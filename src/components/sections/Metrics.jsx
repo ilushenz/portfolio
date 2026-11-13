@@ -1,125 +1,93 @@
 import { useState } from 'react'
+import * as HoverCardPrimitive from '@radix-ui/react-hover-card'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X } from 'lucide-react'
 import AnimatedCounter from '../ui/AnimatedCounter'
-import ScrollReveal from '../ui/ScrollReveal'
-import GlowGrid from '../ui/GlowGrid'
 import { achievements } from '../../data/content'
 
-/* ── Context modal ───────────────────────────────────────── */
-function MetricModal({ item, onClose }) {
+/* One metric: number counts up when shown; context pops up on hover / tap / focus,
+   styled like the "Click to learn more" hint on the work cards. */
+function MetricItem({ item }) {
+  const [open, setOpen] = useState(false)
+
   return (
-    <motion.div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
-      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-    >
-      <div className="absolute inset-0 bg-black/60" style={{ backdropFilter: 'blur(8px)' }} onClick={onClose} />
-      <motion.div
-        className="relative z-10 w-full max-w-lg rounded-2xl p-6 md:p-8"
-        style={{
-          background: 'rgba(22,22,22,0.96)',
-          border: '1px solid rgba(255,255,255,0.08)',
-          backdropFilter: 'blur(28px)',
-          WebkitBackdropFilter: 'blur(28px)',
-        }}
-        initial={{ scale: 0.92, opacity: 0, y: 20 }}
-        animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.92, opacity: 0, y: 20 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 26 }}
-      >
-        <button onClick={onClose}
-          className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center"
-          style={{ background: 'var(--color-elevated)', color: 'var(--color-muted)' }}>
-          <X size={14} />
-        </button>
-
-        {/* Big number */}
-        <div
-          className="font-display font-bold tabular-nums mb-1"
-          style={{ fontSize: 'clamp(2.8rem, 8vw, 4.5rem)', letterSpacing: '-0.04em', lineHeight: 1, color: 'var(--color-content)' }}
+    <HoverCardPrimitive.Root open={open} onOpenChange={setOpen} openDelay={80} closeDelay={100}>
+      <HoverCardPrimitive.Trigger asChild>
+        <button
+          type="button"
+          className="focus-ring text-left rounded-xl px-3 py-2.5 h-full flex flex-col"
+          style={{
+            background: 'var(--color-surface)',
+            border: `1px solid ${open ? 'rgba(91,156,196,0.3)' : 'var(--color-stroke)'}`,
+            transition: 'border-color 0.2s',
+            cursor: 'help',
+          }}
+          aria-expanded={open}
+          onPointerUp={(e) => { if (e.pointerType !== 'mouse') setOpen(o => !o) }}
+          onKeyDown={(e) => { if (e.key === 'Escape') { e.stopPropagation(); setOpen(false) } }}
         >
-          {item.prefix || ''}{item.value}{item.suffix}
-        </div>
-        <div className="font-body font-semibold text-base mb-1" style={{ color: 'var(--color-content)' }}>
-          {item.label}
-        </div>
-        <div className="font-body text-xs mb-5" style={{ color: 'var(--accent)' }}>
-          {item.sub}
-        </div>
+          <span
+            className="font-display font-bold tabular-nums mb-1 block"
+            style={{ fontSize: '1.3rem', letterSpacing: '-0.03em', lineHeight: 1.1, color: 'var(--color-content)' }}
+          >
+            <AnimatedCounter value={item.value} prefix={item.prefix || ''} suffix={item.suffix} duration={1400} />
+          </span>
+          <span className="font-body font-semibold block" style={{ fontSize: 11.5, lineHeight: 1.3, color: 'var(--color-content)' }}>
+            {item.label}
+          </span>
+          <span className="font-body leading-snug mt-auto pt-1 block" style={{ fontSize: 10.5, color: 'var(--color-faint)' }}>
+            {item.sub}
+          </span>
+        </button>
+      </HoverCardPrimitive.Trigger>
 
-        <div style={{ height: 1, background: 'var(--color-stroke)', marginBottom: 20 }} />
-
-        <p className="font-body text-sm leading-relaxed" style={{ color: 'var(--color-muted)' }}>
-          {item.context}
-        </p>
-      </motion.div>
-    </motion.div>
+      <HoverCardPrimitive.Portal>
+        <HoverCardPrimitive.Content side="top" align="center" sideOffset={8} collisionPadding={12} style={{ zIndex: 130 }}>
+          <AnimatePresence>
+            {open && (
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 6 }}
+                transition={{ duration: 0.2 }}
+                className="font-body"
+                style={{
+                  maxWidth: 320,
+                  fontSize: 12.5,
+                  lineHeight: 1.55,
+                  color: 'var(--color-content)',
+                  padding: '12px 16px',
+                  borderRadius: 16,
+                  background: 'rgba(10,10,10,0.85)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  backdropFilter: 'blur(8px)',
+                  WebkitBackdropFilter: 'blur(8px)',
+                }}
+              >
+                {item.context}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </HoverCardPrimitive.Content>
+      </HoverCardPrimitive.Portal>
+    </HoverCardPrimitive.Root>
   )
 }
 
-/* ── Main section ────────────────────────────────────────── */
+/* Results block shown inside the Envy Smile pop-up, above "Key highlights" */
 export default function Metrics() {
-  const [activeItem, setActiveItem] = useState(null)
-
   return (
-    <section id="metrics" className="section-pad">
-      <div className="max-w-6xl mx-auto">
-        <ScrollReveal>
-          <p className="text-xs font-body font-semibold tracking-widest uppercase mb-4" style={{ color: 'var(--color-faint)' }}>
-            Results
-          </p>
-          <h2 className="heading-lg mb-12" style={{ color: 'var(--color-content)' }}>
-            Numbers that matter
-          </h2>
-        </ScrollReveal>
-
-        <GlowGrid>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
-            {achievements.map((item, i) => (
-              <ScrollReveal key={item.id} delay={i * 0.05} className="h-full">
-                <motion.div
-                  className="glow-card rounded-2xl p-5 sm:p-8 h-full flex flex-col"
-                  style={{
-                    background: 'var(--color-surface)',
-                    border: '1px solid var(--color-stroke)',
-                    cursor: 'pointer',
-                  }}
-                  onClick={() => setActiveItem(item)}
-                  whileHover={{ borderColor: 'rgba(91,156,196,0.3)' }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div
-                    className="font-display font-bold tabular-nums mb-2"
-                    style={{
-                      fontSize: 'clamp(1.8rem, 4vw, 3.2rem)',
-                      letterSpacing: '-0.04em',
-                      lineHeight: 1,
-                      color: 'var(--color-content)',
-                    }}
-                  >
-                    {item.prefix || ''}
-                    <AnimatedCounter value={item.value} suffix={item.suffix} duration={1400} />
-                  </div>
-                  <div className="font-body font-semibold text-sm mb-1" style={{ color: 'var(--color-content)' }}>
-                    {item.label}
-                  </div>
-                  <div className="font-body text-xs leading-snug mt-auto pt-2" style={{ color: 'var(--color-faint)' }}>
-                    {item.sub}
-                  </div>
-                  {/* Subtle "tap for context" hint */}
-                  <div className="mt-3 text-xs font-body" style={{ color: 'rgba(91,156,196,0.5)', letterSpacing: '0.02em' }}>
-                    Tap for context →
-                  </div>
-                </motion.div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </GlowGrid>
+    <div>
+      <div className="flex items-baseline justify-between gap-3 mb-3">
+        <p className="font-body font-semibold text-sm" style={{ color: 'var(--color-content)' }}>
+          Results
+        </p>
+        <p className="font-body text-xs" style={{ color: 'rgba(91,156,196,0.6)' }}>
+          Hover or tap a number for context
+        </p>
       </div>
-
-      <AnimatePresence>
-        {activeItem && <MetricModal item={activeItem} onClose={() => setActiveItem(null)} />}
-      </AnimatePresence>
-    </section>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 items-stretch">
+        {achievements.map(item => <MetricItem key={item.id} item={item} />)}
+      </div>
+    </div>
   )
 }

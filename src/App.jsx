@@ -1,14 +1,12 @@
 import { useEffect } from 'react'
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, MotionConfig } from 'framer-motion'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import Hero from './components/sections/Hero'
-import Metrics from './components/sections/Metrics'
 import Portfolio from './components/sections/Portfolio'
 import Experience from './components/sections/Experience'
-import Education, { EducationCompact } from './components/sections/Education'
-import Skills from './components/sections/Skills'
+import Education from './components/sections/Education'
 import About from './components/sections/About'
 import Contact from './components/sections/Contact'
 
@@ -39,11 +37,9 @@ function ProfessionalPage() {
   return (
     <PageWrapper>
       <Hero />
-      <Metrics />
       <Portfolio />
       <Experience />
-      <EducationCompact />
-      <Skills />
+      <Education context="front" />
     </PageWrapper>
   )
 }
@@ -75,6 +71,7 @@ function AnimatedRoutes() {
 /* ── Root app ────────────────────────────────────────────── */
 export default function App() {
   return (
+    <MotionConfig reducedMotion="user">
     <HashRouter>
       <ScrollReset />
       <div className="min-h-screen" style={{ background: 'var(--color-canvas)' }}>
@@ -85,5 +82,6 @@ export default function App() {
         <Footer />
       </div>
     </HashRouter>
+    </MotionConfig>
   )
 }

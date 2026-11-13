@@ -11,14 +11,14 @@ const socials = [
 export default function Footer() {
   return (
     <footer
-      className="py-8 px-6 border-t"
+      className="site-footer px-6 border-t"
       style={{ borderColor: 'var(--color-stroke)' }}
     >
-      <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div className="site-footer-row max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
         <span className="font-body text-xs" style={{ color: 'var(--color-faint)' }}>
           © {new Date().getFullYear()} Ilia Chapchakhov
         </span>
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-1">
           {socials.map(({ label, href, Icon }) => (
             <a
               key={label}
@@ -26,12 +26,12 @@ export default function Footer() {
               target={label !== 'Email' ? '_blank' : undefined}
               rel="noreferrer"
               aria-label={label}
-              className="transition-colors duration-200"
+              className="focus-ring w-11 h-11 rounded-full flex items-center justify-center transition-colors duration-200"
               style={{ color: 'var(--accent)' }}
               onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--color-content)' }}
               onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--accent)' }}
             >
-              <Icon size={16} />
+              <Icon size={20} />
             </a>
           ))}
         </div>

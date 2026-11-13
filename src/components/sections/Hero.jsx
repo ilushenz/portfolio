@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { hero } from '../../data/content'
+import { hero, bioSkills } from '../../data/content'
+import StatHoverCard from '../ui/StatHoverCard'
 
 /* ── Particle mesh canvas ── */
 function ParticleCanvas() {
@@ -137,30 +138,41 @@ export default function Hero() {
         pointerEvents: 'none',
       }} />
 
-      <div className="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-12 md:gap-20 items-center" style={{ position: 'relative' }}>
+      <div className="max-w-6xl mx-auto w-full" style={{ position: 'relative' }}>
 
         {/* Text with parallax */}
         <div ref={textRef} style={{ willChange: 'transform' }}>
           <motion.p
             {...slideLeft(0.1)}
-            className="font-body text-xs font-semibold tracking-widest uppercase mb-6"
-            style={{ color: 'var(--accent)' }}
+            className="font-body font-medium mb-5"
+            style={{ color: 'var(--accent)', fontSize: 'clamp(1.25rem, 2.1vw, 1.75rem)', letterSpacing: '-0.01em' }}
           >
-            Social Media &amp; Content Specialist
+            Hi! My name is
           </motion.p>
 
-          <motion.h1 {...fade(0.2)} className="heading-xl mb-6" style={{ color: 'var(--color-content)' }}>
+          <motion.h1 {...fade(0.2)} className="heading-xl mb-8" style={{ color: 'var(--color-content)' }}>
             <span style={{ display: 'block', fontWeight: 800 }}>Ilia</span>
             <span style={{ display: 'block', fontWeight: 800 }}>Chapchakhov</span>
           </motion.h1>
 
-          <motion.p
+          <motion.div
             {...slideLeft(0.35)}
-            className="font-body font-light mb-8 max-w-md leading-relaxed"
-            style={{ color: 'var(--color-muted)', fontSize: 'clamp(1.1rem, 2.2vw, 1.55rem)' }}
+            className="font-body font-light mb-10 max-w-3xl"
+            style={{ color: 'var(--color-muted)', fontSize: 'clamp(1.25rem, 2.3vw, 1.85rem)', lineHeight: 1.5 }}
           >
-            {hero.tagline}
-          </motion.p>
+            <p>
+              Welcome to my portfolio website! I specialize in{' '}
+              <StatHoverCard skill={bioSkills.brand}>brand strategy</StatHoverCard>,{' '}
+              <StatHoverCard skill={bioSkills.social}>social media</StatHoverCard>,{' '}
+              <StatHoverCard skill={bioSkills.video}>video editing</StatHoverCard>,{' '}
+              <StatHoverCard skill={bioSkills.paid}>paid media</StatHoverCard>,{' '}
+              <StatHoverCard skill={bioSkills.content}>content creation</StatHoverCard>, and{' '}
+              <StatHoverCard skill={bioSkills.email}>email campaigns</StatHoverCard>.
+            </p>
+            <p className="font-semibold mt-3" style={{ color: 'var(--color-content)' }}>
+              Scroll down to explore my work!
+            </p>
+          </motion.div>
 
           <motion.div {...fade(0.5)} className="flex flex-wrap gap-3">
             <a
@@ -183,39 +195,6 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Headshot */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
-          className="flex justify-center md:justify-end"
-        >
-          <div
-            className="w-full sm:w-auto"
-            style={{
-              width: 'clamp(180px, 22vw, 360px)',
-              maxWidth: '80vw',
-              aspectRatio: '3/4',
-              borderRadius: 20,
-              overflow: 'hidden',
-              border: '1px solid var(--color-stroke)',
-              position: 'relative',
-              flexShrink: 0,
-            }}
-          >
-            <img
-              src="/headshot.webp"
-              alt="Ilia Chapchakhov"
-              draggable="false"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
-            />
-            <div style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'linear-gradient(to top, rgba(12,12,12,0.35) 0%, transparent 50%)',
-            }} />
-          </div>
-        </motion.div>
       </div>
 
       {/* Scroll cue */}

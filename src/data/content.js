@@ -11,27 +11,27 @@ export const hero = {
 export const achievements = [
   {
     id: 'reach', value: 284, suffix: 'K', label: 'Organic TikTok Views', sub: 'Single post, zero paid spend',
-    context: 'An educational Reel on Invisalign aligner sequencing that I developed, directed, and produced for Envy Smile Dental Spa — filmed in-office with zero paid spend. The video\'s 39.91% average watch time (vs. 3–5% industry norm for dental content) reflects strong hook design and pacing. It remains one of the highest-performing posts in the account\'s history.',
+    context: 'An educational Reel on Invisalign aligner sequencing that I developed, directed, and produced for Envy Smile Dental Spa, filmed in-office with zero paid spend. The video\'s 39.91% average watch time (vs. 3–5% industry norm for dental content) reflects strong hook design and pacing. It remains one of the highest-performing posts in the account\'s history.',
   },
   {
     id: 'email', value: 52, suffix: '%', label: 'Email Open Rate', sub: '2× the industry benchmark',
-    context: 'Average open rate across 16 campaigns over 3.5 months — more than double the ~25% dental industry benchmark. Achieved through RevenueWell audience segmentation, subject line testing, and sends timed to seasonal hooks and patient lifecycle moments. The 5 best-performing campaigns all exceeded 56%.',
+    context: 'Average open rate across 16 campaigns over 3.5 months, more than double the ~25% dental industry benchmark. Achieved through RevenueWell audience segmentation, subject line testing, and sends timed to seasonal hooks and patient lifecycle moments. The 5 best-performing campaigns all exceeded 56%.',
   },
   {
     id: 'revenue', value: 117, prefix: '$', suffix: 'K', label: 'Revenue Attributed', sub: '16 campaigns, 3.5 months',
-    context: 'Direct patient revenue generated through email and SMS campaigns between September 2025 and January 2026 — covering 16 campaigns and 78 attributed patient visits. Standouts: Groundhog Day VIP Package ($21,715, 14 visits) and Valentine\'s Day 4-email series ($32,440, 26 visits).',
+    context: 'Direct patient revenue generated through email and SMS campaigns between September 2025 and January 2026, covering 16 campaigns and 78 attributed patient visits. Standouts: Groundhog Day VIP Package ($21,715, 14 visits) and Valentine\'s Day 4-email series ($32,440, 26 visits).',
   },
   {
     id: 'conversion', value: 160, suffix: '%', label: 'Conversion Growth', sub: '0.5% → 1.3% over 4 months',
-    context: 'Website conversion rate grew from 0.5% to 1.3% over four months — driven by landing page copy refinements, sharper Meta ad creative, and tighter CTA alignment between email flows and social posts. The patient booking pipeline became measurably more efficient without additional paid budget.',
+    context: 'Website conversion rate grew from 0.5% to 1.3% over four months, driven by landing page copy refinements, sharper Meta ad creative, and tighter CTA alignment between email flows and social posts. The patient booking pipeline became measurably more efficient without additional paid budget.',
   },
   {
     id: 'reel', value: 348, suffix: 'K', label: 'Reel Views', sub: 'Invisalign, fully organic',
-    context: 'An Invisalign-focused educational Reel I directed, produced, and edited for Envy Smile — fully organic, no boost. It became one of the account\'s landmark pieces, demonstrating that dental education content can capture sustained attention when the visual quality and scripting are right.',
+    context: 'An Invisalign-focused educational Reel I directed, produced, and edited for Envy Smile: fully organic, no boost. It became one of the account\'s landmark pieces, demonstrating that dental education content can capture sustained attention when the visual quality and scripting are right.',
   },
   {
     id: 'shares', value: 12.1, suffix: 'K', label: 'Cross-Platform Shares', sub: 'Zero paid spend, 3 weeks',
-    context: 'The gum bacteria educational carousel — built from scratch with a branded slide system, kinetic layout, and accessible captions — was shared 12,100 times across TikTok and Instagram in 3 weeks, driving ~580K combined views with zero paid spend. Shares measure genuine audience advocacy, not platform amplification.',
+    context: 'The gum bacteria educational carousel, built from scratch with a branded slide system, kinetic layout, and accessible captions, was shared 12,100 times across TikTok and Instagram in 3 weeks, driving ~580K combined views with zero paid spend. Shares measure genuine audience advocacy, not platform amplification.',
   },
   {
     id: 'accountreach', value: 254, suffix: '%', label: 'Account Reach Growth', sub: 'Envy Smile Dental, 2025–26',
@@ -39,14 +39,15 @@ export const achievements = [
   },
   {
     id: 'engagement', value: 18.57, suffix: '%', label: 'Engagement Rate', sub: 'Sustained average, Reels format',
-    context: 'Sustained average engagement rate across Reels at Envy Smile — well above the 3–6% benchmark for healthcare accounts. This was maintained over months, not a single viral spike, indicating the content system — hooks, pacing, community response — was working consistently across multiple formats.',
+    context: 'Sustained average engagement rate across Reels at Envy Smile, well above the 3–6% benchmark for healthcare accounts. This was maintained over months, not a single viral spike, indicating the content system (hooks, pacing, community response) was working consistently across multiple formats.',
   },
 ]
 
 export const about = {
   headline: "Hi, I'm Ilia!",
-  bio: "Brooklyn-based social media and content specialist with 2+ years of professional experience. Dual master's degrees from USC Annenberg and the London School of Economics. I own content calendars end-to-end: strategy, production, scheduling, community management, and performance analytics across Instagram, TikTok, Facebook, YouTube, and LinkedIn.",
-  bio2: "Adobe Certified in Premiere Pro, After Effects, and Photoshop. I produce everything in-house — short-form video, motion graphics, photography, and graphic design. Standout work: a cross-platform carousel reaching ~580K combined views and ~12,100 shares in 3 weeks with zero paid spend; email campaigns running at 2× the industry open rate.",
+  // DRAFT for approval
+  bio: "Honolulu-based social media and content specialist with 2+ years of professional experience, and a PhD student in Communication and Information Sciences at the University of Hawaiʻi at Mānoa. I started the program in Fall 2026, teach COM 432 Social Media as a graduate assistant, and research AI in brand communication. I hold dual master's degrees from USC Annenberg and the London School of Economics. Until September 2026, I was the Social Media & Content Specialist at Envy Smile Dental Spa, where I owned content calendars end-to-end: strategy, production, scheduling, community management, and performance analytics across Instagram, TikTok, Facebook, and YouTube.",
+  bio2: "Adobe Certified in Premiere Pro, After Effects, and Photoshop. I produce everything in-house: short-form video, motion graphics, photography, and graphic design. Standout work: a cross-platform carousel reaching ~580K combined views and ~12,100 shares in 3 weeks with zero paid spend, and email campaigns running at 2× the industry open rate.",
   certifications: ['Adobe Certified Professional', 'Premiere Pro', 'After Effects', 'Photoshop'],
   credlyBadges: [
     '1e0cfb4f-5d2f-4767-a84a-2a46fbb177c1',
@@ -74,7 +75,7 @@ export const portfolioCategories = [
         title: 'Invisalign Aligner Reel',
         platform: 'TikTok / Instagram',
         date: '2025',
-        description: 'Educational talking-head Reel on Invisalign aligner sequencing, produced for Envy Smile Dental Spa. I proposed the concept, wrote the script, directed the shoot, and handled the full edit — kinetic captions synced to speech via Premiere Pro. Published on the client\'s account.',
+        description: 'Educational talking-head Reel on Invisalign aligner sequencing, produced for Envy Smile Dental Spa. I proposed the concept, wrote the script, directed the shoot, and handled the full edit, including kinetic captions synced to speech via Premiere Pro. Published on the client\'s account.',
         metrics: '348K TikTok views · 39.91% avg watch time · Fully organic',
         type: 'tiktok',
         embedUrl: 'https://www.tiktok.com/embed/v2/7587159535773650207',
@@ -94,7 +95,7 @@ export const portfolioCategories = [
         title: 'Vinyl Collection Showcase',
         platform: 'Vimeo',
         date: '2024-2025',
-        description: 'A personal content series reviewing vinyl records — shot, edited, and produced end-to-end. Each episode combines visual storytelling with music criticism and collector culture.',
+        description: 'A personal content series reviewing vinyl records, which I shot, edited, and produced end-to-end. Each episode combines visual storytelling with music criticism and collector culture.',
         metrics: 'Ongoing series, Vimeo',
         type: 'vimeo',
         embedUrl: 'https://vimeo.com/showcase/12038233/embed2',
@@ -108,20 +109,20 @@ export const portfolioCategories = [
     items: [
       {
         id: 'envy-carousels',
-        title: 'Gum Bacteria Carousel — Envy Smile',
+        title: 'Gum Bacteria Carousel (Envy Smile)',
         platform: 'TikTok / Instagram',
         date: '2025',
-        description: 'Educational dental carousel about gum bacteria, designed for cross-platform sharing. Built the slide system from scratch — branded template, motion-optimised layout, accessible captions. Reached ~580K combined views and ~12,100 shares across TikTok and Instagram in 3 weeks with zero paid spend.',
+        description: 'Educational dental carousel about gum bacteria, designed for cross-platform sharing. Built the slide system from scratch: branded template, motion-optimised layout, accessible captions. Reached ~580K combined views and ~12,100 shares across TikTok and Instagram in 3 weeks with zero paid spend.',
         metrics: '~580K combined views · ~12,100 shares · Zero paid spend',
         type: 'tiktok',
         embedUrl: 'https://www.tiktok.com/embed/v2/7623445905089350943',
       },
       {
         id: 'envy-design-series',
-        title: 'Envy Smile — Design Series',
+        title: 'Envy Smile Design Series',
         platform: 'Instagram / TikTok',
         date: '2025–2026',
-        description: 'Brand content produced for Envy Smile Dental Spa — carousel slides, AI-assisted campaign visuals, and social posts. Covers seasonal promotions, patient education content, and brand identity design, all produced in-house.',
+        description: 'Brand content produced for Envy Smile Dental Spa: carousel slides, AI-assisted campaign visuals, and social posts. Covers seasonal promotions, patient education content, and brand identity design, all produced in-house.',
         metrics: 'Ongoing series, multi-format',
         type: 'gallery',
         images: [
@@ -165,7 +166,7 @@ export const portfolioCategories = [
         title: 'Twister: 60th Anniversary Campaign',
         platform: 'USC Course Project',
         date: '2026',
-        description: 'Full integrated campaign for Twister\'s 60th anniversary — strategy, visual identity, channel plan, and social content. Built as part of USC Annenberg coursework: blends nostalgia with modern brand language across OOH, social, and experiential touchpoints.',
+        description: 'Full integrated campaign for Twister\'s 60th anniversary: strategy, visual identity, channel plan, and social content. Built as part of USC Annenberg coursework: blends nostalgia with modern brand language across OOH, social, and experiential touchpoints.',
         metrics: 'USC Annenberg · Strategic Campaign Design',
         type: 'gallery',
         images: [
@@ -178,10 +179,10 @@ export const portfolioCategories = [
       },
       {
         id: 'avatar',
-        title: 'Avatar: Fire and Ash — Campaign',
+        title: 'Avatar: Fire and Ash Campaign',
         platform: 'USC Course Project',
         date: '2026',
-        description: 'Campaign brief and visual direction for the Avatar: Fire and Ash franchise — multi-channel rollout with consistent brand language across social, OOH, and digital. Includes audience analysis, messaging framework, and cross-platform content strategy.',
+        description: 'Campaign brief and visual direction for the Avatar: Fire and Ash franchise: a multi-channel rollout with consistent brand language across social, OOH, and digital. Includes audience analysis, messaging framework, and cross-platform content strategy.',
         metrics: 'USC Annenberg · Integrated Campaign Strategy',
         type: 'gallery',
         images: [
@@ -212,7 +213,7 @@ export const portfolioCategories = [
       },
       {
         id: 'trader-joes',
-        title: "Trader Joe's — Communication Strategy",
+        title: "Trader Joe's Communication Strategy",
         platform: 'USC Course Project',
         date: '2026',
         description: "Communication strategy project developed for Trader Joe's as part of USC Annenberg coursework. Full strategic brief covering brand positioning, audience analysis, channel strategy, and messaging framework.",
@@ -275,11 +276,11 @@ export const portfolioCategories = [
         description: '4-part email campaign series culminating in a full-list blast. Built a sequential narrative across 4 emails, each with a different angle on the \'gift of a smile\' concept. Combined $32,440 revenue from 26 patient visits across all 4 parts.',
         metrics: '$32,440 combined revenue · 26 visits · 4 emails',
         type: 'copy',
-        copyText: "Valentine's Series — Campaign Arc:\n\nPart 1: \"Give the Gift of a Smile\" (urgency, countdown)\nPart 2: \"Your Partner Deserves the Best\" (gifting angle)\nPart 3: \"Last Chance: Valentine's Special Ends Tonight\" (scarcity)\nPart 4: Full-list blast — \"It's Not Too Late\" (broader reach, softer CTA)\n\nResult: 53.4% avg open rate across all 4 parts.",
+        copyText: "Valentine's Series Campaign Arc:\n\nPart 1: \"Give the Gift of a Smile\" (urgency, countdown)\nPart 2: \"Your Partner Deserves the Best\" (gifting angle)\nPart 3: \"Last Chance: Valentine's Special Ends Tonight\" (scarcity)\nPart 4: Full-list blast, \"It's Not Too Late\" (broader reach, softer CTA)\n\nResult: 53.4% avg open rate across all 4 parts.",
       },
       {
         id: 'gum-bacteria-ig',
-        title: 'Gum Bacteria — Instagram Caption',
+        title: 'Gum Bacteria Instagram Caption',
         platform: 'Instagram · Envy Smile',
         date: '2025',
         description: 'Caption written for the viral gum bacteria educational carousel. Educational hook, accessible framing of clinical information, strong CTA. The post reached ~580K combined views across platforms.',
@@ -302,17 +303,17 @@ export const portfolioCategories = [
         title: 'Santa Clauses Across Cultures',
         platform: 'Instagram · USC CLC',
         date: 'Dec 2024',
-        description: 'Caption for a carousel exploring how different cultures depict Santa-like figures — part of a holiday series produced for USC CLC. Balances scholarly accuracy with social media voice.',
+        description: 'Caption for a carousel exploring how different cultures depict Santa-like figures, part of a holiday series produced for USC CLC. Balances scholarly accuracy with social media voice.',
         metrics: 'USC CLC · Holiday edutainment series',
         type: 'instagram',
         shortcode: 'DD-2WnpSX7i',
       },
       {
         id: 'envy-newsletters',
-        title: 'Envy Smile Journal — Newsletter Series',
+        title: 'Envy Smile Journal Newsletter Series',
         platform: 'Newsletter · Envy Smile',
         date: 'Spring 2026',
-        description: 'Three editorial newsletters written and designed end-to-end for Envy Smile — concept, copy, layout, and visual design, all produced in-house. Part of a patient education series that positions the practice as a trusted voice in oral health, rather than just a provider.',
+        description: 'Three editorial newsletters written and designed end-to-end for Envy Smile: concept, copy, layout, and visual design, all produced in-house. Part of a patient education series that positions the practice as a trusted voice in oral health, rather than just a provider.',
         metrics: 'Envy Smile Journal · 3-issue series',
         type: 'multi-link',
         links: [
@@ -372,20 +373,56 @@ export const portfolioCategories = [
   },
 ]
 
+// Every role gets these three skills (per Ilia's direction)
+const SHARED_SKILLS = ['Analytics', 'Community Mgmt', 'Campaign Strategy']
+
 export const timeline = [
+  {
+    id: 'uh',
+    org: 'University of Hawaiʻi at Mānoa',
+    role: 'Graduate Assistant',
+    period: 'Aug 2026 – Present',
+    location: 'Honolulu, HI',
+    current: true,
+    emoji: '👨‍🏫',
+    emojiImg: '/emoji/uh.webp',
+    // DRAFT for approval: written only from the COM 432 Fall 2026 syllabus
+    highlights: [
+      'Teach COM 432 Social Media through a graduate assistantship in the Communication and Information Sciences PhD program, leading three 50-minute sessions a week (MWF)',
+      'Teach from a sociotechnical perspective: platforms are examined through both their technical side (infrastructure, interface, affordances) and their social practices (attention, norms, community)',
+      'Cover affordances, algorithms, engagement, visual social media, short-form video, and AI and social media in the first half of the term',
+      'Shift the second half from theory to practice with strategic frameworks used in real social media work: VALS audience segmentation, tone-of-voice analysis, and SWOT analysis',
+      'Run in-class AI workshops on brand kits, content creation, content campaigns, and portfolios, with dedicated time for students to work on creative projects with instructor support',
+      'Supervise a semester-long individual case study in which each student audits a real organization on two platforms, then proposes improvements and two original posts',
+      'Guide six student teams that create an original social media post for a real organization and present it with a social media audit, five applied course concepts, and strategy recommendations',
+    ],
+    tags: ['Teaching', 'Social Media', 'Strategic Frameworks', 'AI Tools', 'Higher Education'],
+    skills: ['VALS Segmentation', 'Tone-of-Voice Analysis', 'SWOT Analysis', 'AI Tools', 'Data Storytelling', 'Analytics', 'Campaign Strategy'],
+  },
   {
     id: 'envy',
     org: 'Envy Smile Dental Spa',
     role: 'Social Media & Content Specialist',
-    period: 'Sep 2025 – Present',
+    period: 'Sep 2025 – Sep 2026',
     location: 'Brooklyn, NY',
-    current: true,
+    current: false,
+    emoji: '🦷',
+    emojiImg: '/emoji/envy.webp',
+    showMetrics: true,
+    skills: [
+      'Premiere Pro', 'After Effects', 'Short-form Video', 'Motion Graphics', 'Reels / TikTok',
+      'Photoshop', 'Canva', 'Figma', 'Carousels', 'Brand Identity',
+      'Instagram', 'TikTok', 'Facebook', 'YouTube', 'Google',
+      'Mailchimp', 'RevenueWell', 'Segmentation', 'A/B Testing',
+      'Meta Ads Manager', 'CPL Optimization', 'Campaign Scaling', 'Audience Targeting',
+      'Copywriting', 'Editorial Calendars', 'Brand Storytelling', ...SHARED_SKILLS,
+    ],
     highlights: [
-      'Own end-to-end content calendar across Instagram, TikTok, Facebook, and Google — planning, production, scheduling, and optimization',
+      'Own end-to-end content calendar across Instagram, TikTok, Facebook, and Google: planning, production, scheduling, and optimization',
       'Produce 20+ pieces per month: standout organic carousel reached ~580K combined views and ~12,100 shares across TikTok and Instagram in 3 weeks (zero paid spend); separate Reel at 348K views',
       'Grew post reach 254% and follower base 255%; sustained 18.57% engagement rate',
       '16 email campaigns in 3.5 months via RevenueWell: ~52% open rate (2× industry benchmark), $117K+ directly attributed revenue, 78 patient visits',
-      'Best single campaign: Groundhog Day VIP Package — $21,715 revenue, 14 patient visits, 56.1% open rate',
+      'Best single campaign: Groundhog Day VIP Package: $21,715 revenue, 14 patient visits, 56.1% open rate',
       'Valentine\'s Day 4-email series: $32,440 combined revenue, 26 patient visits',
       'Meta CPL $8.55 vs. $27.66 industry average; scaled campaign volume from 0.75 to 4.5/month',
       'Produce all assets in-house: filming, editing (Premiere Pro), motion graphics, photography, graphic design',
@@ -409,6 +446,9 @@ export const timeline = [
       'Built edutainment-driven content turning an academic account into a community hub',
     ],
     tags: ['Academic', 'Content Design', 'WordPress', 'Photography', 'Edutainment'],
+    emoji: '🌍',
+    emojiImg: '/emoji/usc.webp',
+    skills: ['WordPress', 'Content Design', 'Community-facing Content', 'YouTube', 'Brand Identity', ...SHARED_SKILLS],
     image: '/work/experience/usc.webp',
     relatedWork: ['usc-carousel', 'slavic-youtube'],
   },
@@ -426,6 +466,9 @@ export const timeline = [
       'Led global expansion outreach to venues, local influencers, and city-backed cultural websites',
     ],
     tags: ['Content Strategy', 'Influencer Marketing', 'Live Events', 'PR', 'International'],
+    emoji: '🎻',
+    emojiImg: '/emoji/red.webp',
+    skills: ['Content Strategy', 'Influencer Marketing', 'Live Events', 'Paid Placements', 'Short-form Video', 'Photography', 'Brand Identity', ...SHARED_SKILLS],
   },
   {
     id: 'mgimo-smm',
@@ -441,6 +484,9 @@ export const timeline = [
       'Pioneered short-form video content strategy for the club\'s audience',
     ],
     tags: ['Transmedia', 'Community Building', 'Editorial', 'TikTok', 'Strategy'],
+    emoji: '🏙️',
+    emojiImg: '/emoji/mgimo-smm.webp',
+    skills: ['Brand Identity', ...SHARED_SKILLS],
   },
   {
     id: 'mimun',
@@ -455,6 +501,9 @@ export const timeline = [
       'Wrote journalism and analytical pieces covering global affairs and diplomatic simulations',
     ],
     tags: ['Journalism', 'PR', 'Editorial', 'Events', 'International Relations'],
+    emoji: '📰',
+    emojiImg: '/emoji/mimun.webp',
+    skills: [...SHARED_SKILLS],
   },
   {
     id: 'mgimo-coord',
@@ -468,6 +517,9 @@ export const timeline = [
       'Managed press and public-facing content for university events and programs',
     ],
     tags: ['Marketing', 'Communications', 'Higher Education'],
+    emoji: '📣',
+    emojiImg: '/emoji/mgimo-coord.webp',
+    skills: ['YouTube', 'Brand Identity', ...SHARED_SKILLS],
   },
   {
     id: 'gallery',
@@ -482,10 +534,30 @@ export const timeline = [
       'Built early video production skills across multiple formats and audiences',
     ],
     tags: ['Video Production', 'Documentary', 'Creative Direction'],
+    emoji: '🎬',
+    emojiImg: '/emoji/gallery.webp',
+    skills: [...SHARED_SKILLS],
   },
 ]
 
 export const education = [
+  {
+    id: 'uh',
+    institution: 'University of Hawaiʻi at Mānoa',
+    school: 'UH Mānoa',
+    monogram: 'UH',
+    logo: '/logos/uh.webp',
+    degree: 'Ph.D., Communication and Information Sciences',
+    years: '2026 – Present',
+    location: 'Honolulu, HI',
+    highlights: ['Mānoa Achievement Scholarship recipient'],
+    // DRAFT for approval
+    research: "My research sits where brand communication, social media, and global media meet. My current focus is AI in brand communication: how AI-generated creative content, such as ads, copy, and artwork, affects consumer trust and perceived brand authenticity. I'm also interested in cultural diplomacy and soft power, building on my earlier work on U.S. cultural influence through entertainment; in brand partnerships, such as Netflix's international collaborations; and in nation branding and platformized media industries.",
+    researchTags: ['AI in Brand Communication', 'Social Media', 'Brand Authenticity and Trust', 'Cultural Diplomacy', 'Soft Power', 'Brand Partnerships', 'Nation Branding', 'Platformized Media'],
+    // DRAFT for approval (About page only)
+    teaching: 'Graduate Assistant teaching COM 432 Social Media in the Communication and Information Sciences PhD program (Aug 2026 – Present). The course pairs a sociotechnical view of platforms with applied strategy frameworks (VALS audience segmentation, tone-of-voice analysis, SWOT analysis) and in-class AI workshops on content creation.',
+    syllabus: '/com432-syllabus-fall-2026.pdf',
+  },
   {
     id: 'usc',
     institution: 'University of Southern California',
@@ -493,13 +565,13 @@ export const education = [
     degree: 'M.A. Global Media & Communications',
     years: '2024 – 2025',
     location: 'Los Angeles, CA',
-    logo: '/logos/usc.webp',
+    logo: '/logos/usc-seal.webp',
     photo: '/photos/education.webp',
     highlights: [
       'GPA: 4.0',
       'USC Annenberg Global Merit Scholarship',
       'Joint program with the London School of Economics',
-      'Described by Program Director David Craig as "one of the most prepared and engaged students in his cohort"',
+      'Certificate: Managing Complexity in Diverse Organizations',
     ],
     courses: [
       'Media and Globalisation',
@@ -508,6 +580,19 @@ export const education = [
       'Theories and Concepts in Media and Communications',
       'Methods of Research in Media & Communications',
       'Dissertation: Media and Communications',
+    ],
+    // From the academic CV
+    roles: [
+      {
+        title: 'Research Assistant, "The United States of Entertainment"',
+        meta: 'USC Annenberg · Aug 2024 – Aug 2025',
+        points: [
+          'Assisted Professor Mary Murphy in developing a forthcoming book on the evolution of American entertainment journalism, focusing on celebrity, culture, and media ethics',
+          'Conducted literature reviews, media discourse analyses, and archival research tracing entertainment coverage from the 20th century to the digital age',
+          'Edited interviews with key industry figures and synthesized qualitative data to inform the narrative structure and theoretical framing',
+          'Supported the integration of Gen Z audience insights and cross-platform storytelling strategies into the manuscript',
+        ],
+      },
     ],
   },
   {
@@ -521,7 +606,6 @@ export const education = [
     highlights: [
       'Distinction: Merit',
       'Joint degree program with USC Annenberg',
-      'Thesis: U.S. Cultural Influence Through Entertainment',
     ],
     courses: [
       'Media and Globalisation',
@@ -554,45 +638,47 @@ export const education = [
       'History of International Relations',
     ],
     activities: [
-      'Urban Studies Club — Lead Social Media Manager',
-      'C-MIMUN Model UN — PR Specialist & Journalist',
+      'Urban Studies Club: Lead Social Media Manager',
+      'C-MIMUN Model UN: PR Specialist & Journalist',
       'Marketing Communications Coordinator',
     ],
   },
 ]
 
-export const skills = [
-  {
-    category: 'Video & Motion',
-    level: 95,
+// Hero bio hover cards. `metrics` are achievement ids, so the numbers
+// always match the Envy Smile pop-up exactly.
+export const bioSkills = {
+  brand: {
+    title: 'Brand Strategy',
+    items: ['Brand Storytelling', 'Brand Identity', 'Campaign Strategy'],
+    note: 'Brand Strategy coursework at USC Annenberg and LSE',
+  },
+  social: {
+    title: 'Social Media',
+    items: ['Instagram', 'TikTok', 'Facebook', 'YouTube', 'Analytics', 'Community Mgmt'],
+    metrics: ['accountreach', 'engagement'],
+  },
+  video: {
+    title: 'Video Editing',
     items: ['Premiere Pro', 'After Effects', 'Short-form Video', 'Motion Graphics', 'Reels / TikTok'],
+    metrics: ['reel', 'reach'],
   },
-  {
-    category: 'Social Media Strategy',
-    level: 92,
-    items: ['Instagram', 'TikTok', 'Facebook', 'YouTube', 'LinkedIn', 'Analytics', 'Community Mgmt'],
-  },
-  {
-    category: 'Email Marketing',
-    level: 88,
-    items: ['Mailchimp', 'RevenueWell', 'Segmentation', 'A/B Testing', 'Campaign Strategy'],
-  },
-  {
-    category: 'Visual Design',
-    level: 85,
-    items: ['Photoshop', 'Canva', 'Figma', 'Carousels', 'Brand Identity'],
-  },
-  {
-    category: 'Paid Media',
-    level: 78,
+  paid: {
+    title: 'Paid Media',
     items: ['Meta Ads Manager', 'CPL Optimization', 'Campaign Scaling', 'Audience Targeting'],
+    stats: [{ display: '$8.55', label: 'Meta CPL vs. $27.66 industry average' }],
   },
-  {
-    category: 'Content & Editorial',
-    level: 90,
-    items: ['Copywriting', 'Editorial Calendars', 'Brand Storytelling', 'WordPress', 'Airtable'],
+  content: {
+    title: 'Content Creation',
+    items: ['Photoshop', 'Canva', 'Figma', 'Carousels', 'Copywriting', 'Editorial Calendars', 'Brand Storytelling', 'WordPress'],
+    metrics: ['shares'],
   },
-]
+  email: {
+    title: 'Email Campaigns',
+    items: ['Mailchimp', 'RevenueWell', 'Segmentation', 'A/B Testing'],
+    metrics: ['email', 'revenue'],
+  },
+}
 
 export const navLinks = [
   { label: 'Work',    href: '#portfolio' },

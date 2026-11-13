@@ -49,6 +49,39 @@
   }
 }
 
+/* ── Hero bio keywords (hover/tap cards) ─────────────────── */
+.bio-keyword {
+  font: inherit;
+  font-weight: 600;
+  color: var(--color-content);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline dotted;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+  border-radius: 4px;
+  transition: color 0.2s;
+}
+.bio-keyword:hover,
+.bio-keyword[aria-expanded="true"] { color: var(--accent); }
+.bio-keyword:focus-visible,
+.focus-ring:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ── Experience timeline track ───────────────────────────── */
+.timeline-track {
+  user-select: none;
+  -webkit-user-select: none;
+  /* soft right edge: later roles fade out where the panel clips them */
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 36px), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 36px), transparent);
+}
+
 /* ── Utilities ────────────────────────────────────────────── */
 @layer utilities {
   .section-pad {
@@ -127,3 +160,28 @@
     }
   }
 }
+
+/* ── Footer: tall enough that the floating bottom nav sits in its vertical middle ── */
+:root {
+  --nav-bottom: 1.5rem; /* matches the pill's bottom-6 */
+  --nav-h: 58px;        /* pill height */
+}
+.site-footer { padding-top: 1.25rem; padding-bottom: 1rem; }
+@media (min-width: 768px) {
+  .site-footer {
+    display: flex;
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
+    min-height: calc(var(--nav-bottom) * 2 + var(--nav-h));
+  }
+  .site-footer-row { width: 100%; }
+}
+/* Too narrow for the pill to sit between the footer items: items go above, pill zone below */
+@media (min-width: 768px) and (max-width: 979px) {
+  .site-footer { flex-direction: column; align-items: stretch; padding-top: 1rem; }
+  .site-footer::after { content: ''; display: block; height: calc(var(--nav-bottom) * 2 + var(--nav-h)); }
+}
+
+/* Last section sits closer to the footer */
+main > div > section:last-child { padding-bottom: 3.5rem; }
