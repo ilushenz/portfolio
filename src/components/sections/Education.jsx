@@ -216,10 +216,52 @@ function EducationCardFull({ item, index, context }) {
   )
 }
 
-/* ── Full section (About page and front page) ──────────────── */
-export default function Education({ context = 'about' }) {
+/* ── Compact card (front page: bachelor's and master's, not clickable) ── */
+function EducationCompactCard({ item }) {
   return (
-    <section id={context === 'about' ? 'education' : 'academic'} className="section-pad">
+    <div
+      className="glow-card h-full"
+      style={{
+        background: 'var(--color-surface)',
+        border: '1px solid var(--color-stroke)',
+        borderRadius: 16,
+        padding: '32px',
+      }}
+    >
+      <div
+        className="flex items-center justify-center p-2 mb-5"
+        style={{ width: 52, height: 52, borderRadius: 12, background: 'var(--color-elevated)' }}
+      >
+        <img
+          src={item.logo}
+          alt={item.school}
+          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+          loading="lazy"
+          onError={(e) => { e.currentTarget.style.display = 'none' }}
+        />
+      </div>
+      <h3 className="font-display font-bold" style={{ fontSize: '1.05rem', letterSpacing: '-0.02em', color: 'var(--color-content)', marginBottom: 6 }}>
+        {item.institution}
+      </h3>
+      <p className="font-body" style={{ fontSize: 13, color: 'var(--color-muted)', lineHeight: 1.5, marginBottom: 8 }}>
+        {item.degree}
+      </p>
+      <p className="font-body" style={{ fontSize: 11, color: 'var(--accent)', fontWeight: 500 }}>
+        {item.years} · {item.location}
+      </p>
+    </div>
+  )
+}
+
+/* ── Section: About page lists every degree as an expandable card;
+      the front page shows the PhD card (expandable) above a row of the other three ── */
+export default function Education({ context = 'about' }) {
+  const isFront = context === 'front'
+  const phd = education.filter((e) => e.research)
+  const others = education.filter((e) => !e.research)
+
+  return (
+    <section id={isFront ? 'academic' : 'education'} className="section-pad">
       <div className="max-w-6xl mx-auto">
         <ScrollReveal>
           <p className="text-xs font-body font-semibold tracking-widest uppercase mb-4" style={{ color: 'var(--color-faint)' }}>
@@ -230,11 +272,26 @@ export default function Education({ context = 'about' }) {
           </h2>
         </ScrollReveal>
 
-        <GlowGrid className="flex flex-col gap-4">
-          {education.map((item, i) => (
-            <EducationCardFull key={item.id} item={item} index={i} context={context} />
-          ))}
-        </GlowGrid>
+        {isFront ? (
+          <GlowGrid className="flex flex-col gap-4">
+            {phd.map((item) => (
+              <EducationCardFull key={item.id} item={item} index={0} context={context} />
+            ))}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {others.map((item, i) => (
+                <ScrollReveal key={item.id} delay={i * 0.08}>
+                  <EducationCompactCard item={item} />
+                </ScrollReveal>
+              ))}
+            </div>
+          </GlowGrid>
+        ) : (
+          <GlowGrid className="flex flex-col gap-4">
+            {education.map((item, i) => (
+              <EducationCardFull key={item.id} item={item} index={i} context={context} />
+            ))}
+          </GlowGrid>
+        )}
       </div>
     </section>
   )
