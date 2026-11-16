@@ -565,7 +565,7 @@ export const education = [
     degree: 'M.A. Global Media & Communications',
     years: '2024 – 2025',
     location: 'Los Angeles, CA',
-    logo: '/logos/usc-seal.webp',
+    logo: '/logos/usc.webp',
     photo: '/photos/education.webp',
     highlights: [
       'GPA: 4.0',
