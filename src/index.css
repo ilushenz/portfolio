@@ -125,6 +125,11 @@
     z-index: 0;
   }
 
+  /* Touch screens: no cursor to follow, so the glow would just get stuck where you tapped */
+  @media (hover: none) {
+    .glow-card::before { display: none; }
+  }
+
   /* Glowing shimmer line */
   @keyframes shimmer {
     0%   { background-position: -200% center; }

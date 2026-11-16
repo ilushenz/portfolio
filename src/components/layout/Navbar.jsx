@@ -266,6 +266,14 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [activeKey, selectKey] = useActiveKey()
 
+  // Escape also closes the mobile menu
+  useEffect(() => {
+    if (!mobileOpen) return
+    const onKey = (e) => { if (e.key === 'Escape') setMobileOpen(false) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [mobileOpen])
+
   // Top pill only visible at very top; bottom pill always visible when scrolled away
   const showTop    = atTop
   const showBottom = !atTop
@@ -309,6 +317,15 @@ export default function Navbar() {
           </motion.nav>
         )}
       </AnimatePresence>
+
+      {/* Mobile menu: an invisible layer behind it, so tapping anywhere else closes it */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-40 md:hidden"
+          aria-hidden="true"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
 
       {/* Mobile FAB */}
       <div className="fixed bottom-6 right-6 z-50 md:hidden">

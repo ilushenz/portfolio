@@ -573,13 +573,15 @@ export const education = [
       'Joint program with the London School of Economics',
       'Certificate: Managing Complexity in Diverse Organizations',
     ],
+    // From the USC transcript
     courses: [
-      'Media and Globalisation',
-      'Brand Strategy',
-      'Strategic Communication in Practice: Professional Perspectives',
-      'Theories and Concepts in Media and Communications',
-      'Methods of Research in Media & Communications',
-      'Dissertation: Media and Communications',
+      'Globalization, Communication and Society',
+      'Copywriting and Creativity',
+      'Integrated Communication Strategies',
+      'Cultural Diplomacy',
+      'Global Communication Thesis',
+      'Social Marketing and Entertainment Education',
+      'Digital, Social and Mass Media Public Relations Strategies',
     ],
     // From the academic CV
     roles: [
