@@ -40,6 +40,7 @@ const LIFT = 12          // headroom so the hover scale never touches the clip e
 const RULER_GAP = 22
 const RULER_H = 34
 const DRAG_STEP = 60     // px of horizontal drag per card
+const TOUCH_STEP = 45    // px of horizontal finger travel per card
 const WHEEL_STEP = 40    // px of horizontal wheel/trackpad delta per card
 
 const startYear = (period) => (period.match(/\d{4}/) || [''])[0]
@@ -299,6 +300,43 @@ function StackedTimeline({ items, onOpen }) {
     return () => el.removeEventListener('wheel', onWheel)
   }, [last])
 
+  // Touch swipe. Handled with native listeners so a horizontal swipe can claim the gesture
+  // (preventDefault) while vertical swipes keep scrolling the page.
+  const activeRef = useRef(active)
+  useEffect(() => { activeRef.current = active }, [active])
+  useEffect(() => {
+    const el = trackRef.current
+    const t = { x: 0, y: 0, base: 0, axis: null }
+    const onStart = (e) => {
+      if (e.touches.length !== 1) { t.axis = 'none'; return }
+      t.x = e.touches[0].clientX
+      t.y = e.touches[0].clientY
+      t.base = activeRef.current
+      t.axis = null
+    }
+    const onMove = (e) => {
+      if (t.axis === 'none' || t.axis === 'y') return
+      const dx = e.touches[0].clientX - t.x
+      const dy = e.touches[0].clientY - t.y
+      if (!t.axis) {
+        if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return
+        t.axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y'
+        if (t.axis === 'y') return
+        drag.current.moved = true // the tap that ends this swipe must not open a card
+        if (!intro.current.done) stopIntro()
+      }
+      e.preventDefault()
+      const target = Math.max(0, Math.min(last, t.base - Math.round(dx / TOUCH_STEP)))
+      if (target !== activeRef.current) { activeRef.current = target; setActive(target) }
+    }
+    el.addEventListener('touchstart', onStart, { passive: true })
+    el.addEventListener('touchmove', onMove, { passive: false })
+    return () => {
+      el.removeEventListener('touchstart', onStart)
+      el.removeEventListener('touchmove', onMove)
+    }
+  }, [last])
+
   const onKeyDown = (e) => {
     if (e.key === 'ArrowRight') { e.preventDefault(); goTo(active + 1, true) }
     if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(active - 1, true) }
@@ -306,6 +344,7 @@ function StackedTimeline({ items, onOpen }) {
 
   // Drag / swipe (mouse, pen and touch). touch-action: pan-y keeps vertical page scrolling native.
   const onPointerDown = (e) => {
+    if (e.pointerType === 'touch') return // touch is handled by the swipe listeners above
     if (e.pointerType === 'mouse' && e.button !== 0) return
     drag.current = { active: true, moved: false, startX: e.clientX, base: active, id: e.pointerId }
   }

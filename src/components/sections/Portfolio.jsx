@@ -277,6 +277,34 @@ function CategoryModal({ cat, onSelectItem, onClose }) {
 }
 
 /* ── Main section ────────────────────────────────────────── */
+// Same pill as the work-history cards: shows on hover, always visible on touch screens
+function LearnMoreHint({ show }) {
+  return (
+    <span
+      aria-hidden="true"
+      style={{
+        display: 'inline-flex', alignItems: 'center', gap: 6, whiteSpace: 'nowrap',
+        fontSize: 11, fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase',
+        fontFamily: 'Inter', color: 'var(--color-content)',
+        padding: '7px 13px', borderRadius: 999,
+        background: 'var(--color-elevated)', border: '1px solid rgba(255,255,255,0.14)',
+        opacity: show ? 1 : 0,
+        transform: show ? 'translateY(0)' : 'translateY(6px)',
+        transition: 'opacity 0.25s ease, transform 0.25s ease',
+      }}
+    >
+      Click to learn more
+      <motion.span
+        animate={show ? { x: [0, 5] } : { x: 0 }}
+        transition={{ duration: 0.3, ease: 'easeInOut', repeat: show ? Infinity : 0, repeatType: 'reverse' }}
+        style={{ display: 'inline-flex' }}
+      >
+        <ArrowRight size={13} />
+      </motion.span>
+    </span>
+  )
+}
+
 export default function Portfolio() {
   const [activeCategory, setActiveCategory] = useState(null)
   const [activeItem, setActiveItem] = useState(null)
@@ -292,6 +320,15 @@ export default function Portfolio() {
     }
     window.addEventListener('openPortfolioItem', handler)
     return () => window.removeEventListener('openPortfolioItem', handler)
+  }, [])
+
+  const [hoveredCat, setHoveredCat] = useState(null)
+  const [canHover, setCanHover] = useState(() => window.matchMedia('(hover: hover)').matches)
+  useEffect(() => {
+    const mq = window.matchMedia('(hover: hover)')
+    const onMq = (e) => setCanHover(e.matches)
+    mq.addEventListener('change', onMq)
+    return () => mq.removeEventListener('change', onMq)
   }, [])
 
   return (
@@ -318,6 +355,10 @@ export default function Portfolio() {
                 <ScrollReveal key={cat.id} delay={i * 0.07} className="h-full">
                   <motion.button
                     className="glow-card w-full text-left h-full"
+                    onMouseEnter={() => setHoveredCat(cat.id)}
+                    onMouseLeave={() => setHoveredCat((h) => (h === cat.id ? null : h))}
+                    onFocus={() => setHoveredCat(cat.id)}
+                    onBlur={() => setHoveredCat((h) => (h === cat.id ? null : h))}
                     style={{
                       background: 'var(--color-surface)',
                       border: '1px solid var(--color-stroke)',
@@ -347,8 +388,11 @@ export default function Portfolio() {
                         color: 'var(--color-faint)', fontSize: 18, flexShrink: 0, marginTop: 2,
                       }}>+</div>
                     </div>
-                    <div style={{ marginTop: 16, fontSize: 11, color: 'var(--accent)', fontFamily: 'Inter', fontWeight: 500, letterSpacing: '0.03em' }}>
-                      {cat.items.length} project{cat.items.length !== 1 ? 's' : ''}
+                    <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+                      <span style={{ fontSize: 11, color: 'var(--accent)', fontFamily: 'Inter', fontWeight: 500, letterSpacing: '0.03em' }}>
+                        {cat.items.length} project{cat.items.length !== 1 ? 's' : ''}
+                      </span>
+                      <LearnMoreHint show={!canHover || hoveredCat === cat.id} />
                     </div>
                   </motion.button>
                 </ScrollReveal>
