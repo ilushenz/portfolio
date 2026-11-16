@@ -144,7 +144,8 @@ function EducationCardFull({ item, index, context }) {
                     {item.syllabus && (
                       <a
                         href={item.syllabus}
-                        download="COM 432 Syllabus - Fall 2026.pdf"
+                        target="_blank"
+                        rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
                         onKeyDown={(e) => e.stopPropagation()}
                         className="focus-ring inline-flex items-center gap-2 mt-4 font-body font-semibold text-sm px-4 py-2 rounded-full text-white"
